@@ -1,0 +1,22 @@
+{
+	"format_version": "26.3",
+	"credit": "By Ewan Howell",
+	"texture_size": [1000, 320],
+	"textures": {
+		"2": "rainbow",
+		"particle": "rainbow"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 12, 22],
+			"faces": {
+				"north": {"uv": [3.472, 10.4, 3.728, 11], "texture": "#2"},
+				"south": {"uv": [3.7296, 10.41, 3.4736, 11.01], "texture": "#2"},
+				"up": {"uv": [3.728, 9.15, 3.472, 10.25], "texture": "#2"},
+				"down": {"uv": [3.728, 12.8, 3.472, 13.9], "texture": "#2"}
+			}
+		}
+	],
+	"display": {}
+}
