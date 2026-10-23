@@ -1,14 +1,13 @@
 {
 	"format_version": "26.3",
-	"credit": "Ewan Howell; Vietnamese adaptations by bl205vn",
+	"credit": "by bl205vn",
 	"texture_size": [1000, 320],
 	"textures": {
-		"1": "minecraft-ten-vietnamese:flat",
-		"particle": "minecraft-ten-vietnamese:flat"
+		"1": "rainbow",
+		"particle": "rainbow"
 	},
 	"elements": [
 		{
-			"name": "a_cube1",
 			"from": [-6, 2, -3],
 			"to": [22, 42, 19],
 			"faces": {
@@ -18,19 +17,6 @@
 			}
 		},
 		{
-			"name": "a_cube2",
-			"from": [24, 44, 21],
-			"to": [-8, 0, -5],
-			"faces": {
-				"north": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
-				"east": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
-				"south": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
-				"west": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
-				"up": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"}
-			}
-		},
-		{
-			"name": "grave_cube1",
 			"from": [0, 45, -3],
 			"to": [16, 57, 19],
 			"rotation": {"angle": 0, "axis": "y", "origin": [16, 45, -3]},
@@ -41,7 +27,18 @@
 			}
 		},
 		{
-			"name": "grave_cube2",
+			"from": [24, 44, 21],
+			"to": [-8, 0, -5],
+			"faces": {
+				"north": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"east": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"south": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"west": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"up": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"down": {"uv": [0.18, 14, 0.116, 14.05], "texture": "#1"}
+			}
+		},
+		{
 			"from": [12, 47, 21],
 			"to": [-2, 43, -5],
 			"rotation": {"angle": 0, "axis": "y", "origin": [-2, 47, 21]},
@@ -53,7 +50,6 @@
 			}
 		},
 		{
-			"name": "grave_cube3",
 			"from": [18, 59, 21],
 			"to": [4, 55, -5],
 			"rotation": {"angle": 0, "axis": "y", "origin": [4, 59, 21]},
@@ -66,7 +62,6 @@
 			}
 		},
 		{
-			"name": "grave_cube4",
 			"from": [18, 55, 21],
 			"to": [-2, 47, -5],
 			"rotation": {"angle": 0, "axis": "y", "origin": [-8, 55, 21]},
@@ -80,15 +75,6 @@
 			}
 		},
 		{
-			"name": "a_cube2_join_down_1",
-			"from": [-2, 44, 21],
-			"to": [-8, 0, -5],
-			"faces": {
-				"down": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"}
-			}
-		},
-		{
-			"name": "a_cube2_join_down_2",
 			"from": [24, 44, 21],
 			"to": [12, 0, -5],
 			"faces": {

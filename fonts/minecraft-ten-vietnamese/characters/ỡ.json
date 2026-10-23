@@ -1,14 +1,13 @@
 {
 	"format_version": "26.3",
-	"credit": "Ewan Howell; Vietnamese adaptations by bl205vn",
+	"credit": "by bl205vn",
 	"texture_size": [1000, 320],
 	"textures": {
-		"1": "minecraft-ten-vietnamese:flat",
-		"particle": "minecraft-ten-vietnamese:flat"
+		"1": "rainbow",
+		"particle": "rainbow"
 	},
 	"elements": [
 		{
-			"name": "ơ_cube1",
 			"from": [-8.25, 2, -3],
 			"to": [21.75, 42, 19],
 			"rotation": {"angle": 0, "axis": "y", "origin": [-2.25, 0, 0]},
@@ -20,7 +19,6 @@
 			}
 		},
 		{
-			"name": "ơ_cube2",
 			"from": [-8.25, 42, -3],
 			"to": [-0.25, 53, 19],
 			"rotation": {"angle": 0, "axis": "y", "origin": [-8.25, 42, -3]},
@@ -31,7 +29,17 @@
 			}
 		},
 		{
-			"name": "ơ_cube3",
+			"from": [-1.75, 52, -3],
+			"to": [24.25, 63, 19],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-1.75, 52, -3]},
+			"faces": {
+				"north": {"uv": [4.08, 10.4, 4.496, 10.95], "texture": "#1"},
+				"south": {"uv": [4.496, 10.4, 4.08, 10.95], "texture": "#1"},
+				"up": {"uv": [4.496, 9.15, 4.08, 10.25], "texture": "#1"},
+				"down": {"uv": [4.496, 12.8, 4.08, 13.9], "texture": "#1"}
+			}
+		},
+		{
 			"from": [23.75, 44, 21],
 			"to": [-8.25, 0, -5],
 			"rotation": {"angle": 0, "axis": "y", "origin": [23.75, 44, 23]},
@@ -45,7 +53,6 @@
 			}
 		},
 		{
-			"name": "ơ_cube4",
 			"from": [1.75, 55, 21],
 			"to": [-10.25, 36, -5],
 			"rotation": {"angle": 0, "axis": "y", "origin": [3.75, 55, 23]},
@@ -58,31 +65,17 @@
 			}
 		},
 		{
-			"name": "tilde_cube1",
-			"from": [-1.75, 52, -3],
-			"to": [24.25, 63, 19],
-			"rotation": {"angle": 0, "axis": "y", "origin": [-1.75, 52, -3]},
+			"from": [26.25, 62, 21],
+			"to": [1.75, 50, -5],
 			"faces": {
-				"north": {"uv": [4.08, 10.4, 4.496, 10.95], "texture": "#1"},
-				"south": {"uv": [4.496, 10.4, 4.08, 10.95], "texture": "#1"},
-				"up": {"uv": [4.496, 9.15, 4.08, 10.25], "texture": "#1"},
-				"down": {"uv": [4.496, 12.8, 4.08, 13.9], "texture": "#1"}
-			}
-		},
-		{
-			"name": "tilde_cube2",
-			"from": [26.25, 54, 21],
-			"to": [0.25, 50, -5],
-			"rotation": {"angle": 0, "axis": "y", "origin": [2.25, 50, -3]},
-			"faces": {
-				"north": {"uv": [0.189, 14, 0.241, 14.05], "texture": "#1"},
-				"south": {"uv": [0.241, 14, 0.189, 14.05], "texture": "#1"},
+				"north": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"south": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
 				"west": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
-				"up": {"uv": [0.241, 14, 0.189, 14.05], "texture": "#1"}
+				"up": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"down": {"uv": [0.1216, 14, 0.1608, 14.05], "texture": "#1"}
 			}
 		},
 		{
-			"name": "tilde_cube3",
 			"from": [22.25, 65, 21],
 			"to": [-3.75, 62, -5],
 			"rotation": {"angle": 0, "axis": "y", "origin": [-1.75, 62, -3]},
@@ -95,43 +88,21 @@
 			}
 		},
 		{
-			"name": "tilde_cube4",
-			"from": [26.25, 62, 21],
-			"to": [-3.75, 54, -5],
-			"rotation": {"angle": 0, "axis": "y", "origin": [-3.75, 60, -5]},
-			"faces": {
-				"west": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
-				"down": {"uv": [0.1216, 14, 0.1696, 14.05], "texture": "#1"}
-			}
-		},
-		{
-			"name": "ơ_cube4_join_west_1",
 			"from": [1.75, 50, 21],
-			"to": [-10.25, 44.000159071, -5],
+			"to": [-10.25, 44.00016, -5],
 			"rotation": {"angle": 0, "axis": "y", "origin": [3.75, 55, 23]},
 			"faces": {
 				"west": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"}
 			}
 		},
 		{
-			"name": "tilde_cube4_join_north_1",
-			"from": [26.25, 62, 21],
-			"to": [1.75, 54, -5],
-			"rotation": {"angle": 0, "axis": "y", "origin": [-3.75, 60, -5]},
-			"faces": {
-				"north": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
-				"south": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"}
-			}
-		},
-		{
-			"name": "tilde_cube4_join_north_2",
 			"from": [1.75, 62, 21],
 			"to": [-3.75, 55, -5],
 			"rotation": {"angle": 0, "axis": "y", "origin": [-3.75, 60, -5]},
 			"faces": {
 				"north": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
-				"south": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
-				"east": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"}
+				"east": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"south": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"}
 			}
 		}
 	]

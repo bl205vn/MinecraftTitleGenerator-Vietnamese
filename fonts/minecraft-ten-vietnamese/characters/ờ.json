@@ -1,14 +1,13 @@
 {
 	"format_version": "26.3",
-	"credit": "Ewan Howell; Vietnamese adaptations by bl205vn",
+	"credit": "by bl205vn",
 	"texture_size": [1000, 320],
 	"textures": {
-		"1": "minecraft-ten-vietnamese:flat",
-		"particle": "minecraft-ten-vietnamese:flat"
+		"1": "rainbow",
+		"particle": "rainbow"
 	},
 	"elements": [
 		{
-			"name": "ơ_cube1",
 			"from": [-7, 2, -3],
 			"to": [23, 42, 19],
 			"rotation": {"angle": 0, "axis": "y", "origin": [-1, 0, 0]},
@@ -19,7 +18,6 @@
 			}
 		},
 		{
-			"name": "ơ_cube2",
 			"from": [-7, 42, -3],
 			"to": [1, 53, 19],
 			"rotation": {"angle": 0, "axis": "y", "origin": [-7, 42, -3]},
@@ -30,7 +28,6 @@
 			}
 		},
 		{
-			"name": "ơ_cube3",
 			"from": [25, 44, 21],
 			"to": [-7, 0, -5],
 			"rotation": {"angle": 0, "axis": "y", "origin": [25, 44, 23]},
@@ -44,7 +41,6 @@
 			}
 		},
 		{
-			"name": "ơ_cube4",
 			"from": [3, 55, 21],
 			"to": [-9, 36, -5],
 			"rotation": {"angle": 0, "axis": "y", "origin": [5, 55, 23]},
@@ -57,7 +53,6 @@
 			}
 		},
 		{
-			"name": "grave_cube1",
 			"from": [3, 45, -3],
 			"to": [19, 57, 19],
 			"rotation": {"angle": 0, "axis": "y", "origin": [19, 45, -3]},
@@ -68,7 +63,6 @@
 			}
 		},
 		{
-			"name": "grave_cube3",
 			"from": [21, 59, 21],
 			"to": [7, 55, -5],
 			"rotation": {"angle": 0, "axis": "y", "origin": [7, 59, 21]},
@@ -81,7 +75,6 @@
 			}
 		},
 		{
-			"name": "grave_cube4",
 			"from": [21, 55, 21],
 			"to": [1, 47, -5],
 			"rotation": {"angle": 0, "axis": "y", "origin": [-5, 55, 21]},
@@ -94,7 +87,6 @@
 			}
 		},
 		{
-			"name": "grave_cube2_join_north_1",
 			"from": [15, 47, 21],
 			"to": [3, 44, -5],
 			"rotation": {"angle": 0, "axis": "y", "origin": [1, 47, 21]},

@@ -1,14 +1,13 @@
 {
 	"format_version": "26.3",
-	"credit": "Ewan Howell; Vietnamese adaptations by bl205vn",
+	"credit": "by bl205vn",
 	"texture_size": [1000, 320],
 	"textures": {
-		"1": "minecraft-ten-vietnamese:flat",
-		"particle": "minecraft-ten-vietnamese:flat"
+		"1": "rainbow",
+		"particle": "rainbow"
 	},
 	"elements": [
 		{
-			"name": "o_cube1",
 			"from": [-6, 2, -3],
 			"to": [22, 42, 19],
 			"faces": {
@@ -18,19 +17,6 @@
 			}
 		},
 		{
-			"name": "o_cube2",
-			"from": [24, 44, 21],
-			"to": [-8, 0, -5],
-			"faces": {
-				"north": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
-				"east": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
-				"south": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
-				"west": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
-				"down": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"}
-			}
-		},
-		{
-			"name": "dotbelow_cube1",
 			"from": [3, -11, -3],
 			"to": [13, -2, 19],
 			"rotation": {"angle": 0, "axis": "y", "origin": [3, -11, -3]},
@@ -41,7 +27,18 @@
 			}
 		},
 		{
-			"name": "dotbelow_cube2",
+			"from": [24, 44, 21],
+			"to": [-8, 0, -5],
+			"faces": {
+				"north": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"east": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"south": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"west": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"up": {"uv": [0.174, 14, 0.11, 14.05], "texture": "#1"},
+				"down": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"}
+			}
+		},
+		{
 			"from": [15, 0, 21],
 			"to": [1, -13, -5],
 			"rotation": {"angle": 0, "axis": "y", "origin": [17, 0, 23]},
@@ -54,15 +51,6 @@
 			}
 		},
 		{
-			"name": "o_cube2_join_up_1",
-			"from": [1, 44, 21],
-			"to": [-8, 0, -5],
-			"faces": {
-				"up": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"}
-			}
-		},
-		{
-			"name": "o_cube2_join_up_2",
 			"from": [24, 44, 21],
 			"to": [15, 0, -5],
 			"faces": {

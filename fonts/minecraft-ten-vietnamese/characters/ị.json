@@ -1,59 +1,54 @@
 {
 	"format_version": "26.3",
-	"credit": "Ewan Howell; Vietnamese adaptations by bl205vn",
+	"credit": "by bl205vn",
 	"texture_size": [1000, 320],
 	"textures": {
-		"1": "minecraft-ten-vietnamese:flat",
-		"particle": "minecraft-ten-vietnamese:flat"
+		"2": "rainbow",
+		"particle": "rainbow"
 	},
 	"elements": [
 		{
-			"name": "i_cube1",
 			"from": [2, 2, -3],
 			"to": [14, 42, 19],
 			"faces": {
-				"north": {"uv": [4.32, 1.1, 4.512, 3.1], "texture": "#1"},
-				"south": {"uv": [4.512, 1.1, 4.32, 3.1], "texture": "#1"},
-				"up": {"uv": [4.512, 1.1, 4.32, 0], "texture": "#1"}
+				"north": {"uv": [4.32, 1.1, 4.512, 3.1], "texture": "#2"},
+				"south": {"uv": [4.512, 1.1, 4.32, 3.1], "texture": "#2"},
+				"up": {"uv": [4.512, 1.1, 4.32, 0], "texture": "#2"}
 			}
 		},
 		{
-			"name": "i_cube2",
 			"from": [16, 44, 21],
 			"to": [0, 0, -5],
 			"faces": {
-				"north": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
-				"east": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
-				"south": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
-				"west": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
-				"up": {"uv": [1.064, 14.75, 0.936, 14.8], "texture": "#1"},
-				"down": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"}
+				"north": {"uv": [0, 14, 0.016, 14.05], "texture": "#2"},
+				"east": {"uv": [0, 14, 0.016, 14.05], "texture": "#2"},
+				"south": {"uv": [0, 14, 0.016, 14.05], "texture": "#2"},
+				"west": {"uv": [0, 14, 0.016, 14.05], "texture": "#2"},
+				"up": {"uv": [1.064, 14.75, 0.936, 14.8], "texture": "#2"},
+				"down": {"uv": [0, 14, 0.016, 14.05], "texture": "#2"}
 			}
 		},
 		{
-			"name": "dotbelow_cube1",
 			"from": [3, -11, -3],
 			"to": [13, -2, 19],
 			"rotation": {"angle": 0, "axis": "y", "origin": [3, -11, -3]},
 			"faces": {
-				"north": {"uv": [4.528, 12.35, 4.688, 12.8], "texture": "#1"},
-				"south": {"uv": [4.528, 12.35, 4.688, 12.8], "texture": "#1"},
-				"down": {"uv": [4.528, 12.8, 4.688, 13.9], "texture": "#1"}
+				"north": {"uv": [4.528, 12.35, 4.688, 12.8], "texture": "#2"},
+				"south": {"uv": [4.528, 12.35, 4.688, 12.8], "texture": "#2"},
+				"down": {"uv": [4.528, 12.8, 4.688, 13.9], "texture": "#2"}
 			}
 		},
 		{
-			"name": "dotbelow_cube2",
 			"from": [15, 0, 21],
 			"to": [1, -13, -5],
 			"rotation": {"angle": 0, "axis": "y", "origin": [17, 0, 23]},
 			"faces": {
-				"north": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
-				"east": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
-				"south": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
-				"west": {"uv": [0.016, 14, 0.032, 14.05], "texture": "#1"},
-				"up": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"}
+				"north": {"uv": [0, 14, 0.016, 14.05], "texture": "#2"},
+				"east": {"uv": [0, 14, 0.016, 14.05], "texture": "#2"},
+				"south": {"uv": [0, 14, 0.016, 14.05], "texture": "#2"},
+				"west": {"uv": [0.016, 14, 0.032, 14.05], "texture": "#2"},
+				"up": {"uv": [0, 14, 0.016, 14.05], "texture": "#2"}
 			}
 		}
-	],
-	"display": {}
+	]
 }

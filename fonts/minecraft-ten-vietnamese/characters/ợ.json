@@ -1,14 +1,13 @@
 {
 	"format_version": "26.3",
-	"credit": "Ewan Howell; Vietnamese adaptations by bl205vn",
+	"credit": "by bl205vn",
 	"texture_size": [1000, 320],
 	"textures": {
-		"1": "minecraft-ten-vietnamese:flat",
-		"particle": "minecraft-ten-vietnamese:flat"
+		"1": "rainbow",
+		"particle": "rainbow"
 	},
 	"elements": [
 		{
-			"name": "ơ_cube1",
 			"from": [-7, 2, -3],
 			"to": [23, 42, 19],
 			"rotation": {"angle": 0, "axis": "y", "origin": [-1, 0, 0]},
@@ -19,7 +18,6 @@
 			}
 		},
 		{
-			"name": "ơ_cube2",
 			"from": [-7, 42, -3],
 			"to": [1, 53, 19],
 			"rotation": {"angle": 0, "axis": "y", "origin": [-7, 42, -3]},
@@ -30,20 +28,28 @@
 			}
 		},
 		{
-			"name": "ơ_cube3",
+			"from": [4, -11, -3],
+			"to": [14, -2, 19],
+			"rotation": {"angle": 0, "axis": "y", "origin": [4, -11, -3]},
+			"faces": {
+				"north": {"uv": [4.528, 12.35, 4.688, 12.8], "texture": "#1"},
+				"south": {"uv": [4.528, 12.35, 4.688, 12.8], "texture": "#1"},
+				"down": {"uv": [4.528, 12.8, 4.688, 13.9], "texture": "#1"}
+			}
+		},
+		{
 			"from": [25, 44, 21],
 			"to": [-7, 0, -5],
-			"rotation": {"angle": 0, "axis": "y", "origin": [25, 44, 23]},
 			"faces": {
 				"north": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
 				"east": {"uv": [0.144, 14.7015, 0.16, 14.333], "texture": "#1"},
 				"south": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
 				"west": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"up": {"uv": [0.174, 14, 0.11, 14.05], "texture": "#1"},
 				"down": {"uv": [0.095, 14, 0.143, 14.05], "texture": "#1"}
 			}
 		},
 		{
-			"name": "ơ_cube4",
 			"from": [3, 55, 21],
 			"to": [-9, 36, -5],
 			"rotation": {"angle": 0, "axis": "y", "origin": [5, 55, 23]},
@@ -57,18 +63,6 @@
 			}
 		},
 		{
-			"name": "dotbelow_cube1",
-			"from": [4, -11, -3],
-			"to": [14, -2, 19],
-			"rotation": {"angle": 0, "axis": "y", "origin": [4, -11, -3]},
-			"faces": {
-				"north": {"uv": [4.528, 12.35, 4.688, 12.8], "texture": "#1"},
-				"south": {"uv": [4.528, 12.35, 4.688, 12.8], "texture": "#1"},
-				"down": {"uv": [4.528, 12.8, 4.688, 13.9], "texture": "#1"}
-			}
-		},
-		{
-			"name": "dotbelow_cube2",
 			"from": [16, 0, 21],
 			"to": [2, -13, -5],
 			"rotation": {"angle": 0, "axis": "y", "origin": [18, 0, 23]},
@@ -81,16 +75,6 @@
 			}
 		},
 		{
-			"name": "ơ_cube3_join_up_1",
-			"from": [2, 44, 21],
-			"to": [-7, 0, -5],
-			"rotation": {"angle": 0, "axis": "y", "origin": [25, 44, 23]},
-			"faces": {
-				"up": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"}
-			}
-		},
-		{
-			"name": "ơ_cube3_join_up_2",
 			"from": [25, 44, 21],
 			"to": [16, 0, -5],
 			"rotation": {"angle": 0, "axis": "y", "origin": [25, 44, 23]},

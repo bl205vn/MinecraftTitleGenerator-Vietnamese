@@ -1,14 +1,13 @@
 {
 	"format_version": "26.3",
-	"credit": "Ewan Howell; Vietnamese adaptations by bl205vn",
+	"credit": "by bl205vn",
 	"texture_size": [1000, 320],
 	"textures": {
-		"1": "minecraft-ten-vietnamese:flat",
-		"particle": "minecraft-ten-vietnamese:flat"
+		"1": "rainbow",
+		"particle": "rainbow"
 	},
 	"elements": [
 		{
-			"name": "y_cube1",
 			"from": [-6, 2, -3],
 			"to": [22, 42, 19],
 			"faces": {
@@ -18,37 +17,6 @@
 			}
 		},
 		{
-			"name": "y_cube2",
-			"from": [-8, 0, -5],
-			"to": [0, 20, 21],
-			"faces": {
-				"east": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
-				"up": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"}
-			}
-		},
-		{
-			"name": "y_cube3",
-			"from": [16, 0, -5],
-			"to": [24, 20, 21],
-			"faces": {
-				"west": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
-				"up": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"}
-			}
-		},
-		{
-			"name": "y_cube4",
-			"from": [24, 44, 21],
-			"to": [-8, 0, -5],
-			"faces": {
-				"north": {"uv": [0.224, 15.1, 0.288, 14.55], "texture": "#1"},
-				"east": {"uv": [0.224, 15.1, 0.24, 14.55], "texture": "#1"},
-				"south": {"uv": [0.224, 15.1, 0.288, 14.55], "texture": "#1"},
-				"west": {"uv": [0.224, 15.1, 0.24, 14.55], "texture": "#1"},
-				"up": {"uv": [0.224, 15.05, 0.288, 15.1], "texture": "#1"}
-			}
-		},
-		{
-			"name": "hookabove_cube1",
 			"from": [-1, 45, -3],
 			"to": [17, 59, 19],
 			"rotation": {"angle": 0, "axis": "y", "origin": [-1, 45, -3]},
@@ -59,32 +27,51 @@
 			}
 		},
 		{
-			"name": "hookabove_cube2",
-			"from": [12, 45, 21],
-			"to": [1, 43, -5],
-			"rotation": {"angle": 0, "axis": "y", "origin": [0, 43, 0]},
+			"from": [12, 49, 21],
+			"to": [1, 44, -5],
 			"faces": {
-				"north": {"uv": [0, 14.9, 0.016, 15], "texture": "#1"},
-				"east": {"uv": [0, 14.9, 0.016, 15], "texture": "#1"},
-				"south": {"uv": [0, 14.9, 0.016, 15], "texture": "#1"},
-				"west": {"uv": [0, 14.9, 0.016, 15], "texture": "#1"}
+				"north": {"uv": [0, 14.8875, 0.016, 14.95], "texture": "#1"},
+				"east": {"uv": [0, 14.8875, 0.016, 14.95], "texture": "#1"},
+				"south": {"uv": [0, 14.8875, 0.016, 14.95], "texture": "#1"},
+				"west": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"}
 			}
 		},
 		{
-			"name": "hookabove_cube3",
-			"from": [12, 49, 21],
-			"to": [-3, 45, -5],
-			"rotation": {"angle": 0, "axis": "y", "origin": [0, 43, 0]},
+			"from": [17, 61, 21],
+			"to": [-1, 0, -5],
 			"faces": {
-				"north": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"north": {"uv": [0, 12.525, 0.016, 14.05], "texture": "#1"},
+				"east": {"uv": [0, 12.525, 0.016, 14.05], "texture": "#1"},
+				"south": {"uv": [0, 12.525, 0.016, 14.05], "texture": "#1"},
+				"west": {"uv": [0, 12.525, 0.016, 14.05], "texture": "#1"},
+				"up": {"uv": [0.26, 14, 0.188, 14.05], "texture": "#1"},
+				"down": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"}
+			}
+		},
+		{
+			"from": [24, 44, 21],
+			"to": [-8, 0, -5],
+			"faces": {
+				"north": {"uv": [0.224, 15.1, 0.288, 14.55], "texture": "#1"},
+				"east": {"uv": [0.224, 15.1, 0.24, 14.55], "texture": "#1"},
+				"south": {"uv": [0.224, 15.1, 0.288, 14.55], "texture": "#1"},
+				"west": {"uv": [0.224, 15.1, 0.24, 14.55], "texture": "#1"},
+				"up": {"uv": [0.224, 15.05, 0.288, 15.1], "texture": "#1"},
+				"down": {"uv": [0.174, 14, 0.11, 14.05], "texture": "#1"}
+			}
+		},
+		{
+			"from": [12, 59, 21],
+			"to": [-3, 45, -5],
+			"faces": {
+				"north": {"uv": [0, 14.8875, 0.016, 14.93125], "texture": "#1"},
 				"east": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
-				"south": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
-				"west": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"south": {"uv": [0, 14.8875, 0.016, 14.93125], "texture": "#1"},
+				"west": {"uv": [0, 14.8875, 0.016, 14.93125], "texture": "#1"},
 				"up": {"uv": [0.1632, 14, 0.1152, 14.05], "texture": "#1"}
 			}
 		},
 		{
-			"name": "hookabove_cube4",
 			"from": [19, 59, 21],
 			"to": [-3, 49, -5],
 			"rotation": {"angle": 0, "axis": "y", "origin": [0, 43, 0]},
@@ -98,32 +85,22 @@
 			}
 		},
 		{
-			"name": "hookabove_cube5",
-			"from": [17, 61, 21],
-			"to": [-1, 59, -5],
-			"rotation": {"angle": 0, "axis": "y", "origin": [0, 43, 0]},
-			"faces": {
-				"north": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
-				"east": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
-				"south": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
-				"west": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
-				"down": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"}
-			}
-		},
-		{
-			"name": "y_cube4_join_down_1",
-			"from": [1, 44, 21],
-			"to": [-8, 0, -5],
-			"faces": {
-				"down": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"}
-			}
-		},
-		{
-			"name": "y_cube4_join_down_2",
 			"from": [24, 44, 21],
-			"to": [12, 0, -5],
+			"to": [-8, 20, -5],
 			"faces": {
-				"down": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"}
+				"east": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"west": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"up": {"uv": [0.224, 14, 0.096, 14.05], "texture": "#1"},
+				"down": {"uv": [0.216, 14, 0.152, 14.05], "texture": "#1"}
+			}
+		},
+		{
+			"from": [16, 20, 21],
+			"to": [0, 0, -5],
+			"faces": {
+				"east": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"west": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"up": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"}
 			}
 		}
 	]
