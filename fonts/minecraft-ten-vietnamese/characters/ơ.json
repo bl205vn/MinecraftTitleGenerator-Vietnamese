@@ -1,6 +1,6 @@
 {
 	"format_version": "26.3",
-	"credit": "By bl205vn",
+	"credit": "By Ewan Howell & bl205vn",
 	"texture_size": [1000, 320],
 	"textures": {
 		"1": "rainbow",
@@ -25,7 +25,7 @@
 			"faces": {
 				"north": {"uv": [3.168, 10.25, 3.296, 10.8], "texture": "#1"},
 				"south": {"uv": [3.296, 10.25, 3.168, 10.8], "texture": "#1"},
-				"up": {"uv": [3.328, 9.15, 3.456, 10.25], "texture": "#1"}
+				"up": {"uv": [3.456, 10.25, 3.328, 9.15], "texture": "#1"}
 			}
 		},
 		{
