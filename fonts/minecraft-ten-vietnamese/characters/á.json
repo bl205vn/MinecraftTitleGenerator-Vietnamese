@@ -1,0 +1,87 @@
+{
+	"format_version": "26.3",
+	"credit": "Ewan Howell; Vietnamese adaptations by bl205vn",
+	"texture_size": [1000, 320],
+	"textures": {
+		"1": "minecraft-ten-vietnamese:flat",
+		"particle": "minecraft-ten-vietnamese:flat"
+	},
+	"elements": [
+		{
+			"name": "a_cube1",
+			"from": [-6, 2, -3],
+			"to": [22, 42, 19],
+			"faces": {
+				"north": {"uv": [0.48, 1.1, 0.928, 3.1], "texture": "#1"},
+				"south": {"uv": [0.928, 1.1, 0.48, 3.1], "texture": "#1"},
+				"up": {"uv": [0.928, 1.1, 0.48, 0], "texture": "#1"},
+				"down": {"uv": [0.928, 4.2, 0.48, 3.1], "texture": "#1"}
+			}
+		},
+		{
+			"name": "a_cube2",
+			"from": [24, 44, 21],
+			"to": [-8, 0, -5],
+			"faces": {
+				"north": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"east": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"south": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"west": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"up": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"down": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"}
+			}
+		},
+		{
+			"name": "acute_cube1",
+			"from": [-0.5, 45, -3],
+			"to": [15.5, 57, 19],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-0.5, 45, -3]},
+			"faces": {
+				"north": {"uv": [3.472, 10.4, 3.728, 11], "texture": "#1"},
+				"south": {"uv": [3.7296, 10.41, 3.4736, 11.01], "texture": "#1"},
+				"up": {"uv": [3.728, 9.15, 3.472, 10.25], "texture": "#1"},
+				"down": {"uv": [3.728, 12.8, 3.472, 13.9], "texture": "#1"}
+			}
+		},
+		{
+			"name": "acute_cube2",
+			"from": [17.5, 47, 21],
+			"to": [3.5, 43, -5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [17.5, 47, 21]},
+			"faces": {
+				"north": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"east": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"south": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"west": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"up": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"}
+			}
+		},
+		{
+			"name": "acute_cube3",
+			"from": [11.5, 59, 21],
+			"to": [-2.5, 55, -5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [11.5, 59, 21]},
+			"faces": {
+				"north": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"east": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"south": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"west": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"down": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"}
+			}
+		},
+		{
+			"name": "acute_cube4",
+			"from": [17.5, 55, 21],
+			"to": [-2.5, 47, -5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [23.5, 55, 21]},
+			"faces": {
+				"north": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"east": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"south": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"west": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"up": {"uv": [0.1616, 14, 0.1136, 14.05], "texture": "#1"},
+				"down": {"uv": [0.1136, 14, 0.1616, 14.05], "texture": "#1"}
+			}
+		}
+	]
+}

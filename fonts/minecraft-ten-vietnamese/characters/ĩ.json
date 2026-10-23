@@ -1,0 +1,87 @@
+{
+	"format_version": "26.3",
+	"credit": "Ewan Howell; Vietnamese adaptations by bl205vn",
+	"texture_size": [1000, 320],
+	"textures": {
+		"1": "minecraft-ten-vietnamese:flat",
+		"particle": "minecraft-ten-vietnamese:flat"
+	},
+	"elements": [
+		{
+			"name": "i_cube1",
+			"from": [2, 2, -3],
+			"to": [14, 42, 19],
+			"faces": {
+				"north": {"uv": [4.32, 1.1, 4.512, 3.1], "texture": "#1"},
+				"south": {"uv": [4.512, 1.1, 4.32, 3.1], "texture": "#1"},
+				"up": {"uv": [4.512, 1.1, 4.32, 0], "texture": "#1"},
+				"down": {"uv": [4.512, 4.2, 4.32, 3.1], "texture": "#1"}
+			}
+		},
+		{
+			"name": "i_cube2",
+			"from": [16, 44, 21],
+			"to": [0, 0, -5],
+			"faces": {
+				"north": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"east": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"south": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"west": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"up": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"down": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"}
+			}
+		},
+		{
+			"name": "tilde_cube1",
+			"from": [-5, 45, -3],
+			"to": [21, 56, 19],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-5, 45, -3]},
+			"faces": {
+				"north": {"uv": [4.08, 10.4, 4.496, 10.95], "texture": "#1"},
+				"south": {"uv": [4.496, 10.4, 4.08, 10.95], "texture": "#1"},
+				"up": {"uv": [4.496, 9.15, 4.08, 10.25], "texture": "#1"},
+				"down": {"uv": [4.496, 12.8, 4.08, 13.9], "texture": "#1"}
+			}
+		},
+		{
+			"name": "tilde_cube2",
+			"from": [23, 47, 21],
+			"to": [-3, 43, -5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-1, 43, -3]},
+			"faces": {
+				"north": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"east": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"south": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"west": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"up": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"}
+			}
+		},
+		{
+			"name": "tilde_cube3",
+			"from": [19, 58, 21],
+			"to": [-7, 55, -5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-5, 55, -3]},
+			"faces": {
+				"north": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"east": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"south": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"west": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"down": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"}
+			}
+		},
+		{
+			"name": "tilde_cube4",
+			"from": [23, 55, 21],
+			"to": [-7, 47, -5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-7, 53, -5]},
+			"faces": {
+				"north": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"east": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"south": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"west": {"uv": [0, 14, 0.016, 14.05], "texture": "#1"},
+				"up": {"uv": [0.1696, 14, 0.1216, 14.05], "texture": "#1"},
+				"down": {"uv": [0.1216, 14, 0.1696, 14.05], "texture": "#1"}
+			}
+		}
+	]
+}
