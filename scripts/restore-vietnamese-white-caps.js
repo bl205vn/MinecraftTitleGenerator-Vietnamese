@@ -1,9 +1,9 @@
-// Experimental full white caps, consistent cap UV directions, and inherited credits.
+// Full LETTER caps, consistent cap UV directions, and inherited credits.
+// Accent and horn cap presence is preserved; missing accent caps are intentional.
 // Dry run by default. --apply backs up every changed file before writing.
 import fs from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
-import sharp from 'sharp';
 import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const font = path.join(root, 'fonts/minecraft-ten-vietnamese');
@@ -18,6 +18,11 @@ const models = fs.readdirSync(dir).filter(f => f.endsWith('.json')).map(name => 
 });
 const white = e => e.faces.north && e.to.every((v, i) => v > e.from[i]);
 const signature = e => e.faces.north.uv.join(',');
+const accents = new Set(models.filter(e => own.has(e.name) || e.name === '^.json')
+  .flatMap(e => e.model.elements.filter(white).map(signature)));
+accents.add('3.728,10.4,3.472,11'); // Mirrored acute = grave.
+accents.add('2.496,10.25,2.624,10.8'); // U horn.
+accents.add('3.168,10.25,3.296,10.8'); // O horn.
 const templates = new Map();
 for (const { model } of models) for (const e of model.elements.filter(white)) {
   const key = signature(e), record = templates.get(key) ?? {};
@@ -37,17 +42,12 @@ for (const entry of models) {
     whiteCount++;
     assert.ok(!e.rotation?.angle, `Rotated white cube: ${name}`);
     for (const side of ['up', 'down']) {
+      if (!e.faces[side] && accents.has(signature(e))) continue;
       const previous = structuredClone(e.faces[side]);
       const n = e.faces.north.uv;
       const mirrored = templates.get([n[2], n[1], n[0], n[3]].join(','));
       let face = structuredClone(previous ?? templates.get(signature(e))?.[side] ?? mirrored?.[side]);
-      // Horn caps have their own top strip; provide a matching bottom strip below it.
-      if (!face) {
-        assert.equal(side, 'down');
-        assert.ok(['2.496,10.25,2.624,10.8', '3.168,10.25,3.296,10.8'].includes(signature(e)), `No cap template: ${name}/${index}/${side}`);
-        const up = e.faces.up.uv;
-        face = { uv: [up[0], 13.9, up[2], 12.8] };
-      }
+      assert.ok(face, `No letter cap template: ${name}/${index}/${side}`);
       face.texture = e.faces.north.texture;
       let uv = face.uv;
       if (face.rotation === 180) uv = [...uv.slice(2), ...uv.slice(0, 2)];
@@ -84,7 +84,7 @@ for (const entry of models) {
     const side = line.match(/^\t\t\t\t"(up|down)":/);
     if (side) return '';
     if (/^\t\t\t"faces": \{/.test(line)) {
-      return line + ['up', 'down'].map(s => `\t\t\t\t"${s}": ${JSON.stringify(model.elements[index].faces[s])},\n`).join('');
+      return line + ['up', 'down'].filter(s => model.elements[index].faces[s]).map(s => `\t\t\t\t"${s}": ${JSON.stringify(model.elements[index].faces[s])},\n`).join('');
     }
     return line;
   }).join('').replace(/,(\r?\n\s*\})/g, '$1');
@@ -92,18 +92,7 @@ for (const entry of models) {
   plans.push({ file: entry.file, before: Buffer.from(entry.raw), after: Buffer.from(output) });
   records.push(name);
 }
-// Extend only the two previously transparent bottom horn strips with the standard gray.
-const atlasFile = path.join(font, 'textures/flat.png'), atlasBefore = fs.readFileSync(atlasFile);
-const { data, info } = await sharp(atlasBefore).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
-assert.deepEqual([info.width, info.height], [1000, 320]);
-let pixelsAdded = 0;
-for (const x0 of [166, 208]) for (let y = 256; y < 278; y++) for (let x = x0; x < x0 + 8; x++) {
-  const i = (y * info.width + x) * 4;
-  const expected = [84, 84, 84, 255];
-  if (data[i + 3] === 0) { data.set(expected, i); pixelsAdded++; }
-  else assert.deepEqual([...data.subarray(i, i + 4)], expected);
-}
-if (pixelsAdded) plans.push({ file: atlasFile, before: atlasBefore, after: await sharp(data, { raw: info }).png().toBuffer() });
+const pixelsAdded = 0; // Cap restoration never edits the atlas.
 const fontFile = path.join(root, 'fonts.json'), fontBefore = fs.readFileSync(fontFile);
 const metadata = JSON.parse(fontBefore);
 const variant = metadata.flatMap(f => f.variants ?? []).find(f => f.id === 'minecraft-ten-vietnamese');
