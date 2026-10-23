@@ -7551,78 +7551,10 @@
       for (const [i, char] of Object.values(
         fonts[args.font].characters,
       ).entries()) {
-        let faceUV, topUV, bottomUV;
-        for (const cube of char) {
-          for (const face of Object.values(cube.faces)) {
-            const mapped = (face?.uv ?? face).map((e, i) =>
-              Math.round(i % 2 ? e * uvScaleH : e * uvScaleW),
-            );
-            const middle = fonts[args.font].faces.find(
-              (e) =>
-                mapped[1] >= e[0] * res &&
-                mapped[1] <= e[e.length - 1] * res &&
-                mapped[3] >= e[0] * res &&
-                mapped[3] <= e[e.length - 1] * res,
-            );
-            if (middle) {
-              if (!faceUV) {
-                faceUV = [
-                  Math.min(mapped[0], mapped[2]),
-                  middle[0] * res,
-                  Math.max(mapped[0], mapped[2]),
-                  middle[middle.length - 1] * res,
-                  middle.length === 4 ? (middle[1] - middle[0]) * res : null,
-                ];
-              } else {
-                faceUV[0] = Math.min(faceUV[0], mapped[0], mapped[2]);
-                faceUV[2] = Math.max(faceUV[2], mapped[0], mapped[2]);
-              }
-            } else {
-              const top = fonts[args.font].ends.find(
-                (e) =>
-                  mapped[1] >= e[0] * res &&
-                  mapped[1] <= e[1] * res &&
-                  mapped[3] >= e[0] * res &&
-                  mapped[3] <= e[1] * res,
-              );
-              if (top) {
-                if (!topUV) {
-                  topUV = [
-                    Math.min(mapped[0], mapped[2]),
-                    top[0] * res,
-                    Math.max(mapped[0], mapped[2]),
-                    top[1] * res,
-                  ];
-                } else {
-                  topUV[0] = Math.min(topUV[0], mapped[0], mapped[2]);
-                  topUV[2] = Math.max(topUV[2], mapped[0], mapped[2]);
-                }
-              } else {
-                const bottom = fonts[args.font].ends.find(
-                  (e) =>
-                    mapped[1] >= e[2] * res &&
-                    mapped[1] <= e[3] * res &&
-                    mapped[3] >= e[2] * res &&
-                    mapped[3] <= e[3] * res,
-                );
-                if (bottom) {
-                  if (!bottomUV) {
-                    bottomUV = [
-                      Math.min(mapped[0], mapped[2]),
-                      bottom[2] * res,
-                      Math.max(mapped[0], mapped[2]),
-                      bottom[3] * res,
-                    ];
-                  } else {
-                    bottomUV[0] = Math.min(bottomUV[0], mapped[0], mapped[2]);
-                    bottomUV[2] = Math.max(bottomUV[2], mapped[0], mapped[2]);
-                  }
-                }
-              }
-            }
-          }
-        }
-        if (faceUV) {
+        const regions = collectTileableUVRegions(
+          char, fonts[args.font], uvScaleW, uvScaleH, res,
+        );
+        for (const faceUV of regions.middle) {
           const area = new CanvasFrame(
             faceUV[2] - faceUV[0],
             faceUV[3] - faceUV[1],
@@ -7681,7 +7613,7 @@
           ctx.fillRect(faceUV[0], faceUV[1], area.width, area.height);
           ctx.drawImage(area.canvas, faceUV[0], faceUV[1]);
         }
-        if (topUV) {
+        for (const topUV of regions.top) {
           const area = new CanvasFrame(
             topUV[2] - topUV[0],
             topUV[3] - topUV[1],
@@ -7716,7 +7648,7 @@
           ctx.fillStyle = `rgba(0, 0, 0, ${(100 - args.edgeBrightness) / 100})`;
           ctx.fillRect(topUV[0], topUV[1], area.width, area.height);
         }
-        if (bottomUV) {
+        for (const bottomUV of regions.bottom) {
           const area = new CanvasFrame(
             bottomUV[2] - bottomUV[0],
             bottomUV[3] - bottomUV[1],
@@ -8146,6 +8078,60 @@
           count: 999999999,
         });
     }
+  }
+
+  function collectTileableUVRegions(character, font, uvScaleW, uvScaleH, res) {
+    const groups = { middle: new Map(), top: new Map(), bottom: new Map() };
+    for (const cube of character) {
+      for (const face of Object.values(cube.faces)) {
+        const mapped = (face?.uv ?? face).map((value, i) =>
+          Math.round(value * (i % 2 ? uvScaleH : uvScaleW)),
+        );
+        for (const kind of ["middle", "top", "bottom"]) {
+          const bands = kind === "middle" ? font.faces : font.ends;
+          const row = bands.findIndex((band) => {
+            const lo = band[kind === "bottom" ? 2 : 0] * res;
+            const hi = band[kind === "middle" ? band.length - 1 : kind === "top" ? 1 : 3] * res;
+            return mapped[1] >= lo && mapped[1] <= hi && mapped[3] >= lo && mapped[3] <= hi;
+          });
+          if (row < 0) continue;
+          const band = bands[row];
+          const group = groups[kind].get(row);
+          if (group) {
+            group[0] = Math.min(group[0], mapped[0], mapped[2]);
+            group[2] = Math.max(group[2], mapped[0], mapped[2]);
+          } else {
+            const region = [
+              Math.min(mapped[0], mapped[2]),
+              band[kind === "bottom" ? 2 : 0] * res,
+              Math.max(mapped[0], mapped[2]),
+              band[kind === "middle" ? band.length - 1 : kind === "top" ? 1 : 3] * res,
+            ];
+            if (kind === "middle") region.push(band.length === 4 ? (band[1] - band[0]) * res : null);
+            groups[kind].set(row, region);
+          }
+          // Match the original priority: front, then top, then bottom.
+          break;
+        }
+      }
+    }
+    // A composed glyph may intentionally omit its facing caps. Still paint the
+    // corresponding atlas strips so shared/reenabled caps use the same texture.
+    for (const [row, front] of groups.middle) {
+      const end = font.ends[row];
+      if (!end) continue;
+      for (const kind of ["top", "bottom"]) {
+        const cap = groups[kind].get(row);
+        if (cap) {
+          cap[0] = Math.min(cap[0], front[0]);
+          cap[2] = Math.max(cap[2], front[2]);
+        } else {
+          groups[kind].set(row, [front[0], end[kind === "top" ? 0 : 2] * res,
+            front[2], end[kind === "top" ? 1 : 3] * res]);
+        }
+      }
+    }
+    return Object.fromEntries(Object.entries(groups).map(([kind, rows]) => [kind, [...rows.values()]]));
   }
 
   function prepareFontText(text, fontId) {
