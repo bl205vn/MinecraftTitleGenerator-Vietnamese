@@ -15,10 +15,7 @@
         "name": "Cyrillic",
         "author": "xllifi",
         "preview": "абв",
-        "example": [
-          "пример",
-          "текст😳"
-        ],
+        "example": ["пример", "текст😳"],
         "border": 277,
         "faces": [
           [22, 62],
@@ -33,9 +30,20 @@
       },
       {
         "id": "minecraft-ten-vietnamese",
-        "name": "tiếng việt",
+        "name": "Vietnamese",
         "author": "bl205vn",
-        "preview": "việ"
+        "preview": "việ",
+        "border": 280,
+        "faces": [
+          [22, 62],
+          [108, 148],
+          [205, 208, 248, 256]
+        ],
+        "ends": [
+          [0, 22, 62, 84],
+          [86, 108, 148, 170],
+          [183, 205, 256, 278]
+        ]
       }
     ]
   },
@@ -61,10 +69,7 @@
         "name": "Cyrillic",
         "author": "xllifi",
         "preview": "абв",
-        "example": [
-          "пример",
-          "текст😳"
-        ],
+        "example": ["пример", "текст😳"],
         "border": 220,
         "faces": [
           [16, 48],
@@ -90,7 +95,7 @@
       [180, 228]
     ],
     "ends": [
-      [0, 16, 64, 80], 
+      [0, 16, 64, 80],
       [82, 98, 146, 162],
       [164, 180, 228, 244]
     ],
@@ -140,7 +145,7 @@
     "faces": [
       [0, 40],
       [42, 82],
-      [84, 124 ]
+      [84, 124]
     ],
     "ends": [
       [0, 0, 40, 40],
@@ -194,16 +199,9 @@
     "border": 268,
     "characterSpacing": 5,
     "preview": "abh",
-    "faces": [
-      [22, 64]
-    ],
-    "ends": [
-      [0, 22, 64, 86]
-    ],
-    "example": [
-      "enchanting",
-      "minecraft"
-    ]
+    "faces": [[22, 64]],
+    "ends": [[0, 22, 64, 86]],
+    "example": ["enchanting", "minecraft"]
   },
   {
     "id": "block-serif",
