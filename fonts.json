@@ -30,6 +30,12 @@
           [86, 108, 148, 170],
           [172, 194, 253, 275]
         ]
+      },
+      {
+        "id": "minecraft-ten-vietnamese",
+        "name": "tiếng việt",
+        "author": "bl205vn",
+        "preview": "việ"
       }
     ]
   },

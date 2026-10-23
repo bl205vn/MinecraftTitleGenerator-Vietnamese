@@ -1221,5 +1221,9 @@
   "shapes/cube/textures/wither_invulnerable.png": "c011ed62057681fa2b9825ec9620aa2d6e5e865d8bd93aa095f16d3e94db76c4",
   "shapes/cube/textures/wither_skeleton.png": "74227e353b52025f230fce95b07e96bf25e64cd25f993701f3dd30295ec0c0f0",
   "shapes/cube/textures/zombie.png": "9595b4ff6bfe38361cd87cc4a919dad16e4eee296e3ff4143f3360b01a5555f9",
-  "shapes/cube/textures/zombie_baby.png": "6da31fa736f80f3471c8d14e426e20f35fc59435dc8a429db95a1eb97f131c9a"
+  "shapes/cube/textures/zombie_baby.png": "6da31fa736f80f3471c8d14e426e20f35fc59435dc8a429db95a1eb97f131c9a",
+  "fonts/minecraft-ten-vietnamese/thumbnails/flat.png": "fe2f5902ff06bd8daa0236f1c2a9e3048fad28d0eb4abf69c4b5676074f08c46",
+  "fonts/minecraft-ten-vietnamese/thumbnails/none.png": "5185c8f7bcf01e16abe4542e9f70fe35b89732e9557c3423336a5315245296b8",
+  "fonts/minecraft-ten-vietnamese/Các ký tự tiếng việt/Danh sách ký tự có dấu tiếng việt.png": "2be6d69ef7a4f66acbcb2ed06fcefc82d587645614c3cde8cfe3cfa980cfd82e",
+  "fonts/minecraft-ten-vietnamese/textures/flat.png": "7dc06b980be6303afe04bfe33c1a1b073929e8f55739917f3e2e9f63db219824"
 }

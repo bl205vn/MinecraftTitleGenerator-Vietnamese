@@ -3,3 +3,4 @@ scripts/temp/
 scripts/log/
 node_modules/
 *.bak
+.tools/
