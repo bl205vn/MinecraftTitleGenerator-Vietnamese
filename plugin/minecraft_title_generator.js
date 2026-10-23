@@ -7316,7 +7316,7 @@
         elements,
       });
     } else {
-      group = new Group(args.name ?? makeName(text)).init();
+      group = new Group(args.name ?? makeName(text, args.font)).init();
       let lastCharacter;
       for (const part of words) {
         const [word, newOffset, newLastCharacter] = makeWord(
@@ -7878,7 +7878,7 @@
       return texture;
     }
     return new Texture({
-      name: `${(args.name ?? fonts[args.font].type === "shape") ? args.font : makeName(args.text)}.png`,
+      name: `${(args.name ?? fonts[args.font].type === "shape") ? args.font : makeName(args.text, args.font)}.png`,
       render_sides: "front",
       uv_width: fonts[args.font].textureWidth,
       uv_height: fonts[args.font].textureHeight,
@@ -7889,7 +7889,7 @@
     const word = new Group(
       fonts[args.font].type === "shape"
         ? args.font
-        : (args.name ?? makeName(text)),
+        : (args.name ?? makeName(text, args.font)),
     );
     word.addTo(parent).init();
     for (const char of text) {
@@ -8010,7 +8010,7 @@
     if (wordLength === 1) {
       character = parent;
     } else {
-      character = new Group(charMap[char] ? charMap[char] : makeName(char));
+      character = new Group(charMap[char] ? charMap[char] : makeName(char, args.font));
       character.addTo(parent).init();
     }
     const heightOffset = fonts[args.font].height;
@@ -8080,8 +8080,12 @@
     ];
   }
 
-  const makeName = (str) =>
+  const makeName = (str, fontId) =>
     str
+      // Match the original Creeper naming: distinct model keys share lowercase labels.
+      .replace(/[ÀÁẢÃẠĂẰẮẲẴẶÂẦẤẨẪẬ]/g, (char) =>
+        fontId === "minecraft-ten-vietnamese" ? char.toLowerCase() : char,
+      )
       .replace(/\s/g, "_")
       .replace(/😳/g, "a")
       .replace(/😩/g, "'")

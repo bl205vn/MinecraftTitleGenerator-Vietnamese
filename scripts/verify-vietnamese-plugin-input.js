@@ -82,4 +82,15 @@ const spaced = vm.runInContext(`(() => {
 assert.equal(spaced.text, '😳\u200bẮ\u200b😩');
 assert.equal(spaced.width, 2);
 assert.equal(spaced.spacing, 0);
-console.log(`PASS: ${cases} input cases; 17 Creeper variants in NFC/NFD; model lookups; spacing; empty input; other-font regression.`);
+// Outliner groups and texture names use lowercase labels, as the original Creeper does.
+const naming = source.match(/  const makeName = \(str, fontId\) =>[\s\S]*?;\r?\n/)?.[0];
+assert.ok(naming, 'Cannot locate plugin naming function');
+vm.runInContext(`${naming}\nglobalThis.makeName = makeName;`, context);
+for (const char of creepers) {
+  assert.equal(context.makeName(char, fontId), char.toLowerCase());
+  assert.equal(context.makeName(char.toLowerCase(), fontId), char.toLowerCase());
+  assert.equal(context.makeName(char, 'other'), char);
+}
+assert.equal(context.makeName('😳 a À à Ắ ắ Ậ ậ', fontId), 'a_a_à_à_ắ_ắ_ậ_ậ');
+assert.equal(context.makeName('😩😳\u200b┣ ┫', fontId), "'a_");
+console.log(`PASS: ${cases} input cases; 17 Creeper variants in NFC/NFD; model lookups; spacing; empty input; lowercase group/texture names; other-font regression.`);
