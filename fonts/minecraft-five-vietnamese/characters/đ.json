@@ -1,6 +1,6 @@
 {
 	"format_version": "26.3",
-	"credit": "By Ewan Howell",
+	"credit": "By Ewan Howell & bl205vn",
 	"texture_size": [1000, 320],
 	"textures": {
 		"2": "minecraft-five-vietnamese:flat",
@@ -8,7 +8,6 @@
 	},
 	"elements": [
 		{
-			"name": "cube1",
 			"from": [-7, 2, 0],
 			"to": [29, 32, 16],
 			"faces": {
@@ -19,7 +18,6 @@
 			}
 		},
 		{
-			"name": "cube2",
 			"from": [-3, 28, 18],
 			"to": [-9, 6, -2],
 			"rotation": {"angle": 0, "axis": "y", "origin": [16, 0, 0]},
@@ -32,32 +30,29 @@
 			}
 		},
 		{
-			"name": "cube3",
 			"from": [31, 34, 18],
 			"to": [-3, 0, -2],
 			"rotation": {"angle": 0, "axis": "y", "origin": [22, 0, 0]},
 			"faces": {
-				"north": {"uv": [2.112, 10.3, 1.888, 11.15], "texture": "#2"},
+				"north": {"uv": [2.1056, 10.3, 1.888, 11.15], "texture": "#2"},
 				"east": {"uv": [0.016, 10.3, 0.032, 11.15], "texture": "#2"},
-				"south": {"uv": [1.888, 10.3, 2.112, 11.15], "texture": "#2"},
+				"south": {"uv": [1.888, 10.3, 2.1056, 11.15], "texture": "#2"},
 				"west": {"uv": [1.888, 10.3, 1.904, 11.15], "texture": "#2"},
-				"up": {"uv": [0.06352, 10.3, 0.17552, 10.35], "texture": "#2"},
-				"down": {"uv": [0.06352, 10.3, 0.17552, 10.35], "texture": "#2"}
+				"up": {"uv": [1.888, 10.3, 2.1056, 10.35], "texture": "#2"},
+				"down": {"uv": [1.888, 10.3, 2.1056, 10.35], "texture": "#2"}
 			}
 		},
 		{
-			"name": "cube4",
 			"from": [1, 10, -2],
 			"to": [9, 24, 18],
 			"faces": {
-				"east": {"uv": [0, 10.657, 0.016, 10.957], "texture": "#2"},
+				"east": {"uv": [1.888, 10.55, 1.904, 10.9], "texture": "#2"},
 				"west": {"uv": [0, 10.3, 0.016, 10.35], "texture": "#2"},
 				"up": {"uv": [0, 10.3, 0.016, 10.35], "texture": "#2"},
 				"down": {"uv": [0, 10.3, 0.016, 10.35], "texture": "#2"}
 			}
 		},
 		{
-			"name": "cube5",
 			"from": [9, 10, -2],
 			"to": [15, 12, 18],
 			"rotation": {"angle": 0, "axis": "y", "origin": [13, 10, 0]},
@@ -68,7 +63,6 @@
 			}
 		},
 		{
-			"name": "cube6",
 			"from": [9, 22, -2],
 			"to": [15, 24, 18],
 			"rotation": {"angle": 0, "axis": "y", "origin": [13, 22, 0]},
@@ -79,7 +73,6 @@
 			}
 		},
 		{
-			"name": "cube7",
 			"from": [26, 0, -2],
 			"to": [31, 12, 18],
 			"rotation": {"angle": 0, "axis": "y", "origin": [26, 0, -2]},
@@ -89,7 +82,6 @@
 			}
 		},
 		{
-			"name": "cube8",
 			"from": [26, 22, -2],
 			"to": [31, 34, 18],
 			"rotation": {"angle": 0, "axis": "y", "origin": [26, 22, -2]},
