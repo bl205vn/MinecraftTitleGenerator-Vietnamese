@@ -1,0 +1,20 @@
+{
+  "textures": {
+    "flat": {
+      "author": "Ewan Howell & bl205vn"
+    },
+    "edition": {
+      "author": "Ewan Howell & bl205vn"
+    }
+  },
+  "overlays": {
+    "highlights_bottom": {
+      "name": "Highlights (Bottom)",
+      "author": "Ewan Howell & bl205vn"
+    },
+    "highlights_top": {
+      "name": "Highlights (Top)",
+      "author": "Ewan Howell & bl205vn"
+    }
+  }
+}
