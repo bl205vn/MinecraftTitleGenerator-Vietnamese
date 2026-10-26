@@ -46,12 +46,12 @@ Its `customRegionCoverage` records each added letter/accent separately.
 | Cracks, Tiles, Glass/Old Glass | Preserve original glyph-local artwork; transfer unscaled stencils and complete appropriate edges/glints on new shapes |
 | Texture Highlight variants | Original alpha profiles and glyph/surface correspondence |
 | Shine variants | Preserve original pixels; diagonal stripe field and vertical alpha profile learned from source artwork, with source-palette dithering for new shapes |
-| Cartoon | Preserve original pixels; directional affine wedge adaptation on new shapes |
+| Cartoon | Preserve original pixels; D/U/O and original punctuation templates for the added glyphs; soft top-only lip for the acute/grave shared UV |
 
 Hand-painted overlays do not have a proven universal source-generation formula.
 Returning/copying source artwork is **preservation**, not independent proof that
-an inferred algorithm reproduces it. In particular, the new Cartoon and bevel
-corners are style adaptations and should still be reviewed in Blockbench.
+an inferred algorithm reproduces it. New punctuation lighting and bevel corners
+are style adaptations and should still be reviewed in Blockbench.
 
 The geometric highlight rule fills four omitted source Top edge pixels and twenty
 omitted Bottom edge pixels. These are the only differences on corresponding
@@ -86,3 +86,27 @@ individual U/O field rather than seeding a new pattern from the lower atlas row.
 
 This focused check compares against the current first atlas row, checks that no
 other region changed from HEAD, and checks the other eighteen overlay PNGs.
+
+## Cartoon authored-reference retouch
+
+`scripts/ten-overlay-cartoon-rules.js` replaces the generic affine wedge in the
+custom letter/accent regions. Đ uses D's original top/left light with piecewise
+alignment of its widened hole/stems, eliminating the added right/interior patch.
+Ơ/Ư use O/U's original bodies and upper-stem highlights for the horns.
+Hook uses ^'s top/left shoulder; tilde uses ~; dot below uses period. Breve uses
+the upper lobes/joining stroke of ~ without vertically flipping the lighting.
+
+Acute and grave share one UV image, with horizontal mirroring in the model.
+One directional left highlight cannot remain left-facing in both uses. Their
+shared Cartoon patch therefore has a soft top-only 1px lip, which commutes with
+horizontal reflection. Glyphs, Flat and models are unchanged.
+
+```powershell
+.\.tools\node-v22.23.4-win-x64\node.exe scripts/verify-ten-cartoon-reference.js
+```
+
+This focused audit checks the first-row U/O matches, removal of Đ's right/interior
+patch, preservation of its top light, the acute/grave reflection property, and
+byte-identical Flat plus all twenty other overlays.
+
+Cartoon sign revision: hookabove, tilde, dotbelow and breve now derive tapered upper lips from their own Flat silhouettes rather than rescaling donor signs. Breve retains highlights on its two upper prongs only. Acute/grave and letter regions are unchanged in this revision. Preview: backups/cartoon-signs-before-after.png. Pixel checks pass; interactive Blockbench review remains pending.

@@ -95,5 +95,6 @@ const report = { id, apply, size: [W * scale, H * scale], originalRuleDifference
   allowedOriginalQuirks: allowed, visiblePixels: visible, customVietnamesePixels: customVisible, colors: colors.size,
   strayPixels: outsideFlat, newPaletteValues: newPaletteValues.length, flatSHA256: targetHash, output, backup };
 if (['shine', 'shine_random'].includes(id)) report.firstRowBodyReference = (await import('./ten-overlay-reflection-rules.js')).bodyReferenceAudit[id];
+if (id === 'cartoon') report.authoredReferences = (await import('./ten-overlay-cartoon-rules.js')).cartoonReferenceAudit;
 if (apply) fs.writeFileSync(path.join(reportDir, id + '.json'), JSON.stringify(report, null, 2) + '\n');
 console.log(JSON.stringify(report, null, 2));

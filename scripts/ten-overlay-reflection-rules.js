@@ -178,5 +178,6 @@ export async function generate(id, font, ctx) {
       if (alpha) output.set([255, 255, 255, alpha], (y * OW + x) * 4);
     }
   }
-  return id==='cartoon'?output:firstRowHornedBodies(output,original,font,ctx,field,id);
+  if(id==='cartoon')return (await import('./ten-overlay-cartoon-rules.js')).retouchCartoon(output,original,font,ctx);
+  return firstRowHornedBodies(output,original,font,ctx,field,id);
 }
