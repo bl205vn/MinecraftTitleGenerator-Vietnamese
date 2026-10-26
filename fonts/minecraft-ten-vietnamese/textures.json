@@ -4,5 +4,80 @@
       "author": "Ewan Howell & bl205vn"
     }
   },
-  "overlays": {}
+  "overlays": {
+    "highlights_bottom": {
+      "name": "Highlights (Bottom)",
+      "author": "Ewan Howell & bl205vn"
+    },
+    "highlights_top": {
+      "name": "Highlights (Top)",
+      "author": "Ewan Howell & bl205vn"
+    },
+    "highlights_left": {
+      "name": "Highlights (Left)",
+      "author": "BitseK & bl205vn"
+    },
+    "highlights_right": {
+      "name": "Highlights (Right)",
+      "author": "BitseK & bl205vn"
+    },
+    "inset_outline": {
+      "author": "Ewan Howell & bl205vn"
+    },
+    "outline": {
+      "author": "Ewan Howell & bl205vn"
+    },
+    "glass_tempered": {
+      "name": "Glass (Tempered)",
+      "author": "BitseK & bl205vn"
+    },
+    "outline_fade": {
+      "author": "blank3times & bl205vn"
+    },
+    "edge_fade": {
+      "author": "Ewan Howell & bl205vn"
+    },
+    "bevel": {
+      "author": "Ewan Howell & bl205vn"
+    },
+    "bevel_highlight_top": {
+      "name": "Bevel Highlight (Top)",
+      "author": "FloideN & bl205vn"
+    },
+    "bevel_highlight_bottom": {
+      "name": "Bevel Highlight (Bottom)",
+      "author": "FloideN & bl205vn"
+    },
+    "cracks": {
+      "author": "Ewan Howell & bl205vn"
+    },
+    "tiles": {
+      "author": "0Szysza & bl205vn"
+    },
+    "texture_highlight_1": {
+      "name": "Texture Highlight",
+      "author": "FloideN & bl205vn"
+    },
+    "texture_highlight_2": {
+      "name": "Texture Highlight (Offset)",
+      "author": "FloideN & bl205vn"
+    },
+    "glass": {
+      "author": "BitseK & bl205vn"
+    },
+    "glass_old": {
+      "name": "Glass (Old)",
+      "author": "BitseK & bl205vn"
+    },
+    "cartoon": {
+      "author": "Gyak & bl205vn"
+    },
+    "shine": {
+      "author": "Ewan Howell & bl205vn"
+    },
+    "shine_random": {
+      "author": "Ewan Howell & bl205vn",
+      "name": "Shine (Random)"
+    }
+  }
 }
