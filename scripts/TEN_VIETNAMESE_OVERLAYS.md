@@ -67,3 +67,22 @@ No models or Flat pixels are changed by overlay generation. A real Blockbench
 integration/render test is separate from these offline pixel checks. For testing
 in the user's existing workflow: compile, commit/push the generated data, reload
 the plugin, and create new text.
+
+## Horned vowels: letter-row body lighting
+
+`outline_fade`, `shine` and `shine_random` use the first-row U/O artwork on the
+28×40 core of `ư` at (134,216) and `ơ` at (176,216), without moving either glyph.
+Their actual model UV regions are 30×40; the two extra columns contain only a
+small horn join. Outline Fade therefore peaks at atlas rows235–236, the middle
+of the base letter, rather than the middle of the taller horned component.
+
+Both Shine variants preserve the U/O core pixel-for-pixel, including alpha
+dither. The horn continues the donor letter's diagonal field; Random uses the
+individual U/O field rather than seeding a new pattern from the lower atlas row.
+
+```powershell
+.\.tools\node-v22.23.4-win-x64\node.exe scripts/verify-ten-horned-letter-overlays.js
+```
+
+This focused check compares against the current first atlas row, checks that no
+other region changed from HEAD, and checks the other eighteen overlay PNGs.

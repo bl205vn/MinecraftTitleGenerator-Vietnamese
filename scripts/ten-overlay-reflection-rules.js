@@ -69,6 +69,67 @@ function learnStripe(original, font, random) {
   for (let a = 1; a < 256; a++) quantize[a] = palette.reduce((best, v) => Math.abs(v - a) < Math.abs(best - a) ? v : best, palette[0]);
   return { stripe, fade, period, quantize };
 }
+export const bodyReferenceAudit = {};
+function firstRowHornedBodies(output, original, font, ctx, field, id) {
+  const audit=[];
+  for(const [name,base]of [['ư','u'],['ơ','o']]){
+    const body=font.regions.find(r=>r.name===name&&r.box[3]-r.box[1]===40);
+    const donor=ctx.source.regions.find(r=>r.name===base);
+    if(!body||!donor)continue;
+    const [tx,ty,tx1,ty1]=body.box,[sx,sy,sx1,sy1]=donor.box;
+    // Fit the source letter's stripe phase rather than inventing a phase from
+    // its lower atlas coordinates (especially important for Shine Random).
+    const hits=new Uint32Array(field.period),totals=new Uint32Array(field.period);
+    for(let y=0;y<(sy1-sy)*S;y++)for(let x=0;x<(sx1-sx)*S;x++){
+      if(!ctx.source.white[(sy+Math.floor(y/S))*1000+sx+Math.floor(x/S)])continue;
+      const q=mod(x-y,field.period),i=((sy*S+y)*OW+sx*S+x)*4;
+      totals[q]++;if(original[i+3])hits[q]++;
+    }
+    let best=Infinity,phase=0;
+    for(let shift=0;shift<field.period;shift++){
+      let wrong=0;
+      for(let q=0;q<field.period;q++)wrong+=field.stripe[mod(q+shift,field.period)]?totals[q]-hits[q]:hits[q];
+      if(wrong<best){best=wrong;phase=shift;}
+    }
+    let stripe=field.stripe,period=field.period,extensionRule='shared letter-row stripe';
+    if(best){
+      // Random artwork can have a different stripe width for each letter.
+      // Learn U/O's own diagonal field instead of forcing A's random template.
+      period=512;phase=0;extensionRule='donor letter diagonal field';
+      const n=new Uint32Array(period),h=new Uint32Array(period);
+      for(let y=0;y<(sy1-sy)*S;y++)for(let x=0;x<(sx1-sx)*S;x++){
+        if(!ctx.source.white[(sy+Math.floor(y/S))*1000+sx+Math.floor(x/S)])continue;
+        const q=mod(x-y,period),i=((sy*S+y)*OW+sx*S+x)*4;n[q]++;if(original[i+3])h[q]++;
+      }
+      stripe=new Uint8Array(period);best=0;
+      for(let q=0;q<period;q++)if(n[q]){stripe[q]=h[q]*2>=n[q]?1:0;best+=Math.min(h[q],n[q]-h[q]);}
+      if(best)throw Error('Donor reflection is not a consistent diagonal field: '+base);
+      for(let q=0;q<period;q++)if(!n[q])for(let d=1;d<period;d++){
+        const left=mod(q-d,period),right=mod(q+d,period);
+        if(n[left]){stripe[q]=stripe[left];break;}if(n[right]){stripe[q]=stripe[right];break;}
+      }
+    }
+    const regions=font.regions.filter(r=>r.name===name);
+    for(const region of regions){const [x0,y0,x1,y1]=region.box;
+      for(let y=y0*S;y<y1*S;y++)for(let x=x0*S;x<x1*S;x++){
+        const i=(y*OW+x)*4;output.fill(0,i,i+4);
+        if(!font.white[Math.floor(y/S)*1000+Math.floor(x/S)])continue;
+        const lx=x-tx*S,ly=y-ty*S;
+        if(lx>=0&&lx<(sx1-sx)*S&&ly>=0&&ly<(sy1-sy)*S){
+          const j=((sy*S+ly)*OW+sx*S+lx)*4;original.copy(output,i,j,j+4);continue;
+        }
+        // Continue the same stripe above the body onto its horn; clamp the
+        // vertical fade to the letter's top value rather than shifting it.
+        if(!stripe[mod(lx-ly+phase,period)])continue;
+        const alpha=field.fade[Math.max(0,Math.min(field.fade.length-1,ly))];
+        const a=field.quantize[alpha];if(a)output.set([255,255,255,a],i);
+      }
+    }
+    audit.push({name,base,body:body.box,source:donor.box,phase,period,extensionRule,phaseSupportMismatches:best});
+  }
+  bodyReferenceAudit[id]=audit;
+  return output;
+}
 export async function generate(id, font, ctx) {
   if (!['cartoon', 'shine', 'shine_random'].includes(id)) throw Error('Unknown reflection overlay: ' + id);
   const original = await authored(id, ctx);
@@ -117,5 +178,5 @@ export async function generate(id, font, ctx) {
       if (alpha) output.set([255, 255, 255, alpha], (y * OW + x) * 4);
     }
   }
-  return output;
+  return id==='cartoon'?output:firstRowHornedBodies(output,original,font,ctx,field,id);
 }

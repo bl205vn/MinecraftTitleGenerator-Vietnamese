@@ -94,5 +94,6 @@ const report = { id, apply, size: [W * scale, H * scale], originalRuleDifference
   sourceComparisonMode: basicIDs.includes(id) || id === 'glass_tempered' ? 'independent analytic regeneration' : 'original artwork preservation plus new-region extension',
   allowedOriginalQuirks: allowed, visiblePixels: visible, customVietnamesePixels: customVisible, colors: colors.size,
   strayPixels: outsideFlat, newPaletteValues: newPaletteValues.length, flatSHA256: targetHash, output, backup };
+if (['shine', 'shine_random'].includes(id)) report.firstRowBodyReference = (await import('./ten-overlay-reflection-rules.js')).bodyReferenceAudit[id];
 if (apply) fs.writeFileSync(path.join(reportDir, id + '.json'), JSON.stringify(report, null, 2) + '\n');
 console.log(JSON.stringify(report, null, 2));

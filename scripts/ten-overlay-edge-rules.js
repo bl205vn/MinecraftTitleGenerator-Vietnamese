@@ -81,7 +81,25 @@ export async function generate(id, font, ctx) {
   // Exact source return is preservation, NOT a claim that hand-edited source
   // bevels are reproduced by one uniform local algorithm. See audit metrics.
   if(font===ctx.source)return Buffer.from(src);
-  if(id==='outline_fade')return fades(id,font,ctx);
+  if(id==='outline_fade'){
+    const out=fades(id,font,ctx);
+    // Horned vowels use the first-row U/O body lighting, not the $/@ row.
+    // The first 28x40 pixels are identical to those base letters; the extra
+    // two columns are only a horn join (above the fade's lit center).
+    for(const [name,base]of [['ư','u'],['ơ','o']]){
+      const body=font.regions.find(r=>r.name===name&&r.box[3]-r.box[1]===40);
+      const donor=ctx.source.regions.find(r=>r.name===base);
+      if(!body||!donor)continue;
+      const [tx,ty,tx1,ty1]=body.box,[sx,sy,sx1,sy1]=donor.box;
+      for(let y=ty;y<ty1;y++)for(let x=tx;x<tx1;x++){
+        const i=(y*1000+x)*4;out.fill(0,i,i+4);
+        if(x-tx>=sx1-sx||at(font,x,y)!==1)continue;
+        const j=((sy+y-ty)*1000+sx+x-tx)*4;
+        src.copy(out,i,j,j+4);
+      }
+    }
+    return out;
+  }
   if(id==='edge_fade'){
     const out=fades(id,font,ctx);
     // Preserve the original +/-1 alpha dithering wherever corresponding caps exist.
