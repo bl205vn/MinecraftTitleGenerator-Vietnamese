@@ -1,0 +1,52 @@
+{
+	"format_version": "26.3",
+	"credit": "By bl205vn",
+	"texture_size": [1000, 320],
+	"textures": {
+		"1": "minecraft-five-vietnamese:flat"
+	},
+	"elements": [
+		{
+			"from": [0, 20, 0],
+			"to": [12, 32, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 20, 0]},
+			"faces": {
+				"north": {"uv": [13.12, 4, 13.312, 4.6], "texture": "#1"},
+				"south": {"uv": [13.312, 4, 13.12, 4.6], "texture": "#1"},
+				"up": {"uv": [13.312, 4, 13.12, 3.2], "texture": "#1"},
+				"down": {"uv": [13.312, 6.3, 13.12, 5.5], "texture": "#1"}
+			}
+		},
+		{
+			"from": [14, 34, 18],
+			"to": [-2, 18, -2],
+			"rotation": {"angle": 0, "axis": "y", "origin": [16, 34, 20]},
+			"faces": {
+				"north": {"uv": [2.112, 10.35, 2.368, 11.15], "texture": "#1"},
+				"east": {"uv": [0, 10.3875, 0.016, 10.4875], "texture": "#1"},
+				"south": {"uv": [2.368, 10.35, 2.112, 11.15], "texture": "#1"},
+				"west": {"uv": [0, 10.4875, 0.016, 10.3875], "texture": "#1"},
+				"up": {"uv": [0.06, 10.3, 0.028, 10.35], "texture": "#1"},
+				"down": {"uv": [0.028, 10.3, 0.06, 10.35], "texture": "#1"}
+			}
+		},
+		{
+			"from": [8, 18, -2],
+			"to": [14, 24, 18],
+			"rotation": {"angle": 0, "axis": "y", "origin": [10, 18, -2]},
+			"faces": {
+				"west": {"uv": [0, 10.3, 0.016, 10.35], "texture": "#1"},
+				"up": {"uv": [0, 10.3, 0.016, 10.35], "texture": "#1"}
+			}
+		},
+		{
+			"from": [-2, 28, -2],
+			"to": [4, 34, 18],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 28, -2]},
+			"faces": {
+				"east": {"uv": [0, 10.3, 0.016, 10.35], "texture": "#1"},
+				"down": {"uv": [0, 10.3, 0.016, 10.35], "texture": "#1"}
+			}
+		}
+	]
+}
