@@ -84,12 +84,11 @@ const cellBounds = cells => [[Math.min(...cells.map(p => p[0])), Math.max(...cel
 const templateCache = new Map();
 function template(name) {
   if (!templateCache.has(name)) {
-    const source = name === 'grave' ? 'acute' : name;
+    const source = name;
     const doc = JSON.parse(snapshots.get(path.join(characters, source + '.json')).toString('utf8'));
     assert.deepEqual(doc.texture_size, [1000, 320]);
     const elements = structuredClone(doc.elements);
     assert.ok(elements.every(e => !e.rotation?.angle), 'Rotated templates need explicit support');
-    if (name === 'grave') mirror(elements);
     for (const [i, e] of elements.entries()) {
       e.name = `${name}_${e.name || 'cube' + (i + 1)}`;
       for (const face of Object.values(e.faces)) if (face.texture != null) face.texture = '#0';
