@@ -3,7 +3,7 @@
   "flatSHA256": "053fa76e495fd4ed4ce1c796943ffe791724ac83cb6a996ed8fd40c1ac3c56f1",
   "sourceFlatSHA256": "0f56257777c80b9b6fa2efabf9372c9de06995aa66073dab695be50d6199985f",
   "total": 119,
-  "current": "gurgles",
+  "current": null,
   "completed": {
     "acacia_planks": {
       "sourceSHA256": "2aa458f43604b9ed1fd31d7a5cedfe57ea8d95f036c9593c8046440db6a77165",
@@ -354,6 +354,251 @@
       "sourceSHA256": "cfa8b40cdd05bf65531f77d4398da2cc9f52a44b0ea598d657a1ec591448104f",
       "outputSHA256": "24546eadab77a824a6b72c6545efb2ec799adee84ba3470057995b431d383917",
       "visualReview": "Reviewed grass-side flower variant separately, retaining petal colors, turf lip and dirt shading in the added glyphs."
+    },
+    "gurgles": {
+      "sourceSHA256": "3bcb523f790b6f47812202abdc83e017057078f2558de00253f5cee036bded28",
+      "outputSHA256": "332a967aac02dabd115666e293af6005215150d1def641ae4cf57f1b8b62a142",
+      "visualReview": "Reviewed atlas: native 32px material period, unchanged original artwork, correctly clipped new Vietnamese marks and shaded caps."
+    },
+    "haunted": {
+      "sourceSHA256": "be05540ba3f708eac42f6fe61ad64b8c6145f877039b5de79e065ecf90185129",
+      "outputSHA256": "75b38d63c014e6fba9f4bf4124a5539be1c0ac0cf5e747efdb2438bd50d8a0ad",
+      "visualReview": "Reviewed atlas: ghost gradient and smoke accents retained; caps preserve single-color bands; added Vietnamese characters and marks match source surface class."
+    },
+    "hay_bale": {
+      "sourceSHA256": "43a4d33cb5f848b24e5c0a020621647b2ef8891b178f572faf464cf3598a94e7",
+      "outputSHA256": "b62047753a96b82cf64fb85d4d06d7630a8888bd0223fcbf1f78e5fa0b291318",
+      "visualReview": "Reviewed atlas: yellow-brown straw texture and tie bindings retained; added Vietnamese letters and marks preserve straw texels and cap shades."
+    },
+    "heterosexual": {
+      "sourceSHA256": "e6e16b341d00709ccc762c4aef01925a2f55592c4ef05e3a457f680aef02cb42",
+      "outputSHA256": "e257bb00999fa45b9d4b4e4a11e59d1765aef1ba0aba58c2da853b3f136ec690",
+      "visualReview": "Reviewed black-and-white horizontal stripes; source 4x4 V cutout preserved as requested; added marks and Vietnamese letters follow stripe rows."
+    },
+    "ice": {
+      "sourceSHA256": "b6871bf15ea4b0d0c18f3da0cd2a0fb5c159fa74b352626808b106b872809458",
+      "outputSHA256": "89145dbd60c11568e5b934754e601be36e0e612b7d26f78170fee322d34057a2",
+      "visualReview": "Reviewed atlas: light blue translucent ice highlights and crystalline noise preserved; added letters and marks follow source surface class."
+    },
+    "inner_shadow": {
+      "sourceSHA256": "5447a525dfb9631ae335b0c03a9f6f0e6517512ee6fc56ed1d71613dca4221ee",
+      "outputSHA256": "405de1af8d63ae711fca32c7aa0d824f5df46053ee7230fdc06b9e71f72285b1",
+      "visualReview": "Reviewed 4x inner shadow atlas with rectangular edge shading; top-left inner shadow bevels retained on added marks and glyphs."
+    },
+    "intersex": {
+      "sourceSHA256": "7f911e98d6999814268ccd1996c695ca85a5add57d76784ab456185ff50d3d80",
+      "outputSHA256": "e7f6262a13b31f31b7da1fa7c70f2901c2e21066b7f5340498aea452af3c4883",
+      "visualReview": "Reviewed yellow flag with purple circle accents; source 4x4 V cutout preserved as requested; added marks and Vietnamese letters follow source palette."
+    },
+    "iron_block": {
+      "sourceSHA256": "03b7c61499f451bb4109631ed6f30b31a0fa9c67818d76269861e4916faa9475",
+      "outputSHA256": "7d248339938d7f74e5389bfc522896f32cb0fbadbaea592d0f82afaa115079b8",
+      "visualReview": "Reviewed atlas: iron panel shading and subtle surface noise preserved; caps retain single-color bands; added Vietnamese letters and marks match source surface class."
+    },
+    "jungle_planks": {
+      "sourceSHA256": "724df5956db72136370153123bfd8edacd3ec8184153d511b0010a33c66191b2",
+      "outputSHA256": "6f196e24015a330d8f8b50576df961eecee6d5f679450774d876859c744aafac",
+      "visualReview": "Reviewed atlas: warm jungle wood plank bands, cap shading and all added mark silhouettes retained; RGBA copies only."
+    },
+    "lagoona": {
+      "sourceSHA256": "054bb7090125c01f4ff75b718fcf35f084cc5e02c93b66889a8d79977e080403",
+      "outputSHA256": "f711ed204c1c0c225a96c3355b283e039b0aafc59a26d1585ed31d70a7dd4bee",
+      "visualReview": "Reviewed atlas: tropical lagoon turquoise waves and highlights retained; 96 authored glyph-internal pixels referenced; added letters and marks follow 28px material period."
+    },
+    "lesbian": {
+      "sourceSHA256": "83029021b01c70101d26889fc01c1bd36945a8f1059a8ffb5bd106fc1f9d4554",
+      "outputSHA256": "fd1d4c4b7fbbf1bbcf033886be2754b592225786132f7b17701ac509650c7c91",
+      "visualReview": "Reviewed orange, white and pink horizontal bands; source 4x4 V cutout preserved as requested; added marks and Vietnamese letters follow stripe rows."
+    },
+    "mangrove": {
+      "sourceSHA256": "8bbfce454c81294770bfebab001472a1baabe282f6ddb152983ccad9b70d4c17",
+      "outputSHA256": "c162bed5ead48c25b97596840de78ce2adc4fccaef2b12ef5b9016db13224b1f",
+      "visualReview": "Reviewed atlas: mangrove root textures and earthy tones preserved; cap shading retained; added Vietnamese letters and marks follow source surface class."
+    },
+    "mangrove_planks": {
+      "sourceSHA256": "be6e7fbb4309f5d34d2648bb328de174974acdfb1fc48525ea636d1f3cde2ae2",
+      "outputSHA256": "4da1897b968f26c56ce25d591544bb5ea695590085d0f2dafa782f96c3ff7278",
+      "visualReview": "Reviewed atlas: rich red mangrove wood plank bands, cap shading and all added mark silhouettes retained; RGBA copies only."
+    },
+    "midnight": {
+      "sourceSHA256": "f59abccb96ab31a5ddc01b46e289fd633f41665ff712af3c9660423f0578d0cb",
+      "outputSHA256": "4b2639e362aebe5da5a7a240bbe13dd90d602888eb4102784b3ea27fef03e08f",
+      "visualReview": "Reviewed atlas: deep midnight sky gradient and celestial speckles preserved; single-color cap bands retained; added letters and marks follow source surface class."
+    },
+    "minecon": {
+      "sourceSHA256": "1156d881d2bcb10448e402a4a663fc7ee515caddf2d52f091f385242eb2718e2",
+      "outputSHA256": "86149b5aaf69e8af03e66a20a3755e08e063a3bb24ed42373560cbc990991e67",
+      "visualReview": "Reviewed atlas: classic Minecon flat styling and solid cap colors retained; added letters and marks follow source surface class."
+    },
+    "mineimator": {
+      "sourceSHA256": "ee9a9c4d74b9ffd2fc5e2b0e2231bce7869fdd002a93f9d5016fbe2bde86fc5a",
+      "outputSHA256": "266be63204c924a71cc67d505ebebbf2e8000e1aa9ede02b21db0a1d7e85c79b",
+      "visualReview": "Reviewed atlas: Mine-imator branding colors and shading preserved; 4 authored glyph-internal pixels referenced; added letters and marks follow source surface class."
+    },
+    "mycelium": {
+      "sourceSHA256": "e2b4c42cc2cf1800f8e7937c7be1e8ef8e21430832a7dac1dc1bf20ad12266f5",
+      "outputSHA256": "17a92fd0419d63c67c42e34551a0a1ad33755cb507b26d6463ab096b6f57f005",
+      "visualReview": "Reviewed atlas: mycelium spore speckles and purple-gray soil preserved; cap shading retained; added letters and marks follow source surface class."
+    },
+    "neon": {
+      "sourceSHA256": "d97a8a76465453e2b6fd4d692f2d155c66a98f5a1211e8220554fa4cbe043d7c",
+      "outputSHA256": "1ec8388f64715caf29d58fe7517a735cbad4365c3d6bceab39a9b5911f6183fe",
+      "visualReview": "Reviewed atlas: vibrant neon cyan-magenta glow outlines and saturated face colors preserved; added letters and marks follow source surface class."
+    },
+    "neon_glow": {
+      "sourceSHA256": "3ee81ab23e0e06fbfed6d79e6b35234f6e6155eba27a79f5cf5d7a802ab16031",
+      "outputSHA256": "2fcba1530a38ea147d8502a56ca0d55d41f316011037cca1f55396c9a62d9b10",
+      "visualReview": "Reviewed atlas: diffuse neon outer glow halos and intense core luminescence preserved; added Vietnamese letters and marks follow source surface class."
+    },
+    "netherite": {
+      "sourceSHA256": "f0b0b04212943e58855999ab4aee8bf3f2cfef314fe9d48e63e054b1d789206c",
+      "outputSHA256": "458e6355370ab36a2e1bf201ff870cb83e1c89bcf5b1843b657d1b3bf99d2d78",
+      "visualReview": "Reviewed atlas: dark netherite ingot textures and subtle metallic sheen preserved; source 4x4 V cutout retained as requested; added marks and letters follow source surface class."
+    },
+    "oak_planks": {
+      "sourceSHA256": "28599dd5fb2ce4210f94584a9ccc81095d14e2c1871103aaf41db6ab9168a4e4",
+      "outputSHA256": "c62f0d3f6d0a7186ef599931308922a0ab1d415e032b69b291890ed6d5385aa0",
+      "visualReview": "Reviewed atlas: classic oak wood horizontal plank seams, cap shading and all added mark silhouettes retained; RGBA copies only."
+    },
+    "oxidised_copper": {
+      "sourceSHA256": "8ebad9f49705b77b62f7c21e954c5b1f1db4e263c13d519141c2c14f34645511",
+      "outputSHA256": "051586da6403109e320c6723cfaa59367fb3c38c04ecb0257cb64141f755eaf2",
+      "visualReview": "Reviewed atlas: turquoise oxidized copper patina and corrosion texture preserved; cap shading retained; added letters and marks follow source surface class."
+    },
+    "oxidising_copper": {
+      "sourceSHA256": "f3b6e9a8945201fd942c1131b177875d1c7dc157e0b8806dff2a0bcae00f43a7",
+      "outputSHA256": "09a4b43e39805e968e869056851eff82af8657e0ba5e85429039487a847613eb",
+      "visualReview": "Reviewed atlas: mottled brown-and-turquoise oxidising copper transition texture preserved; added letters and marks follow source surface class."
+    },
+    "pale_oak_planks": {
+      "sourceSHA256": "fdc8b3d847f1fca861faff2cc83e0dd18d9298408cbda26d7a62f32d4d2c1c18",
+      "outputSHA256": "0cc9432ef26dbf795c3a39c13f2c5ab205fc9961392d1a0b1b8979b352f7c939",
+      "visualReview": "Reviewed atlas: pale oak wood horizontal plank seams, cap shading and all added mark silhouettes retained; RGBA copies only."
+    },
+    "pansexual": {
+      "sourceSHA256": "3221d18821c8b5891fd90f0e3c5b030caf22b7b46224aa1381a2f1bd770dfeee",
+      "outputSHA256": "771db5b7ac65a2f61fdcc8a6140578efe16207b16573b8e0f40afe1167890fbb",
+      "visualReview": "Reviewed pink, yellow and cyan horizontal bands; source 4x4 V cutout preserved as requested; added marks and Vietnamese letters follow stripe rows."
+    },
+    "pixel": {
+      "sourceSHA256": "8333a3b8690e3118995cb0ed0492ca885e1e1e5d2cb2bc3f915c2fc5a3486b98",
+      "outputSHA256": "af92be6acc85433e86cee312c8045d6ac11708d0b1297c915ffc21715966665f",
+      "visualReview": "Reviewed atlas: pixel art dithering and distinct face shading preserved; single-color cap bands retained; added letters and marks follow source surface class."
+    },
+    "podzol": {
+      "sourceSHA256": "0e1898e069e9f70c180d4afbacddf331b1c74d7f17f4e69d4dfa54b0fc5b1ef3",
+      "outputSHA256": "04e0e13f59bcfc551c1de4b993f1a2ffe2efb0b13720eed40ad624dd7ea01918",
+      "visualReview": "Reviewed atlas: organic brown podzol soil and pine needle speckles preserved; cap shading retained; added letters and marks follow source surface class."
+    },
+    "pride": {
+      "sourceSHA256": "93904a9a13e74a439cdd032b0098d75fb044a7d28edccc715b89a09a29959d9e",
+      "outputSHA256": "b52e366e1ad7c23c7fa27c0b92e028cff1c977bba646e6fc78e88d20b43b356f",
+      "visualReview": "Reviewed rainbow horizontal bands; source 4x4 V cutout preserved as requested; added marks and Vietnamese letters follow stripe rows."
+    },
+    "sand": {
+      "sourceSHA256": "8bb387f900898f66c7f6febcd9b381298b9959d3e75839f7fe61bc8ee5f1d56e",
+      "outputSHA256": "3a6777c9a8118b0410a89c8a8413d4c34982a82fc51744cde075e05990b01e96",
+      "visualReview": "Reviewed atlas: warm sandy texture and fine grain noise preserved; cap shading retained; added letters and marks follow source surface class."
+    },
+    "simplacity": {
+      "sourceSHA256": "21725ed68b5f6e3b961a7deac5a22a6a39c4621e1ee7f13371c770e77f483793",
+      "outputSHA256": "59cc335d22adb02d64f5bb7d1ad7b52825d5246bd55636879944f286ccd5cb72",
+      "visualReview": "Reviewed atlas: Simplacity clean pastel palette and custom cutouts preserved; 26 authored glyph-internal pixels referenced; added letters and marks follow source surface class."
+    },
+    "smooth": {
+      "sourceSHA256": "880494f684ef48543f5f2d69d15153b881069af46d51ffcb9861f705b513981c",
+      "outputSHA256": "9cff23ea1b32ac09083e82257770c2673441f04ee82f0fed5df3959579cbd92d",
+      "visualReview": "Reviewed atlas: smooth gradient shading and subtle lighting preserved; cap shading retained; added letters and marks follow source surface class."
+    },
+    "smooth_bevelled": {
+      "sourceSHA256": "0894a0bbc2217a3617e521b5a74715e6a8ebf0bedc8ccb61c6202ae93c3c9fbd",
+      "outputSHA256": "04513cccdc37fa24e1a427c4f2494dfdc69e8608061e46f3a15817c8bb781579",
+      "visualReview": "Reviewed 4x smooth bevelled atlas: crisp multi-level bevel strips and rectangular edge shading retained on all added marks and glyphs."
+    },
+    "smooth_inverted": {
+      "sourceSHA256": "ed5fdcb0f1ab8bf577e6bcfb3b084803bbdf23a83a91007b3b19d83757493b80",
+      "outputSHA256": "4e9432fd676e1a9a1272b3736cce84b76fc38d4846ad5fbf740d74933a34bab3",
+      "visualReview": "Reviewed atlas: inverted smooth lighting gradients preserved; cap shading retained; added letters and marks follow source surface class."
+    },
+    "smooth_inverted_old": {
+      "sourceSHA256": "abb5ce6541a4926967d4271daea3a65309b6ae15beefaa64d29d4d96ba9d32df",
+      "outputSHA256": "a78140704f2757831329c0e4b9108f8e996b66137d63b66972566f4889680e08",
+      "visualReview": "Reviewed atlas: legacy inverted smooth lighting gradient preserved; cap shading retained; added letters and marks follow source surface class."
+    },
+    "smooth_old": {
+      "sourceSHA256": "a08c6f22861a438632462c2a8a7e488ea690d756ad03c9bb1e45f09cb3188af2",
+      "outputSHA256": "82f43e5b89bd2d27ffb920648d12a2f2e381aeb7183fa467a6ddf74997b6fcc0",
+      "visualReview": "Reviewed atlas: legacy smooth shading gradient preserved; cap shading retained; added letters and marks follow source surface class."
+    },
+    "sniffer": {
+      "sourceSHA256": "ebdd11c3c8cafa582a9f26324b9247eeca9b465f9d93f31712de151276d2e201",
+      "outputSHA256": "03aa61bcf427c8c41df6683f4236a7cce1633815e0974e944fd028ec82af8d6e",
+      "visualReview": "Reviewed atlas: sniffer mossy green and crimson fur textures retained; 40px material repeats applied; cap shading preserved on added letters and marks."
+    },
+    "spruce_planks": {
+      "sourceSHA256": "cde9f3d24eb3bcb0d840f555fb3116bd62a5c7753b89ed67e1564a7d77fbea4f",
+      "outputSHA256": "4aeb2d33e41a99ec9cd7d3ed08158a4b63849b1c58ee68da377f05571a434378",
+      "visualReview": "Reviewed atlas: dark spruce wood horizontal plank seams, cap shading and all added mark silhouettes retained; RGBA copies only."
+    },
+    "story_mode": {
+      "sourceSHA256": "e31db36b7ea2e29151f8d51cf7a0b771f4131fc307b549110da36de1146828b3",
+      "outputSHA256": "2ee29eeb89a38de75483c492fb003d23e0fac1c6bf6d850cbc94c2f25c3b848a",
+      "visualReview": "Reviewed atlas: Minecraft Story Mode stylized cinematic gradient and bevel lighting preserved; cap shading retained; added letters and marks follow source surface class."
+    },
+    "story_mode1": {
+      "sourceSHA256": "f57208402cdeacc570c97791f9adf57e30481a92e5a5d089ad05b501f0a7d9ff",
+      "outputSHA256": "08b7c6781079ed84eb257f2532d36c27ffc55f78fb33e087688b65de3ec7b02f",
+      "visualReview": "Reviewed atlas: Story Mode secondary gradient styling preserved; cap shading retained; added letters and marks follow source surface class."
+    },
+    "stripped_bamboo": {
+      "sourceSHA256": "394ada52c9f2887ea97c5b158f7f6495e93d2bf6253b5c2d52d067246b5a5cee",
+      "outputSHA256": "58b8639b93370c3c7f317b21016baa55f915ba08f39fb969b432a72ba1cc66a5",
+      "visualReview": "Reviewed atlas: stripped bamboo pale green stalk fibers and cap shades retained; added Vietnamese letters and marks follow source surface class."
+    },
+    "sunset": {
+      "sourceSHA256": "f7079c7092117edba5f287e0dba9d8e3252182359b71f384683c6a3e54175095",
+      "outputSHA256": "2f545970770df2d5e31ca1a8cf0bd5bf652b89a21f15ed32ffaf2ca211aef967",
+      "visualReview": "Reviewed atlas: warm sunset sky gradient from purple to orange and golden clouds preserved; added letters and marks follow source surface class."
+    },
+    "terracotta": {
+      "sourceSHA256": "ffab41bafd065e81f7f46c4723f15266254262f350b3e1c7edc69ef84c021084",
+      "outputSHA256": "63b44e0b5fbd2175d2687a447f82372cdec7d52aee6ebc9ccafc58c059675d72",
+      "visualReview": "Reviewed atlas: muted clay terracotta tones and subtle texture grain preserved; cap shading retained; added letters and marks follow source surface class."
+    },
+    "trails_and_tales": {
+      "sourceSHA256": "ad653b2d33d36d2cf74e860f91602acf49f46e5c428bf1723a113740bbe68da9",
+      "outputSHA256": "a3c13498c473cbe70bbde43754b7fd8a529d8695c361c54e48d3a716d3d1379f",
+      "visualReview": "Reviewed atlas: Trails & Tales cherry and archaeology themed colors preserved; 8 stray source pixels outside glyph UVs excluded; added letters and marks follow source surface class."
+    },
+    "trans": {
+      "sourceSHA256": "19512de6a234de63a6703f55b0d8850d7fe0ff23dd0b8a282ebb68ff9918ebf6",
+      "outputSHA256": "460352b254b240eaff423970ce6e7dee0dee1c9bb8756eeaae92d3d2b9f29647",
+      "visualReview": "Reviewed cyan, pink and white horizontal bands; source 4x4 V cutout preserved as requested; added marks and Vietnamese letters follow stripe rows."
+    },
+    "transfeminine": {
+      "sourceSHA256": "1cd7fed8944180b6d44834bd51c76ca84f2a9238c4062a9e6ae7916d00100be9",
+      "outputSHA256": "846f7841b17eea288d67c6a528ce0d2a4c24975911036a6afa38a8880ac3b8f3",
+      "visualReview": "Reviewed pink-white-cyan horizontal flag bands; source 4x4 V cutout preserved as requested; added marks and Vietnamese letters follow stripe rows."
+    },
+    "transmasculine": {
+      "sourceSHA256": "14cc589937637676e7c87d516e4e0356512eed81cbf644e83838016f936c23bb",
+      "outputSHA256": "d01d467f274f3d98b3d55171e64499cba2e1004a7b8c74f9b076d39723f23e5a",
+      "visualReview": "Reviewed blue-white-cyan horizontal flag bands; source 4x4 V cutout preserved as requested; added marks and Vietnamese letters follow stripe rows."
+    },
+    "warped_nylium": {
+      "sourceSHA256": "77ff758989c0e682f8d72127b46e249a7684746d36bdf87ff3dabe6833c01ff0",
+      "outputSHA256": "533bac35a4e001361c541e092ab8d054e3d210f44acc346f017f6566156f30b0",
+      "visualReview": "Reviewed atlas: turquoise warped nylium nether sprout texture preserved; cap shading retained; added letters and marks follow source surface class."
+    },
+    "warped_planks": {
+      "sourceSHA256": "5cb46885ce35afa34d48158043b0cdd544a93374b7538398bb7bbd2e844b570e",
+      "outputSHA256": "dba6ce14c36ccd6a3ba10c39dbdee0a0b300a77cc8e148d0b931ad938597d1ba",
+      "visualReview": "Reviewed atlas: teal warped wood horizontal plank seams, cap shading and all added mark silhouettes retained; RGBA copies only."
+    },
+    "winter": {
+      "sourceSHA256": "d9b9e055f9b8413e6ad21ab33c75f469d6ccab0835af18f35afc5bc013b72995",
+      "outputSHA256": "091f7253334f002e7b225713324869335f45b46d09ad1d4de855076c8c20eb8a",
+      "visualReview": "Reviewed atlas: winter frosty snow caps and icicle cutouts preserved; 57 authored glyph-internal pixels referenced; stray outside pixels excluded; added letters and marks follow source surface class."
     }
   }
 }

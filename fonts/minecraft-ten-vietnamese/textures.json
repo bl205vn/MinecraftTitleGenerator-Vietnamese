@@ -17,8 +17,36 @@
         }
       }
     },
+    "smooth": {
+      "author": "Ewan Howell",
+      "variants": {
+        "smooth_inverted": {
+          "name": "Smooth (Inverted Highlight)"
+        },
+        "smooth_old": {
+          "name": "Smooth (Old)"
+        },
+        "smooth_inverted_old": {
+          "name": "Smooth (Old) (Inverted Highlight)"
+        }
+      }
+    },
     "flat_coloured": {
       "author": "TheAnnoying"
+    },
+    "story_mode": {
+      "category": "Story Mode",
+      "name": "Story Mode (Season 2)",
+      "author": "Yanuar Mohendra, ShrimpSnail, & Ewan Howell",
+      "variants": {
+        "story_mode1": {
+          "name": "Story Mode (Season 1)"
+        }
+      }
+    },
+    "mineimator": {
+      "name": "Mine-Imator Family",
+      "author": "ModelBench & ShrimpSnail"
     },
     "gradient": {
       "author": "Ewan Howell"
@@ -26,9 +54,20 @@
     "bevelled_gold": {
       "author": "CL697 & ShrimpSnail"
     },
+    "mangrove": {
+      "name": "Mangrove (Wild Update)",
+      "author": "Narrator2 & TheAnnoying"
+    },
     "deep_dark": {
       "name": "Deep Dark (Wild Update)",
       "author": "Banjoei & Shrimpsnail"
+    },
+    "neon_glow": {
+      "category": "Neon",
+      "author": "Ewan Howell",
+      "variants": {
+        "neon": {}
+      }
     },
     "fruit": {
       "author": "Ewan Howell & DamienBrittan"
@@ -45,32 +84,39 @@
         "grass_side_flowers": {
           "author": "Magminer & Ewan Howell & 0Szysza"
         },
-        "crimson_nylium": {}
+        "podzol": {},
+        "mycelium": {},
+        "crimson_nylium": {},
+        "warped_nylium": {}
       }
     },
     "bubbles": {
       "author": "7px"
     },
+    "minecon": {
+      "author": "Ewan Howell"
+    },
     "classic_cobblestone": {
       "author": "Bold_Muddy"
     },
-    "birch_planks": {
-      "author": "TheAnnoying"
-    },
-    "acacia_planks": {
-      "author": "TheAnnoying"
-    },
-    "dark_oak_planks": {
-      "author": "TheAnnoying"
-    },
-    "cherry_planks": {
-      "author": "TheAnnoying"
-    },
-    "bamboo_planks": {
-      "author": "TheAnnoying"
-    },
-    "crimson_planks": {
-      "author": "TheAnnoying"
+    "oak_planks": {
+      "category": "Planks",
+      "author": "TheAnnoying",
+      "variants": {
+        "spruce_planks": {},
+        "birch_planks": {},
+        "jungle_planks": {},
+        "acacia_planks": {},
+        "dark_oak_planks": {},
+        "mangrove_planks": {},
+        "cherry_planks": {},
+        "bamboo_planks": {},
+        "crimson_planks": {},
+        "warped_planks": {},
+        "pale_oak_planks": {
+          "author": "0Szysza"
+        }
+      }
     },
     "dunes": {
       "author": "Ewan Howell"
@@ -78,11 +124,21 @@
     "bee": {
       "author": "Bold_Muddy & Ewan Howell"
     },
+    "inner_shadow": {
+      "author": "justwilly"
+    },
+    "smooth_bevelled": {
+      "author": "justwilly"
+    },
     "amethyst": {
       "author": "Bold_Muddy"
     },
     "copper": {
-      "author": "Ewan Howell"
+      "author": "Ewan Howell",
+      "variants": {
+        "oxidised_copper": {},
+        "oxidising_copper": {}
+      }
     },
     "cake": {
       "author": "Magminer",
@@ -103,7 +159,21 @@
       "author": "FloideN"
     },
     "beach": {
-      "author": "Ewan Howell"
+      "author": "Ewan Howell",
+      "variants": {
+        "sand": {
+          "author": "Magminer"
+        }
+      }
+    },
+    "pixel": {
+      "author": "MrBrose"
+    },
+    "ice": {
+      "author": "Feby Kah & Ewan Howell"
+    },
+    "midnight": {
+      "author": "Ninjaabdullah"
     },
     "dock": {
       "author": "RyanCR",
@@ -120,29 +190,31 @@
     "dungeons_terracotta": {
       "author": "HARYA_"
     },
-    "aroace": {
-      "author": "Snuzzle"
-    },
-    "aromantic": {
-      "author": "Snuzzle"
-    },
-    "asexual": {
-      "author": "Snuzzle"
-    },
-    "bisexual": {
-      "author": "Snuzzle"
-    },
-    "enby": {
-      "author": "Snuzzle"
-    },
-    "femboy": {
-      "author": "0Szysza"
-    },
-    "fluid": {
-      "author": "Snuzzle"
-    },
-    "gay": {
-      "author": "Snuzzle"
+    "pride": {
+      "author": "Snuzzle",
+      "variants": {
+        "aroace": {},
+        "aromantic": {},
+        "asexual": {},
+        "bisexual": {},
+        "enby": {},
+        "femboy": {
+          "author": "0Szysza"
+        },
+        "fluid": {},
+        "gay": {},
+        "heterosexual": {},
+        "intersex": {},
+        "lesbian": {},
+        "pansexual": {},
+        "trans": {},
+        "transfeminine": {
+          "author": "0Szysza"
+        },
+        "transmasculine": {
+          "author": "0Szysza"
+        }
+      }
     },
     "bricks": {
       "author": "IAmMaker",
@@ -156,8 +228,17 @@
         }
       }
     },
-    "gilded_netherite": {
-      "author": "DragonSlayr15001"
+    "netherite": {
+      "author": "DragonSlayr15001",
+      "variants": {
+        "gilded_netherite": {}
+      }
+    },
+    "simplacity": {
+      "author": "ShinyDragon96 & ShiNeaL"
+    },
+    "trails_and_tales": {
+      "author": "Abe"
     },
     "blueprint": {
       "author": "WassMan"
@@ -168,6 +249,9 @@
     "creeper": {
       "author": "Andre_601"
     },
+    "haunted": {
+      "author": "Ninjaabdullah"
+    },
     "flames": {
       "author": "RyanCR",
       "variants": {
@@ -176,8 +260,17 @@
         }
       }
     },
+    "iron_block": {
+      "author": "Andre_601"
+    },
+    "sniffer": {
+      "author": "SmarterCob"
+    },
     "atmosphere": {
       "author": "Zodiuss"
+    },
+    "gurgles": {
+      "author": "BitseK"
     },
     "crystal": {
       "name": "Crystal (Caves & Cliffs)",
@@ -206,8 +299,23 @@
     "barrel": {
       "author": "Klayv"
     },
-    "bamboo": {
+    "hay_bale": {
       "author": "Klayv"
+    },
+    "winter": {
+      "author": "Klayv"
+    },
+    "bamboo": {
+      "author": "Klayv",
+      "variants": {
+        "stripped_bamboo": {}
+      }
+    },
+    "terracotta": {
+      "author": "Klayv"
+    },
+    "lagoona": {
+      "author": "BitseK & Ewan Howell"
     },
     "create_andesite_casing": {
       "category": "Create Casing",
@@ -230,6 +338,9 @@
     },
     "enderman": {
       "author": "B1tseK"
+    },
+    "sunset": {
+      "author": "Ewan Howell"
     }
   },
   "overlays": {

@@ -22,7 +22,7 @@ Each compressed donor map is saved as `TEXTURE.donors.i32.gz` (little-endian Int
 This is a pixel-copy adaptation, not reconstruction of the original author's procedural recipe.
 Offline atlas inspection does not establish live Blockbench rendering. Thumbnails require the project compile workflow.
 
-Completed: 70/119
+Completed: 119/119
 
 - [x] `acacia_planks.png`
 - [x] `amethyst.png`
@@ -94,52 +94,52 @@ Completed: 70/119
 - [x] `grass.png`
 - [x] `grass_side.png`
 - [x] `grass_side_flowers.png`
-- [ ] `gurgles.png` — awaiting review
-- [ ] `haunted.png`
-- [ ] `hay_bale.png`
-- [ ] `heterosexual.png`
-- [ ] `ice.png`
-- [ ] `inner_shadow.png`
-- [ ] `intersex.png`
-- [ ] `iron_block.png`
-- [ ] `jungle_planks.png`
-- [ ] `lagoona.png`
-- [ ] `lesbian.png`
-- [ ] `mangrove.png`
-- [ ] `mangrove_planks.png`
-- [ ] `midnight.png`
-- [ ] `minecon.png`
-- [ ] `mineimator.png`
-- [ ] `mycelium.png`
-- [ ] `neon.png`
-- [ ] `neon_glow.png`
-- [ ] `netherite.png`
-- [ ] `oak_planks.png`
-- [ ] `oxidised_copper.png`
-- [ ] `oxidising_copper.png`
-- [ ] `pale_oak_planks.png`
-- [ ] `pansexual.png`
-- [ ] `pixel.png`
-- [ ] `podzol.png`
-- [ ] `pride.png`
-- [ ] `sand.png`
-- [ ] `simplacity.png`
-- [ ] `smooth.png`
-- [ ] `smooth_bevelled.png`
-- [ ] `smooth_inverted.png`
-- [ ] `smooth_inverted_old.png`
-- [ ] `smooth_old.png`
-- [ ] `sniffer.png`
-- [ ] `spruce_planks.png`
-- [ ] `story_mode.png`
-- [ ] `story_mode1.png`
-- [ ] `stripped_bamboo.png`
-- [ ] `sunset.png`
-- [ ] `terracotta.png`
-- [ ] `trails_and_tales.png`
-- [ ] `trans.png`
-- [ ] `transfeminine.png`
-- [ ] `transmasculine.png`
-- [ ] `warped_nylium.png`
-- [ ] `warped_planks.png`
-- [ ] `winter.png`
+- [x] `gurgles.png`
+- [x] `haunted.png`
+- [x] `hay_bale.png`
+- [x] `heterosexual.png`
+- [x] `ice.png`
+- [x] `inner_shadow.png`
+- [x] `intersex.png`
+- [x] `iron_block.png`
+- [x] `jungle_planks.png`
+- [x] `lagoona.png`
+- [x] `lesbian.png`
+- [x] `mangrove.png`
+- [x] `mangrove_planks.png`
+- [x] `midnight.png`
+- [x] `minecon.png`
+- [x] `mineimator.png`
+- [x] `mycelium.png`
+- [x] `neon.png`
+- [x] `neon_glow.png`
+- [x] `netherite.png`
+- [x] `oak_planks.png`
+- [x] `oxidised_copper.png`
+- [x] `oxidising_copper.png`
+- [x] `pale_oak_planks.png`
+- [x] `pansexual.png`
+- [x] `pixel.png`
+- [x] `podzol.png`
+- [x] `pride.png`
+- [x] `sand.png`
+- [x] `simplacity.png`
+- [x] `smooth.png`
+- [x] `smooth_bevelled.png`
+- [x] `smooth_inverted.png`
+- [x] `smooth_inverted_old.png`
+- [x] `smooth_old.png`
+- [x] `sniffer.png`
+- [x] `spruce_planks.png`
+- [x] `story_mode.png`
+- [x] `story_mode1.png`
+- [x] `stripped_bamboo.png`
+- [x] `sunset.png`
+- [x] `terracotta.png`
+- [x] `trails_and_tales.png`
+- [x] `trans.png`
+- [x] `transfeminine.png`
+- [x] `transmasculine.png`
+- [x] `warped_nylium.png`
+- [x] `warped_planks.png`
+- [x] `winter.png`
