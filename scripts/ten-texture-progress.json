@@ -1,0 +1,359 @@
+{
+  "version": 1,
+  "flatSHA256": "053fa76e495fd4ed4ce1c796943ffe791724ac83cb6a996ed8fd40c1ac3c56f1",
+  "sourceFlatSHA256": "0f56257777c80b9b6fa2efabf9372c9de06995aa66073dab695be50d6199985f",
+  "total": 119,
+  "current": "gurgles",
+  "completed": {
+    "acacia_planks": {
+      "sourceSHA256": "2aa458f43604b9ed1fd31d7a5cedfe57ea8d95f036c9593c8046440db6a77165",
+      "outputSHA256": "5938621e00978117273218b2847a4f2dc27eadec28298b7452bd1829999d01c1",
+      "visualReview": "Reviewed source and target atlas: horizontal wood bands, cap shading and all added mark silhouettes retained; RGBA copies only."
+    },
+    "amethyst": {
+      "sourceSHA256": "bfb0cc88bea2d9314c9fa67f2126fcb4882b05a71a6abeca9b16cb1e7213a1fc",
+      "outputSHA256": "aac07a7e204e285e673f757468591ba0f9af0841aee7bb099be85e7facf0855a",
+      "visualReview": "Reviewed atlas: native 32px crystal repeat, unchanged original artwork, correctly clipped new marks and shaded caps."
+    },
+    "aroace": {
+      "sourceSHA256": "7bbc756fff8063aa8535774cae14fb0a3676d9d769e9e89882e32a78f0f6f477",
+      "outputSHA256": "bd18acea54d800e46d07ec6aec4ba691283313fc0ff51a623c5821ff72555b5c",
+      "visualReview": "Reviewed horizontal flag bands and added marks; original 4x4 V cutout preserved as requested."
+    },
+    "aromantic": {
+      "sourceSHA256": "d0ef98c3fa5ef117fe3aef114bb72a0b5f30eb12c803f5fe5697ef56f9afd1b0",
+      "outputSHA256": "7f29fb879083a4b5d03a861ef8dc17d7a96a479c5b6b5e004d23ed917dcbdab1",
+      "visualReview": "Reviewed green, white and black horizontal bands, cap shades and accents; source V cutout retained."
+    },
+    "asexual": {
+      "sourceSHA256": "c20e184626f29ac87bf9c8f1d98fb1741199eb1e7b5910cab5671d676d8cf43f",
+      "outputSHA256": "b02a126c691e4300e643e3e804a1a8e41f05743523053f75882f2683d6e8fda0",
+      "visualReview": "Reviewed black/gray/white/purple band alignment, added symbols and native two-color border samples; source cutout retained."
+    },
+    "atmosphere": {
+      "sourceSHA256": "4c99b56a9757b13f9b95b4537e30925c3eca5431bd95c627ba4f84c143225682",
+      "outputSHA256": "c6f7a80ac6060fac5029442479be005b5ada67ef357989810885af63203cc01b",
+      "visualReview": "Reviewed purple gradient, sparse pixel flecks, body lighting and top/bottom shading; donor artwork remains native pixel density."
+    },
+    "bamboo": {
+      "sourceSHA256": "028104e37f8a7eebae654126da871c863cb3cec34763a492b4664784a4a9103a",
+      "outputSHA256": "161aa77f9a67ae2880913e79d67dc8ec97588d7e939af7678e87f084d40b6efb",
+      "visualReview": "Reviewed green bamboo segments and lighter nodes on new bodies/marks, with dark caps and original border colors preserved."
+    },
+    "bamboo_planks": {
+      "sourceSHA256": "429818221a98d8232d5f3483a0ec710ada8217e35b6919427f8f72d3d224b45e",
+      "outputSHA256": "45309d9b1607cf04d1a585b2ff4d0525fcbd301ca0235915e804777a8a4a6c67",
+      "visualReview": "Reviewed yellow horizontal plank seams, cap shading, and correctly bounded added letters and marks."
+    },
+    "barrel": {
+      "sourceSHA256": "6d108823acf0fd8230c410988b33cc50f2c8fc25f65cc3e0fba59ff64af7b8e5",
+      "outputSHA256": "bbea9fb1e18924a9227dadde47894f2dae07bff734470bb5b3b20da74ab604ff",
+      "visualReview": "Reviewed barrel wood/metal bands and cap details; four source pixels at x148 lie outside all glyph UV rectangles and remain excluded."
+    },
+    "beach": {
+      "sourceSHA256": "4987966260dc817fc998539627d0eacb7e39da8b2a0d89ccaa22fd7145118f1b",
+      "outputSHA256": "2f093387b4a46dcce9287029e079b514301cf9b5b7ba65ab8eb5ded2123705ac",
+      "visualReview": "Reviewed sandy upper faces and blue wave edges; small marks reuse sand like original upper punctuation; cap shading retained."
+    },
+    "bee": {
+      "sourceSHA256": "fe84ccbc28065f03432ac16faf7defd96849301a756f6193ee9ec687c1eef16f",
+      "outputSHA256": "3a64e82d46bddcd18cc756d8392b4ac56a078ba90766712e80f358cfd3a7b124",
+      "visualReview": "Reviewed thin pale outlines and honey/brown bands; added shapes use source edge pixels matching each boundary direction."
+    },
+    "bevelled_gold": {
+      "sourceSHA256": "9aff9a026d5c187009b6a9046295c89fdf9528cc559cc43858ed85cb2ee096c7",
+      "outputSHA256": "86b9bb6579fb5c63acb2bb5b1d6604a6a0eb74267aa2c4c2e8e775bcf0a6e45d",
+      "visualReview": "Reviewed 4x gold atlas and crisp bevel strips copied from rectangular I; preserved 560 authored source subpixels inside existing glyph UVs."
+    },
+    "birch_planks": {
+      "sourceSHA256": "e9ccee1a4c81eddf1c560ba8c0c4b7413bc2aee8ee169ee7e931885aa859c0da",
+      "outputSHA256": "6a17c9bdf74a1d2c9b486dcc5b7031aca50c94df7903a259c705adb7605b5bed",
+      "visualReview": "Reviewed pale birch plank bands and native cap shading on all new glyph regions."
+    },
+    "bisexual": {
+      "sourceSHA256": "4bae6a12812f92d47684a67ceb4e1f7ffb051560ef567ac4c2ac47133846f705",
+      "outputSHA256": "f40ad1d43599bbd9a238a4c39e79c2380579bcd661ca68d2483c953773f0e528",
+      "visualReview": "Reviewed pink-purple-blue bands and source V cutout; new marks follow original upper/lower face colors."
+    },
+    "blueprint": {
+      "sourceSHA256": "4900253105164c36fa6e23226a93790e7279562538c07c3d4c1917acba9a3d9c",
+      "outputSHA256": "f7ab51bce6ae88e01849b0e9003876c80b154295d46b99ea0096ef9dd9fff9e9",
+      "visualReview": "Reviewed blue planes with source pale inset stripe details; retained authored U/O body patterns and copied punctuation at native density."
+    },
+    "bricks": {
+      "sourceSHA256": "9f85138c458ad17e4de9d5a457172efe0ba36944a378c70bc76118bcdc9c1173",
+      "outputSHA256": "76222e04b43423ab0f57d663173e01b22f1fe998c0513ecf3b3e356e637d366b",
+      "visualReview": "Reviewed 2x brick pattern at original texel density, copied joints and dark caps; source exceptions inside glyphs preserved."
+    },
+    "bricks_bare_bones": {
+      "sourceSHA256": "5b008d2cb2cd272d33f5924cce4a6d0eafa5b587fc97a2a20d7b51c7a7a0d3c9",
+      "outputSHA256": "9ee29940e52ebf2bdcae0f5fe60ca8b9649d28c4a02cdbe3d257857cca9fe834",
+      "visualReview": "Reviewed low-color brick joints, source cap patterns and full added-character coverage without changing original glyphs."
+    },
+    "bricks_minecraft": {
+      "sourceSHA256": "3a548edf00f49207756eb4271820136cfd8f90217f7122033f037fd216c8aee8",
+      "outputSHA256": "fdf56f5636671775dc86a06f7d6ab0ad3dd7365c4eab57f5b79b2ba6750a0f0b",
+      "visualReview": "Reviewed fine mortar lines and retained authored source cutouts/fills within displayed glyph rectangles; new marks copy native brick pixels."
+    },
+    "bubbles": {
+      "sourceSHA256": "6b317a7623085f57ad5c9de998a417354aa04348dabcc554b8e38b5773cc2f0d",
+      "outputSHA256": "1db323ecca1a7540ece6ca7ff274ede41f92f403c7c96f4f8d24f384fd285448",
+      "visualReview": "Reviewed cyan-blue vertical shading and square bubbles at native size across added glyphs and marks."
+    },
+    "cake": {
+      "sourceSHA256": "c71dbb76d77a52c9d3ab00ed58176a5b73a73233e31bcec0b6137e327f1b8f31",
+      "outputSHA256": "66efcfecfbdbeed7d4b4b04db6b7cb8c448ccb7a4d88b15841848394f9908c0d",
+      "visualReview": "Reviewed 2x frosting/drips and sprinkles; small marks copy unscaled I-face frosting patches to avoid repeating diagonal punctuation pixels."
+    },
+    "cake_minecraft": {
+      "sourceSHA256": "c4428f6200d1246d1d282197450dbaecb5312aa48b52faefce05caeb83d6750e",
+      "outputSHA256": "b1f410c9a8e99e17fa48ec3a4966981b10d5dbd7a984fb3c3fe1c42cd5cd1d5d",
+      "visualReview": "Reviewed white frosting/red sprinkles, brown cake bodies and cream/dark caps; new accents use native-density frosting."
+    },
+    "cake_no_drops": {
+      "sourceSHA256": "9fa2693b149a1ac80f98cd6bd36a2b4eb56fe44a54b3d6e59c6f28baf084a51f",
+      "outputSHA256": "6e9b56aeb425e50f809490f2a0588076d9fb8bc02bd7c6ce8b1be2cf90444b13",
+      "visualReview": "Reviewed sprinkle/frosting variant without drops on the cake body; original details and cap colors preserved."
+    },
+    "cake_plain": {
+      "sourceSHA256": "e0fe9b014707f3d602a09359d18f766c9bd349f05265dd7f77f07701b45d85d2",
+      "outputSHA256": "ae78b0b759a8cf84423df9ec0a7edb09d57fcde83922a278fa8218c98f15df12",
+      "visualReview": "Reviewed plain blue frosting and brown cake; marks retain the clean unspeckled source material."
+    },
+    "cherry_blossom": {
+      "sourceSHA256": "6ccfffbf3e6b190fd0e68848dc14e515257ca2f62b40c442a1208439d5a3b698",
+      "outputSHA256": "af6670c885a21307cdd2254ab1c4751aff25525f74c0c471f6c38fdc0773e945",
+      "visualReview": "Reviewed pink petal patches and plum caps; new glyphs preserve the source block size and palette."
+    },
+    "cherry_blossom_small": {
+      "sourceSHA256": "a716fdb8b0f4e67bc172aa4e8783bca3017034e3fc285a0c28cca07e2b2f216f",
+      "outputSHA256": "89d4c9febe356229f5586ec8cf47d4fb35c08e645bed2c89fc108d49b2106b72",
+      "visualReview": "Reviewed fine 16px floral repeat and cap pattern copies; no stretched terminal column on the extra horn caps."
+    },
+    "cherry_planks": {
+      "sourceSHA256": "ef610c2c18f242f16444f38fe1005b3988859266fe24583f00eb049ed43c7e67",
+      "outputSHA256": "dfa16fcc7236ec2761df6840d1dc88d2e74f325958f2366694ce31508c827df9",
+      "visualReview": "Reviewed pink plank seams, matching face bands and cap shades on added letters and signs."
+    },
+    "classic_cobblestone": {
+      "sourceSHA256": "71dde1f1eec8dd45cfe88f4cea61622b601311ab56c72abcd3d8ca65dc6a2457",
+      "outputSHA256": "32282b6cfddd484e3290a7a80501475bbd51dab6b6a2be8b8914912ba125aa2e",
+      "visualReview": "Reviewed 16px cobblestone material repeat on all three surface classes, with unchanged texel scale and darker caps."
+    },
+    "copper": {
+      "sourceSHA256": "172274526f77332cc5f58d0109c0a8c5f815196c4c6cd8af32449b4d6137443e",
+      "outputSHA256": "6485e23a577731269480744af246fae3996339723de2c514b4f69d5579011c44",
+      "visualReview": "Reviewed copper plates, subtle top/side highlights and source rivet pixels on the new regions."
+    },
+    "cracked": {
+      "sourceSHA256": "34a551b1f50aac228ff63b92b825cd353150f4754f7cedb7a364adf66d3af0ac",
+      "outputSHA256": "f87dd1a0bcf638e7a826be4db928178fe287193e00a84d91af21f58b28c7842e",
+      "visualReview": "Reviewed authored cracks and gradient caps; preserved original 3000x960 resolution and copied small crack patches without drawing."
+    },
+    "cracked_left": {
+      "sourceSHA256": "83b3d988b834790cc91276c93b3ece8da229013f54deba6fe8c376e0b71a4882",
+      "outputSHA256": "4b82a2c151a330cb39249451f622c02de4b564ccef0dd899f4c6bb667e35ddd9",
+      "visualReview": "Reviewed left-crack variant independently: original crack placement and 3x texels retained, new marks carry source crack samples."
+    },
+    "cracked_old": {
+      "sourceSHA256": "3b423721b173841611b7d979bde8bafc15ac962e90dc2406a50ddd9cc36cb9bf",
+      "outputSHA256": "5dd3febada244c281eb8ddd03e8734c976316bd77a44374ad6f68f5446e220c7",
+      "visualReview": "Reviewed native 4x smooth cracks; contiguous A/I cap patches prevent stretched edge texels; old glyph artwork unchanged."
+    },
+    "cracked_old_pixelated": {
+      "sourceSHA256": "6193ceab11ca62ea23d09ad886aa35ea7b058138cc3312a5bf64e19d525e8995",
+      "outputSHA256": "6ee4567d2ac63b578e95b446b677efb8736c2a985d6ee55dbcf4e7d927e9d215",
+      "visualReview": "Reviewed 1x old pixelated cracks and shaded cap strips; new glyphs stay consistent with the coarse source."
+    },
+    "cracked_right": {
+      "sourceSHA256": "c2b27a466abd44a8888226c634cbc5e3560014142865b9757cdd942c13fda9de",
+      "outputSHA256": "6de6e3488101f26311aaebf32f8aa940f6bb6f53ba0fc8199f7b8ed4a6ada645",
+      "visualReview": "Reviewed right-crack variant at 3x, with original face/cap crack placement preserved on existing letters."
+    },
+    "create": {
+      "sourceSHA256": "cbbc4e10216b5f2cf58b4cc76c37a2b1eb826f76de4b88409491dd358fa5712f",
+      "outputSHA256": "64b7a81c2c4534d40ee79e94a2cd1c0576b8a87d340a28802fe1d7a635b0e16b",
+      "visualReview": "Reviewed warm metallic gradient and broad diagonal highlights; source multicolor border samples preserved without recoloring."
+    },
+    "create_andesite_casing": {
+      "sourceSHA256": "c0802170b28bad52417f72f2a60e7f8a9c74269ee46417f876853c37a84d8c1c",
+      "outputSHA256": "d30bc1312eeaf3dcaadd4b14eac0d41bf85434b461b4885fd43d32e552232b1c",
+      "visualReview": "Reviewed andesite rim around wooden fronts and cap rectangles; edges reuse source rim strips with no internal cap seams."
+    },
+    "create_brass_casing": {
+      "sourceSHA256": "6a3964922187cd4c281f0743c842d1c7636c13d8d767d13e1955ef1b426ad5c8",
+      "outputSHA256": "352f1086f4df8e7e902a9d161642f4e8f35ce16d756a41e8e8155408e9880726",
+      "visualReview": "Reviewed brass rim and horizontal wood grain on new faces/caps; outer frame thickness follows copied source strips."
+    },
+    "create_copper_casing": {
+      "sourceSHA256": "c14365964c757ac584052ce1fe59f909acc737b8f49e7f38cde010f016d04d0d",
+      "outputSHA256": "c16e134698183faacfbf8517789cd2fde630e195a8649414159f39b31dc9c893",
+      "visualReview": "Reviewed copper rim and gray vertical grain; copied source edge highlights also frame the new cap rectangles."
+    },
+    "create_train_casing": {
+      "sourceSHA256": "67a054a145bfb757913931df181e35dff9d54f473587d4855d658f10431b680c",
+      "outputSHA256": "b8e78fca2704732a9c1e97c4bf93a216e9dd98b7997368feb2b5202a849b8728",
+      "visualReview": "Reviewed dark train panels, brass frame and native rivet pixels; new marks retain framed panel styling."
+    },
+    "creeper": {
+      "sourceSHA256": "f0636fa56ac7649b3cb61cced31f3343556061dc6ce9edcfd941566c1b1c6392",
+      "outputSHA256": "f531ea99560e4e13f51a48635ab46de904e244e3e247dba9424e1a2263ba7fef",
+      "visualReview": "Reviewed mottled green native pixels and dark lower surfaces; source fills inside glyph UVs preserved."
+    },
+    "crimson_nylium": {
+      "sourceSHA256": "4a549e4e43c79e43365e7664f8f167f70633db5f5f88b1d4217f1d6679fd47a1",
+      "outputSHA256": "905af8752fd25cc9fae1bcdeed8db93ee4a09add69320170efbb45e8561e96f6",
+      "visualReview": "Reviewed red nylium surface and dark underside patches at native size; new marks use upper surface material."
+    },
+    "crimson_planks": {
+      "sourceSHA256": "803f38341ac43bd82f816fff9af01ef71b39f03dbb27766fc5b634a3a4331796",
+      "outputSHA256": "034b58de3597f2eb15ab72638e54be9bc89ab787eb0da8c6b25d01d15137ad07",
+      "visualReview": "Reviewed crimson horizontal plank bands and darker cap surfaces; no invented texture colors."
+    },
+    "crystal": {
+      "sourceSHA256": "a37c394365844530942b13dd2e43b03cf0cad47393722723056521546c72ec27",
+      "outputSHA256": "f86271ebaa7932de9045da792f5b5d1bdb1537f8ab834b0893bae671be59a6f7",
+      "visualReview": "Reviewed purple crystal gradient, sparse facets and narrow top lip; all marks copy original material pixels."
+    },
+    "dark_oak_planks": {
+      "sourceSHA256": "3595f50bc42d3766ead00e101becc239a631f87ea01a0cf652347236849a42fb",
+      "outputSHA256": "14c40305924a45becbc6da51200926e6e1a0741a8b92f12e82cee41a8670944c",
+      "visualReview": "Reviewed dark oak seam spacing and low-contrast source shades; extended bands remain horizontal."
+    },
+    "deep_dark": {
+      "sourceSHA256": "86e3053be5f4257b191f0510cb99f68a72678543ff60d9b94fb33a896f435ea4",
+      "outputSHA256": "f89a5419f4aba8865e71048992b7b959adf064bb944b452309027c82edf05afa",
+      "visualReview": "Reviewed teal sculk-like gradient and luminous flecks; unused isolated source pixel outside glyph regions is excluded."
+    },
+    "dock": {
+      "sourceSHA256": "a7a6fb4d3a00e527075f8232f9d1a901a14ae52d3555003f1c3378e5355cc1d5",
+      "outputSHA256": "ed35becea40cadb006865c3ba3a6c44952f7bc5c804819e73090826738f4dd25",
+      "visualReview": "Reviewed white/cloud-blue upper area, green lower gradient and black caps; copied sky material on upper signs."
+    },
+    "dock_clear": {
+      "sourceSHA256": "14b614ebd736bc59686e5586043ce04775437c5e0a4192d12e7eed8c9de34b8c",
+      "outputSHA256": "360f93e150b79e9c81f50ccfb6b573d0f44a19f7e04b258b4aea1d9cb6172aa1",
+      "visualReview": "Reviewed white rim around clear sky/grass gradient; native edge pixels complete the mark outlines."
+    },
+    "dunes": {
+      "sourceSHA256": "69cc83306ab0e4d074b3238d2e3dd027845671cb8a1a6b79fca1e7e1be41be9d",
+      "outputSHA256": "5325d6bbe3bc0161665f9afb9f417283afc3a8f16d0705e866fc21935652d869",
+      "visualReview": "Reviewed native 4x layered dune artwork; reused unscaled material patches and kept source fills within original glyph bounds."
+    },
+    "dungeons_terracotta": {
+      "sourceSHA256": "0db272a5415cd3137f9d9a7d8cada95692177a1c48b6e566f01ce41d7a38d7b6",
+      "outputSHA256": "cc1020931eb8d7b0d3c09ffa762062cabbeef85ca2decb2e1fde8c889df77d48",
+      "visualReview": "Reviewed layered terracotta pixels across faces/caps and kept source exceptions only inside displayed glyph bounds."
+    },
+    "earth": {
+      "sourceSHA256": "78e0bcd716f221bdc4d9f6360524b8fb9db3cdfe57d84d6408dfe9ce3f749817",
+      "outputSHA256": "05c6db0be63e46d20fd9b80648a449ef2a68e04c5872a2bb0840ee247526b714",
+      "visualReview": "Reviewed 4x blue patterned face, pale bevel and green underside; source edge strips remove internal crossbar edge artifacts."
+    },
+    "enby": {
+      "sourceSHA256": "99bdb9afa97084a1fd338e2501fdf051791d67d30f89c8bed7f1ee2c30af545c",
+      "outputSHA256": "3dc572a43a2d18c0cf6d171f6f756d4e8aeccf8f31e94b28c48dc0e72aa24b28",
+      "visualReview": "Reviewed yellow-white-purple-black bands; original V cutout and two source border values retained."
+    },
+    "end_crystal": {
+      "sourceSHA256": "7bd5690603a373ced45e56c376bb09d3d3d423080a76790ce2ff054961fcd382",
+      "outputSHA256": "cca6cab324800bf29a5062a4178d41546381f1aacdfe85a2ebdb001bffb815ec",
+      "visualReview": "Reviewed cyan/dark double outline and magenta centers; source edge pixels follow new letter and mark boundaries."
+    },
+    "enderman": {
+      "sourceSHA256": "84d4c887afcde43399072611e569eab33e1b2ab6500e4282130676990c6613d9",
+      "outputSHA256": "c8744c59fbed7d4972306d9c6a6f5014aef6580c009808e18c4a3105d89e276a",
+      "visualReview": "Reviewed charcoal checker pattern and black lower bands; source low-contrast palette retained."
+    },
+    "femboy": {
+      "sourceSHA256": "10b21e92ccab65ae0cf2f79c2cb014d3a383e6e74aa4d147183d0ecb4a1238c4",
+      "outputSHA256": "bf89b26ab2d0c64ba28e0af179383a8d35fdd96ae9267501d789c05209c0f1f9",
+      "visualReview": "Reviewed pink/white/cyan horizontal stripes and retained the original 4x4 V cutout."
+    },
+    "fired": {
+      "sourceSHA256": "0a5d46c2fe2d5e7dd6d6ec29e79dad0523ddcbb40b9a9979ec57806d60f60506",
+      "outputSHA256": "d016f283f52dd0a67d7be5c4abcbf181e790093cda52ec27e8827cacf2c4ff8e",
+      "visualReview": "Reviewed orange/gold face gradient, fine rim and dark-blue/red cap borders; copied source edge strips fit the new shapes."
+    },
+    "flames": {
+      "sourceSHA256": "9f844cefdc580308c76fb32144e760ddacaec2381b61145a1aa215a59c283ae2",
+      "outputSHA256": "21a7219faf1cf338c4e06fb09f441166543cc869b0ebd8e30160eaec024053f1",
+      "visualReview": "Reviewed orange flame front with white underside and dark upper signs, matching source height-dependent flame placement."
+    },
+    "flames_soul": {
+      "sourceSHA256": "718b5696209f8d27ec4e9f6536bb9246ef746265f360771a76c713726375e556",
+      "outputSHA256": "898b13ca94553f5bc3ab5100f8739cd1a6e8d170bf38a99bf9b00d9e913f9733",
+      "visualReview": "Reviewed cyan soul flame pattern and white lower surfaces; upper marks retain the original dark glow region."
+    },
+    "flat": {
+      "sourceSHA256": "0f56257777c80b9b6fa2efabf9372c9de06995aa66073dab695be50d6199985f",
+      "outputSHA256": "053fa76e495fd4ed4ce1c796943ffe791724ac83cb6a996ed8fd40c1ac3c56f1",
+      "visualReview": "Canonical Vietnamese Flat already contains the added letters and marks. Reviewed and retained byte-for-byte, with no replacement."
+    },
+    "flat_coloured": {
+      "sourceSHA256": "8787c8ffba9d4673bf6971cb3277ecd00e9570970c9fc0ec5af9e2d04ad4ec0d",
+      "outputSHA256": "0b4746e10c5e7ded2ae4e0b098dcb8b08ab1bd0b17f38b759017dec8f7407100",
+      "visualReview": "Reviewed warm-gray flat palette, all new silhouettes and cap classes; canonical Flat unchanged."
+    },
+    "flowers": {
+      "sourceSHA256": "0b4998da110ddb8bfffc319dd2d9dfc773b76a6d9776557079443ef0c892412f",
+      "outputSHA256": "6748b5cfd93dd1b0d8e993b7afa6b53ba810b278588cf9425490f60a5d2a5511",
+      "visualReview": "Reviewed green grass, colored flower pixels and dirt undersides; source cutouts preserved and copied petals stay within new glyphs."
+    },
+    "fluid": {
+      "sourceSHA256": "a941da3c121bc091b34ea8f8871fbf0be071f27311051eb1ebd38b630fb564e3",
+      "outputSHA256": "e02aff2f6affe930a228502bbc955edf847d034bca1f0f31e5ad3f158299ce81",
+      "visualReview": "Reviewed pink/white/purple/black/blue band order and source V cutout; new glyphs retain exact row colors."
+    },
+    "fruit": {
+      "sourceSHA256": "8b9c6400a2ab7a6aec05a89ea82e31a16ac24ff36dc93f076bda7616b6747880",
+      "outputSHA256": "7f57c4301f6d7780022b53a78bdcf0ae99ce86444be17c91bcbb310fab5d0696",
+      "visualReview": "Reviewed green rind and red fruit patch transition, with native pattern density and dark magenta bottom faces."
+    },
+    "furnace": {
+      "sourceSHA256": "12b8ef6730ff43536596ef8f585943160b024f59852f7674ece0429fff6b9617",
+      "outputSHA256": "9e962ffed68b5aa31e8ee7fcb65bc98a760d34f429c8a6f70ac8ffacf50bb45e",
+      "visualReview": "Reviewed coarse gray furnace/stone pattern, copied face patches and shaded cap bands at native resolution."
+    },
+    "gay": {
+      "sourceSHA256": "e10c7dc736ca49c04cdb3d3f743e34ce326ae24e7066ab453066c1f23d6287f8",
+      "outputSHA256": "de87085401e94700a3179737f58d1c8ee77b721067898233301bf62163143f68",
+      "visualReview": "Reviewed teal/white/blue/purple bands and preserved source V transparency; all new letters align to body bands."
+    },
+    "gilded_netherite": {
+      "sourceSHA256": "90351950cb57d6f7cd7f9e7a82f9cdaa4fa0d53cce94f4a4dbcf1b12abf9aad2",
+      "outputSHA256": "1b9ba4e4dba4215aff489e1634ef373aaabfefa70fd58f17d7e72b98fbb0fdcc",
+      "visualReview": "Reviewed pale gold perimeter on dark netherite, source cutout and shaded cap borders; no internal crossbar rim remains."
+    },
+    "glow_squid": {
+      "sourceSHA256": "785cc6aead486efeba28f68313cc6ad8dfa59488a34bb54ad01075417b36b003",
+      "outputSHA256": "2f40714df01f717939f2cb3dbe9bcdc3a8e558b47627d770265f67719942a790",
+      "visualReview": "Reviewed dark teal to pale green pixel transition and original cap details; signs use the source upper transition region."
+    },
+    "glow_squid_old": {
+      "sourceSHA256": "fe7475fedb362e532dcdbbbe92536f5b6c3de5d2ed4e41728e217b85d8e30edf",
+      "outputSHA256": "70194a393e6765c3e951957746aec37c83af9b1092df7490638126ffc9ee2133",
+      "visualReview": "Reviewed older finer teal dither and pale bottom band, preserving native-density pattern and cap mottling."
+    },
+    "gradient": {
+      "sourceSHA256": "602a705fc54e7b1e7bd5e3a196d216d2fc7a5ca053745d802121b809c4f5c080",
+      "outputSHA256": "3c8cd67afdb7296179da16bc46289a7b74597e2e7f26974f704e05b725a8ea9d",
+      "visualReview": "Reviewed smooth cream-to-red gradient and top lip; small marks sample contiguous I-face rows without corner artifacts."
+    },
+    "grass": {
+      "sourceSHA256": "abc29502d7d3d87863440076fe0e14efc5184cb21e57a9ab6b916fdaf4469c5d",
+      "outputSHA256": "942227c42f58a9e2098d262d1938bb5971608e449fe4fa42be8ffe9707d1805e",
+      "visualReview": "Reviewed green turf pixels, lighter lip and brown soil caps; added signs copy upper turf at native scale."
+    },
+    "grass_side": {
+      "sourceSHA256": "d7a594b897a8f91b456355bba4edb50153c2445ada3888197de1fe1363f87fb1",
+      "outputSHA256": "af2ad64ba01a918d5722fe974b27645f88807c7d5925c5be33b89572e134d183",
+      "visualReview": "Reviewed grass-to-soil side transition and soil lower caps; source native block pattern retained."
+    },
+    "grass_side_flowers": {
+      "sourceSHA256": "cfa8b40cdd05bf65531f77d4398da2cc9f52a44b0ea598d657a1ec591448104f",
+      "outputSHA256": "24546eadab77a824a6b72c6545efb2ec799adee84ba3470057995b431d383917",
+      "visualReview": "Reviewed grass-side flower variant separately, retaining petal colors, turf lip and dirt shading in the added glyphs."
+    }
+  }
+}
