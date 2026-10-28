@@ -6170,7 +6170,7 @@
                       })
                       .join(" ")
                       .replace(/[😩😳]/g, "")}</div>
-                    <p style="margin-top:10px">You can use an uppercase <code>A</code> to get the <code>a</code> with the creeper face.</p>
+                    <p style="margin-top:10px">You can use an uppercase <code>A</code> to get the <code>a</code> with the creeper face.${font === "minecraft-ten-vietnamese" ? " The same applies to accented uppercase <code>A</code>, such as <code>Ầ</code> to get <code>ầ</code> with the creeper face." : ""}</p>
                   </div>
                 `,
                 },
@@ -7552,7 +7552,11 @@
         fonts[args.font].characters,
       ).entries()) {
         const regions = collectTileableUVRegions(
-          char, fonts[args.font], uvScaleW, uvScaleH, res,
+          char,
+          fonts[args.font],
+          uvScaleW,
+          uvScaleH,
+          res,
         );
         for (const faceUV of regions.middle) {
           const area = new CanvasFrame(
@@ -7942,7 +7946,9 @@
     if (wordLength === 1) {
       character = parent;
     } else {
-      character = new Group(charMap[char] ? charMap[char] : makeName(char, args.font));
+      character = new Group(
+        charMap[char] ? charMap[char] : makeName(char, args.font),
+      );
       character.addTo(parent).init();
     }
     const heightOffset = fonts[args.font].height;
@@ -8091,8 +8097,16 @@
           const bands = kind === "middle" ? font.faces : font.ends;
           const row = bands.findIndex((band) => {
             const lo = band[kind === "bottom" ? 2 : 0] * res;
-            const hi = band[kind === "middle" ? band.length - 1 : kind === "top" ? 1 : 3] * res;
-            return mapped[1] >= lo && mapped[1] <= hi && mapped[3] >= lo && mapped[3] <= hi;
+            const hi =
+              band[
+                kind === "middle" ? band.length - 1 : kind === "top" ? 1 : 3
+              ] * res;
+            return (
+              mapped[1] >= lo &&
+              mapped[1] <= hi &&
+              mapped[3] >= lo &&
+              mapped[3] <= hi
+            );
           });
           if (row < 0) continue;
           const band = bands[row];
@@ -8105,9 +8119,12 @@
               Math.min(mapped[0], mapped[2]),
               band[kind === "bottom" ? 2 : 0] * res,
               Math.max(mapped[0], mapped[2]),
-              band[kind === "middle" ? band.length - 1 : kind === "top" ? 1 : 3] * res,
+              band[
+                kind === "middle" ? band.length - 1 : kind === "top" ? 1 : 3
+              ] * res,
             ];
-            if (kind === "middle") region.push(band.length === 4 ? (band[1] - band[0]) * res : null);
+            if (kind === "middle")
+              region.push(band.length === 4 ? (band[1] - band[0]) * res : null);
             groups[kind].set(row, region);
           }
           // Match the original priority: front, then top, then bottom.
@@ -8126,12 +8143,18 @@
           cap[0] = Math.min(cap[0], front[0]);
           cap[2] = Math.max(cap[2], front[2]);
         } else {
-          groups[kind].set(row, [front[0], end[kind === "top" ? 0 : 2] * res,
-            front[2], end[kind === "top" ? 1 : 3] * res]);
+          groups[kind].set(row, [
+            front[0],
+            end[kind === "top" ? 0 : 2] * res,
+            front[2],
+            end[kind === "top" ? 1 : 3] * res,
+          ]);
         }
       }
     }
-    return Object.fromEntries(Object.entries(groups).map(([kind, rows]) => [kind, [...rows.values()]]));
+    return Object.fromEntries(
+      Object.entries(groups).map(([kind, rows]) => [kind, [...rows.values()]]),
+    );
   }
 
   function prepareFontText(text, fontId) {
@@ -8146,10 +8169,10 @@
     if (!vietnamese) return text.toLowerCase().trim();
     // Uppercase accented A keys select Creeper models; lowercase keys select ordinary A.
     return Array.from(text, (char) =>
-      /^[ÀÁẢÃẠĂẰẮẲẴẶÂẦẤẨẪẬ]$/.test(char)
-        ? char
-        : char.toLowerCase(),
-    ).join("").trim();
+      /^[ÀÁẢÃẠĂẰẮẲẴẶÂẦẤẨẪẬ]$/.test(char) ? char : char.toLowerCase(),
+    )
+      .join("")
+      .trim();
   }
 
   async function getFontCharacters(id) {
