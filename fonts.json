@@ -189,7 +189,20 @@
       [64, 80, 110, 126],
       [128, 144, 188, 204]
     ],
-    "terminatorSpace": true
+    "terminatorSpace": true,
+    "variants": [
+      {
+        "id": "minecraft-five-vietnamese",
+        "name": "Vietnamese",
+        "author": "Ewan Howell & bl205vn",
+        "preview": "việ",
+        "faces": [
+          [16, 46],
+          [74, 80, 110, 110],
+          [144, 150, 180, 188]
+        ]
+      }
+    ]
   },
   {
     "id": "minecraft-sga",

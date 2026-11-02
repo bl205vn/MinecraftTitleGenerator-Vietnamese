@@ -802,8 +802,8 @@
   "fonts/minecraft-five-bold-cyrillic/thumbnails/debug.png": "b327dd64681c77ea1417431ce32e17b0aa0b51aa99e98d98b3fb37222d4b00d8",
   "fonts/minecraft-five-vietnamese/overlays/highlights_bottom.png": "8a089d2715fadfef168373ebe5bebf332a4a51cce9367a3688efa4b1d13e034f",
   "fonts/minecraft-five-vietnamese/overlays/highlights_top.png": "93aeb0054ad84a29e0c62daf31a9af93421f66ad246cf0c13c1c474bb039ea3c",
-  "fonts/minecraft-five-vietnamese/textures/edition.png": "1ca2af0388aa743ff4f4284aa511926219f6ea371524f5670c958c87f3c4a89e",
-  "fonts/minecraft-five-vietnamese/textures/flat.png": "7706b87bb37b68e83b199b4b459f8061876168d22124fb8183b979900a8175a9",
+  "fonts/minecraft-five-vietnamese/textures/edition.png": "27bd91170fd5a2458197ca4edf7429b008c867263dbd312132342d2157bcd603",
+  "fonts/minecraft-five-vietnamese/textures/flat.png": "5fa027132b8ca0b624f521e2b2a423035e32cae2840a1352780d9e663aff83b4",
   "fonts/minecraft-gui/overlays/highlights_bottom.png": "351e1c3b31200556b453048c3147ce9bbb60bdb2b4c2d24cb865b9971cb7840c",
   "fonts/minecraft-gui/overlays/highlights_top.png": "3626e39ad3a5dca83d3bd70f3647e02fffbbae33a3cde7cc37c8964d022d8e91",
   "fonts/minecraft-gui/overlays/outline.png": "83bb727ac8022920871c694239b3f86c37e267ee8e6f791982c118cf99b68eef",
@@ -1480,5 +1480,11 @@
   "shapes/sword/textures/iron.png": "a6c307707374f45a2318a8237348f05e180817c0d8f3ef9f444ceb2f19ecce30",
   "shapes/sword/textures/netherite.png": "54adc4efe871e2f0c0b61b58f364751eee657e315d63363d6a9042fe277323cd",
   "shapes/sword/textures/stone.png": "57bacc99b340a593cb8db36ae34f492999d56b344dd022426a42e493346656bb",
-  "shapes/sword/textures/wooden.png": "4f2eca8eb5bd01779bd72449fd6b35a15367b425eaccbee9aeeb51aa262050e0"
+  "shapes/sword/textures/wooden.png": "4f2eca8eb5bd01779bd72449fd6b35a15367b425eaccbee9aeeb51aa262050e0",
+  "fonts/minecraft-five-vietnamese/thumbnails/edition.png": "d8ca88686f2f63b3cbd85e27088f6e5c3b968df2283366908220155d63c37d0d",
+  "fonts/minecraft-five-vietnamese/thumbnails/flat.png": "1b21828e38a488b0bb2dbdc47fc61d72d4f4f2718f72d775233b6f521f5b625e",
+  "fonts/minecraft-five-vietnamese/thumbnails/highlights_bottom.png": "f540256e0c72d98bb5eee2a80ed82dba2e76be17fd6b015f8b950521881decff",
+  "fonts/minecraft-five-vietnamese/thumbnails/highlights_top.png": "29a8e1a70d502aa11f5d06f5638bf2f831e828822233d82dd9a41f0c08ac130a",
+  "fonts/minecraft-five-vietnamese/thumbnails/none.png": "5e009c034952dfffb7cd66039f20121e2b7868ee3122cbeb3f69aaeddaf5a0e8",
+  "fonts/minecraft-five-vietnamese/Các ký tự tiếng việt/Danh sách ký tự có dấu tiếng việt.png": "a20d9014e7562fd65ef62b311b21325b60772ede0b55f314cb341e240838992e"
 }

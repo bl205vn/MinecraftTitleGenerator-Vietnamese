@@ -1,14 +1,17 @@
-// Build only the Vietnamese font data. No thumbnail rendering or unrelated font writes.
-// node scripts/build-vietnamese-font-data.js [--apply]
+// Build one Vietnamese font's data. No thumbnail rendering or unrelated writes.
+// node scripts/build-vietnamese-font-data.js [--font minecraft-five-vietnamese] [--apply]
 import fs from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import {vietnameseHelperStems as helpers, vietnameseCreeperCharacters as creeperLetters, getVietnameseCharacterKey} from './vietnamese-character-map.js';
 import {fileURLToPath} from 'node:url';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-const font=path.join(root,'fonts/minecraft-ten-vietnamese');
+const args=process.argv.slice(2),fontArg=args.indexOf('--font');
+const fontId=fontArg<0?'minecraft-ten-vietnamese':args[fontArg+1];
+assert.ok(['minecraft-ten-vietnamese','minecraft-five-vietnamese'].includes(fontId));
+const font=path.join(root,'fonts',fontId);
 const apply=process.argv.includes('--apply');
-assert.ok(process.argv.slice(2).every(a=>a==='--apply'));
+assert.ok(args.every((a,i)=>a==='--apply'||a==='--font'||i===fontArg+1&&fontArg>=0));
 const aliases={asterisk:'*',backwardslash:'\\',colon:':',creeper:'😳',end:'┣',forwardslash:'/',greaterthan:'>',lessthan:'<',openquote:'😩',questionmark:'?',space:' ',spacer:'\u200b',start:'┫'};
 const output={},sources=new Map(),skipped=[];
 for(const file of fs.readdirSync(path.join(font,'characters')).sort()){

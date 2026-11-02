@@ -76,7 +76,7 @@ for (const font of fonts) {
   if (font.type === "font") {
     for (const file of fs.readdirSync(`../fonts/${font.id}/characters`)) {
       const stem = file.slice(0, -5)
-      const mapped = font.id === "minecraft-ten-vietnamese" ? getVietnameseCharacterKey(stem) : stem
+      const mapped = ["minecraft-ten-vietnamese", "minecraft-five-vietnamese"].includes(font.id) ? getVietnameseCharacterKey(stem) : stem
       if (mapped === null) continue
       const char = charMap[stem] ?? mapped
       font.characters[char] = JSON.parse(fs.readFileSync(`../fonts/${font.id}/characters/${file}`, "utf8")).elements

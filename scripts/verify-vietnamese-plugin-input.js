@@ -6,8 +6,9 @@ import vm from 'node:vm';
 import { vietnameseCreeperCharacters } from './vietnamese-character-map.js';
 
 const source = fs.readFileSync(new URL('../plugin/minecraft_title_generator.js', import.meta.url), 'utf8');
-const characters = JSON.parse(fs.readFileSync(new URL('../fonts/minecraft-ten-vietnamese/characters.json', import.meta.url), 'utf8'));
-const fontId = 'minecraft-ten-vietnamese';
+const fontId = process.argv[2] ?? 'minecraft-ten-vietnamese';
+assert.ok(['minecraft-ten-vietnamese','minecraft-five-vietnamese'].includes(fontId));
+const characters = JSON.parse(fs.readFileSync(new URL(`../fonts/${fontId}/characters.json`, import.meta.url), 'utf8'));
 const helper = source.match(/  function prepareFontText\(text, fontId\) \{[\s\S]*?\n  \}/)?.[0];
 const handler = source.match(/        onConfirm\(\) \{[\s\S]*?\n        \},\r?\n        async onBuild/)?.[0].replace(/,\r?\n        async onBuild$/, '');
 assert.ok(helper && handler, 'Cannot locate plugin input handler');
