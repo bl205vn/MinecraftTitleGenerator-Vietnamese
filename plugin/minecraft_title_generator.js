@@ -7491,10 +7491,13 @@
         }
       }
       ctx.fillStyle = `rgba(0, 0, 0, ${(100 - args.edgeBrightness) / 100})`;
+      ctx.save();
+      clipFontCapRegions(ctx, fonts[args.font], m);
       for (const end of fonts[args.font].ends) {
         ctx.fillRect(0, end[0] * m, canvas.width, end[1] * m - end[0] * m);
         ctx.fillRect(0, end[2] * m, canvas.width, end[3] * m - end[2] * m);
       }
+      ctx.restore();
       if (fonts[args.font].overlay && !args.disableFontOverlay) {
         await loadOverlay(args.font);
         ctx.globalCompositeOperation = "source-over";
@@ -7646,11 +7649,14 @@
               }
             }
           }
+          ctx.save();
+          clipFontCapRegions(ctx, fonts[args.font], res);
           ctx.fillStyle = "#fff";
           ctx.fillRect(topUV[0], topUV[1], area.width, area.height);
           ctx.drawImage(area.canvas, topUV[0], topUV[1]);
           ctx.fillStyle = `rgba(0, 0, 0, ${(100 - args.edgeBrightness) / 100})`;
           ctx.fillRect(topUV[0], topUV[1], area.width, area.height);
+          ctx.restore();
         }
         for (const bottomUV of regions.bottom) {
           const area = new CanvasFrame(
@@ -7681,11 +7687,14 @@
               }
             }
           }
+          ctx.save();
+          clipFontCapRegions(ctx, fonts[args.font], res);
           ctx.fillStyle = "#fff";
           ctx.fillRect(bottomUV[0], bottomUV[1], area.width, area.height);
           ctx.drawImage(area.canvas, bottomUV[0], bottomUV[1]);
           ctx.fillStyle = `rgba(0, 0, 0, ${(100 - args.edgeBrightness) / 100})`;
           ctx.fillRect(bottomUV[0], bottomUV[1], area.width, area.height);
+          ctx.restore();
         }
       }
       if (fonts[args.font].overlay && !args.disableFontOverlay) {
@@ -7715,10 +7724,13 @@
     if (args.customEdge) {
       ctx.globalCompositeOperation = "source-atop";
       ctx.fillStyle = args.customEdgeColour;
+      ctx.save();
+      clipFontCapRegions(ctx, fonts[args.font], m);
       for (const row of fonts[args.font].ends) {
         ctx.fillRect(0, row[0] * m, canvas.width, (row[1] - row[0]) * m);
         ctx.fillRect(0, row[2] * m, canvas.width, (row[3] - row[2]) * m);
       }
+      ctx.restore();
     }
     if (args.customOverlay || (args.overlay && args.overlay !== "none")) {
       const overlay = await loadImage(
@@ -8084,6 +8096,17 @@
           count: 999999999,
         });
     }
+  }
+
+  function clipFontCapRegions(ctx, font, scale) {
+    if (!font.capExclusions?.length) return;
+    // Some front UV cells intentionally occupy a cap's atlas row. Preserve
+    // their already-painted front material when shading or painting caps.
+    ctx.beginPath();
+    ctx.rect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    for (const [x, y, width, height] of font.capExclusions)
+      ctx.rect(x * scale, y * scale, width * scale, height * scale);
+    ctx.clip("evenodd");
   }
 
   function collectTileableUVRegions(character, font, uvScaleW, uvScaleH, res) {

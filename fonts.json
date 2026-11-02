@@ -196,6 +196,7 @@
         "name": "Vietnamese",
         "author": "Ewan Howell & bl205vn",
         "preview": "việ",
+        "capExclusions": [[924, 74, 6, 6]],
         "faces": [
           [16, 46],
           [74, 80, 110, 110],
