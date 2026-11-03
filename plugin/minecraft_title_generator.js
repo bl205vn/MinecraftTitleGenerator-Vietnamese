@@ -5240,6 +5240,7 @@
               return new Promise((fulfil) => (finish = fulfil));
             },
             async makePreview() {
+              if (fonts[this.font].bakedPanels) return queueBakedBlockPreview(this);
               this.scene.remove(...this.scene.children);
 
               const texture = await makeTexture(getArgs(this, true));
@@ -5485,6 +5486,7 @@
               this.renderer.render(this.scene, this.camera);
             },
             updatePreview() {
+              if (fonts[this.font].bakedPanels) { queueBakedBlockPreview(this); return; }
               setTimeout(async () => {
                 if (this.updating) {
                   this.update = true;
@@ -6170,7 +6172,7 @@
                       })
                       .join(" ")
                       .replace(/[😩😳]/g, "")}</div>
-                    <p style="margin-top:10px">You can use an uppercase <code>A</code> to get the <code>a</code> with the creeper face.${["minecraft-ten-vietnamese", "minecraft-five-vietnamese", "minecraft-five-bold-vietnamese"].includes(font) ? " The same applies to accented uppercase <code>A</code>, such as <code>Ầ</code> to get <code>ầ</code> with the creeper face." : ""}</p>
+                    <p style="margin-top:10px">You can use an uppercase <code>A</code> to get the <code>a</code> with the creeper face.${["minecraft-ten-vietnamese", "minecraft-five-vietnamese", "minecraft-five-bold-vietnamese", "minecraft-five-bold-block-vietnamese"].includes(font) ? " The same applies to accented uppercase <code>A</code>, such as <code>Ầ</code> to get <code>ầ</code> with the creeper face." : ""}</p>
                   </div>
                 `,
                 },
@@ -7251,8 +7253,320 @@
     return data;
   }
 
+
+  // BEGIN BAKED BLOCK PANELS
+  // Source atlases remain editable. Only glyphs used by this insertion are packed.
+  function bakedBlockBounds(elements) {
+    return [0, 1, 2].map(axis => [
+      Math.min(...elements.flatMap(e => [e.from[axis], e.to[axis]])),
+      Math.max(...elements.flatMap(e => [e.from[axis], e.to[axis]])),
+    ]);
+  }
+
+  function bakedBlockFaceUV(element, side, point) {
+    const [x, y, z] = point.map((v, i) => (v - element.from[i]) / (element.to[i] - element.from[i]));
+    let [u, v] = side === "north" ? [1 - x, 1 - y]
+      : side === "south" ? [x, 1 - y] : side === "up" ? [x, z]
+      : side === "down" ? [x, 1 - z] : side === "east" ? [1 - z, 1 - y] : [z, 1 - y];
+    const face = element.faces[side], box = face.uv ?? face;
+    if (face.rotation === 180) { u = 1 - u; v = 1 - v; }
+    return [box[0] + u * (box[2] - box[0]), box[1] + v * (box[3] - box[1])];
+  }
+
+  function bakeBlockPanels(font, text, args, sourceCanvas, maskCanvas) {
+    const config = font.bakedPanels, [pageWidth, pageHeight] = config.pageSize;
+    const scale = sourceCanvas.width / font.textureWidth;
+    if (!Number.isInteger(scale) || scale < 1 || sourceCanvas.height !== font.textureHeight * scale)
+      throw Error("Block texture must use the source atlas layout at 1000×320, 2000×640 or 4000×1280.");
+    const source = sourceCanvas.getContext("2d").getImageData(0, 0, sourceCanvas.width, sourceCanvas.height);
+    const mask = maskCanvas.getContext("2d").getImageData(0, 0, font.textureWidth, font.textureHeight);
+    const pixel = (image, x, y) => {
+      x = Math.max(0, Math.min(image.width - 1, Math.floor(x + 1e-7)));
+      y = Math.max(0, Math.min(image.height - 1, Math.floor(y + 1e-7)));
+      return image.data.subarray((y * image.width + x) * 4, (y * image.width + x) * 4 + 4);
+    };
+    const facePixel = (image, e, side, point) => {
+      const q = bakedBlockFaceUV(e, side, point);
+      return pixel(image, q[0] * image.width / 16, q[1] * image.height / 16);
+    };
+    const definitions = new Map();
+    for (const char of Array.from(text)) {
+      if (definitions.has(char) || !font.characters[char]?.length) continue;
+      const elements = structuredClone(font.characters[char]);
+      if (char === "\u200b" && args.spacerWidth) for (const e of elements)
+        if (e.to[0] > e.from[0]) e.to[0] += args.spacerWidth;
+        else e.from[0] += args.spacerWidth;
+      definitions.set(char, { elements, bounds: bakedBlockBounds(elements) });
+    }
+    if (!definitions.size) throw Error("No supported characters in the text.");
+    const rowBottom = Math.min(...Array.from(definitions.values(), d => d.bounds[1][0]));
+    const rowTop = Math.max(...Array.from(definitions.values(), d => d.bounds[1][1]));
+    if (rowBottom < config.frameY[0] || rowTop > config.frameY[1])
+      throw Error("The glyphs exceed the shared background frame. Update bakedPanels.frame/frameY with the atlas.");
+    const pages = [], models = new Map(), [fx, fy, fw, fh] = config.frame;
+    let packing;
+    const addPage = () => {
+      const frame = new CanvasFrame(pageWidth * scale, pageHeight * scale);
+      frame.ctx.imageSmoothingEnabled = false;
+      pages.push(frame); packing = { x: scale, y: scale, height: 0 };
+      return frame;
+    };
+    addPage();
+    const set = (image, x, y, color) => image.data.set(color, (y * image.width + x) * 4);
+    const normalized = (x0, y0, x1, y1) => [x0 / (pageWidth * scale) * 16,
+      y0 / (pageHeight * scale) * 16, x1 / (pageWidth * scale) * 16, y1 / (pageHeight * scale) * 16];
+    for (const [char, definition] of definitions) {
+      const { elements, bounds } = definition, [[a, c], [oldBottom, oldTop], [z0, z1]] = bounds;
+      const width = c - a, height = rowTop - rowBottom, depth = z1 - z0;
+      const wp = Math.ceil(width * scale), hp = Math.ceil(height * scale), dp = Math.ceil(depth * scale);
+      const sides = ["east", "west"].filter(side => elements.some(e => e.faces[side]));
+      const slotWidth = wp + sides.length * dp, slotHeight = hp + dp * 2;
+      if (slotWidth + scale * 2 > pageWidth * scale || slotHeight + scale * 3 > pageHeight * scale)
+        throw Error("A glyph is too large for an output texture page.");
+      if (packing.x + slotWidth + scale > pageWidth * scale) {
+        packing.y += packing.height + scale * 2; packing.x = scale; packing.height = 0;
+      }
+      if (packing.y + slotHeight + scale * 2 > pageHeight * scale) addPage();
+      const page = pages[pages.length - 1], tx = packing.x, ty = packing.y;
+      const tile = page.ctx.createImageData(slotWidth, slotHeight);
+      const expanded = oldBottom !== rowBottom || oldTop !== rowTop;
+      const sourceAt = (side, x, y, z) => {
+        const e = elements.find(e => e.faces[side]
+          && x >= Math.min(e.from[0], e.to[0]) - 1e-7 && x <= Math.max(e.from[0], e.to[0]) + 1e-7
+          && y >= Math.min(e.from[1], e.to[1]) - 1e-7 && y <= Math.max(e.from[1], e.to[1]) + 1e-7
+          && (side === "up" ? Math.abs(e.to[1] - y) < 1e-7
+            : side === "down" ? Math.abs(e.from[1] - y) < 1e-7 : true));
+        return e;
+      };
+      for (let y = 0; y < hp; y++) for (let x = 0; x < wp; x++) {
+        const worldX = c - (x + .5) / wp * width, worldY = rowTop - (y + .5) / hp * height;
+        const e = sourceAt("north", worldX, worldY, (z0 + z1) / 2);
+        let color;
+        if (e) {
+          const point = [worldX, worldY, (z0 + z1) / 2];
+          const ink = facePixel(mask, e, "north", point);
+          if (!expanded || ink[0] === 255 && ink[1] === 255 && ink[2] === 255 && ink[3] === 255)
+            color = facePixel(source, e, "north", point);
+        }
+        if (!color) {
+          const column = ((Math.floor((fw - width) / 2 + (c - worldX)) % fw) + fw) % fw;
+          color = pixel(source, (fx + column) * scale, (fy + depth + config.frameY[1] - worldY) * scale);
+        }
+        set(tile, x, dp + y, color);
+      }
+      for (let y = 0; y < dp; y++) for (let x = 0; x < wp; x++) {
+        const worldX = c - (x + .5) / wp * width, column = ((Math.floor((fw - width) / 2 + (c - worldX)) % fw) + fw) % fw;
+        for (const side of ["up", "down"]) {
+          const worldY = side === "up" ? oldTop : oldBottom;
+          const worldZ = side === "up" ? z1 - (y + .5) / dp * depth : z0 + (y + .5) / dp * depth;
+          const e = !expanded && sourceAt(side, worldX, worldY, worldZ);
+          const color = e ? facePixel(source, e, side, [worldX, worldY, worldZ])
+            : pixel(source, (fx + column) * scale, (side === "up" ? fy : fy + fh - depth) * scale + y);
+          set(tile, x, side === "up" ? y : dp + hp + y, color);
+        }
+      }
+      for (const [i, side] of sides.entries()) {
+        const e = elements.find(e => e.faces[side]);
+        for (let y = 0; y < hp; y++) for (let x = 0; x < dp; x++) {
+          const yy = oldTop - (y + .5) / hp * (oldTop - oldBottom);
+          const zz = side === "east" ? z1 - (x + .5) / dp * depth : z0 + (x + .5) / dp * depth;
+          set(tile, wp + i * dp + x, dp + y, facePixel(source, e, side,
+            [side === "east" ? e.to[0] : e.from[0], yy, zz]));
+        }
+      }
+      page.ctx.putImageData(tile, tx, ty);
+      // Extend edge texels into the one-source-pixel gutter.
+      page.ctx.drawImage(page.canvas, tx, ty, slotWidth, 1, tx, ty - scale, slotWidth, scale);
+      page.ctx.drawImage(page.canvas, tx, ty + slotHeight - 1, slotWidth, 1, tx, ty + slotHeight, slotWidth, scale);
+      page.ctx.drawImage(page.canvas, tx, ty, 1, slotHeight, tx - scale, ty, scale, slotHeight);
+      page.ctx.drawImage(page.canvas, tx + slotWidth - 1, ty, 1, slotHeight, tx + slotWidth, ty, scale, slotHeight);
+      const faces = {
+        north: { uv: normalized(tx, ty + dp, tx + wp, ty + dp + hp) },
+        south: { uv: normalized(tx + wp, ty + dp, tx, ty + dp + hp) },
+        up: { uv: normalized(tx + wp, ty + dp, tx, ty) },
+        down: { uv: normalized(tx + wp, ty + slotHeight, tx, ty + dp + hp) },
+      };
+      for (const [i, side] of sides.entries()) faces[side] = { uv: normalized(tx + wp + i * dp,
+        ty + dp, tx + wp + (i + 1) * dp, ty + dp + hp) };
+      models.set(char, { page: pages.length - 1, elements: [{ name: "panel", from: [a, rowBottom, z0], to: [c, rowTop, z1], faces }] });
+      packing.x += slotWidth + scale * 2; packing.height = Math.max(packing.height, slotHeight);
+    }
+    const borderUV = normalized((pageWidth - 1) * scale, (pageHeight - 1) * scale, pageWidth * scale, pageHeight * scale);
+    for (const page of pages) page.ctx.drawImage(sourceCanvas, 0, font.border * scale, scale, scale,
+      (pageWidth - 1) * scale, (pageHeight - 1) * scale, scale, scale);
+    return { pages, models, borderUV, rowBottom, rowTop, pageWidth, pageHeight };
+  }
+
+  function bakedBlockInstances(font, text, args, baked) {
+    const out = [], type = args.type ?? "top", scale = [args.scaleX ?? 1, args.scaleY ?? 1, args.scaleZ ?? 1];
+    const lineHeight = Math.max(font.height, baked.rowTop - baked.rowBottom + 4);
+    let offset = 0, last;
+    for (const char of Array.from(text)) {
+      const definition = baked.models.get(char); if (!definition) continue;
+      if (!args.disableCharacterShifting && last && font.shifts?.[last + char]) offset -= font.shifts[last + char];
+      const cube = structuredClone(definition.elements[0]), width = cube.to[0] - cube.from[0], maxX = cube.to[0];
+      for (const key of ["from", "to"]) cube[key][0] -= offset + maxX;
+      if (type === "small") cube.to[2] -= 6;
+      const depth = cube.to[2] - cube.from[2], minZ = cube.from[2];
+      for (const key of ["from", "to"]) {
+        cube[key][2] -= minZ;
+        if (type === "bottom") {
+          cube[key][1] = (cube[key][1] * 2 - ((args.row ?? 0) * (lineHeight * 2 + 4)
+            + (args.rowSpacing ?? 0) * (args.row ?? 0) + lineHeight * 2 + 18)) * .75;
+          cube[key][0] *= .75; cube[key][2] = cube[key][2] * .75 - 8;
+        } else if (type === "small") {
+          cube[key][2] -= depth; cube[key] = cube[key].map(v => v * .35);
+          cube[key][1] -= (args.row ?? 0) * lineHeight * .35 + (args.rowSpacing ?? 0) * (args.row ?? 0);
+        } else {
+          cube[key][2] -= depth / 2;
+          cube[key][1] += (args.row ?? 0) * (lineHeight + 4) + (args.rowSpacing ?? 0) * (args.row ?? 0);
+        }
+      }
+      if (type === "bottom" && !font.flat) cube.to[2] += 24;
+      for (const key of ["from", "to"]) cube[key] = cube[key].map((v, i) => v * scale[i]);
+      out.push({ char, page: definition.page, cube });
+      offset += width + (args.characterSpacing ?? 0); last = char;
+    }
+    const bounds = bakedBlockBounds(out.map(r => r.cube)), center = (bounds[0][0] + bounds[0][1]) / 2;
+    for (const r of out) for (const key of ["from", "to"]) r.cube[key][0] -= center;
+    if (font.autoBorder) {
+      const pad = (scale[0] + scale[1]) * (type === "bottom" ? .75 : type === "small" ? .35 : 1);
+      const adjusted = bakedBlockBounds(out.map(r => r.cube));
+      out.push({ char: null, page: 0, cube: { name: "border", from: adjusted.map(b => b[1] + pad),
+        to: adjusted.map(b => b[0] - pad), faces: Object.fromEntries(["north", "south", "east", "west", "up", "down"].map(s => [s, { uv: baked.borderUV }])) } });
+    }
+    return out;
+  }
+
+  async function prepareBakedBlock(text, args) {
+    const font = fonts[args.font]; await getFontCharacters(args.font);
+    if (!args.debug && args.characterSpacing && font.characters["\u200b"]) {
+      text = Array.from(text).join("\u200b"); args = { ...args, spacerWidth: args.characterSpacing - 1, characterSpacing: 0 };
+    }
+    if (!args.debug && (args.terminators || font.forcedTerminators))
+      text = font.terminatorSpace ? `┫ ${text} ┣` : `┫${text}┣`;
+    const source = await makeTexture({ ...args, canvas: true, three: false });
+    if (!font.bakedMask) {
+      const image = await loadImage(await getTexture(font.textures, "flat"));
+      const frame = new CanvasFrame(font.textureWidth, font.textureHeight); frame.ctx.imageSmoothingEnabled = false;
+      frame.ctx.drawImage(image, 0, 0, frame.width, frame.height); font.bakedMask = frame.canvas;
+    }
+    const baked = bakeBlockPanels(font, text, args, source, font.bakedMask);
+    return { text, args, baked, instances: bakedBlockInstances(font, text, args, baked) };
+  }
+
+  async function addBakedBlockText(text, args) {
+    const prepared = await prepareBakedBlock(text, args), { baked, instances } = prepared;
+    const elements = [], textures = [];
+    Undo.initEdit({ outliner: true, elements, textures });
+    const pageTextures = baked.pages.map((page, i) => {
+      const data = page.canvas.toDataURL();
+      const cached = !args.ignoreTextureCheck && Texture.all.find(t => t.img.src === data);
+      if (cached) return cached;
+      const texture = new Texture({ name: `${args.name ?? makeName(text, args.font)}${baked.pages.length > 1 ? "_" + (i + 1) : ""}`,
+        uv_width: baked.pageWidth, uv_height: baked.pageHeight }).fromDataURL(data);
+      texture.add(); textures.push(texture); return texture;
+    });
+    const group = new Group(args.name ?? makeName(text, args.font)).addTo().init();
+    for (const item of instances) {
+      const parent = item.char === null ? group : new Group(charMap[item.char] ?? makeName(item.char, args.font)).addTo(group).init();
+      const faces = Object.fromEntries(["north", "south", "east", "west", "up", "down"].map(side => {
+        const face = item.cube.faces[side]; return [side, face ? { texture: pageTextures[item.page].uuid,
+          uv: face.uv.map((v, i) => v * (i % 2 ? baked.pageHeight : baked.pageWidth) / 16) } : { texture: null, uv: [0, 0, 0, 0] }];
+      }));
+      const cube = new Cube({ ...item.cube, faces, autouv: 0 }).addTo(parent).init(); elements.push(cube);
+    }
+    if (args.type === "bottom") group.rotation[0] = -90;
+    group.select(); Canvas.updateView({ elements, groups: [group] });
+    Undo.finishEdit("Add Minecraft title text"); updateSelection();
+    if (!args.ignoreStats) sendStats(args, true);
+    return { group, textures: pageTextures, baked };
+  }
+
+  async function makeBakedBlockPreview(vue) {
+    const args = getArgs(vue, true), text = prepareFontText(vue.text || "việt nam", vue.font);
+    const prepared = await prepareBakedBlock(text, { ...args, row: 0, ignoreStats: true });
+    const { baked, instances } = prepared;
+    if (vue.font !== args.font) return;
+    const oldMaterials = new Set();
+    for (const child of vue.scene.children) child.traverse?.(node => {
+      node.geometry?.dispose();
+      if (node.material) for (const material of Array.isArray(node.material) ? node.material : [node.material]) oldMaterials.add(material);
+    });
+    for (const material of oldMaterials) { material.map?.dispose(); material.dispose?.(); }
+    vue.scene.remove(...vue.scene.children);
+    const materials = baked.pages.map(page => {
+      const texture = new THREE.CanvasTexture(page.canvas); texture.colorSpace = THREE.SRGBColorSpace;
+      texture.magFilter = texture.minFilter = THREE.NearestFilter;
+      return new THREE.MeshBasicMaterial({ map: texture, transparent: true, alphaTest: .5 });
+    });
+    const group = new THREE.Group(), indexes = { north: 40, east: 0, south: 32, west: 8, up: 16, down: 24 };
+    for (const item of instances) {
+      const cube = item.cube, geometry = new THREE.BoxGeometry(...cube.to.map((v, i) => v - cube.from[i]));
+      const mesh = new THREE.Mesh(geometry, materials[item.page]);
+      mesh.position.fromArray(cube.to.map((v, i) => (v + cube.from[i]) / 2));
+      for (const [side, index] of Object.entries(indexes)) {
+        const face = cube.faces[side];
+        if (face) { const u = face.uv.map(v => v / 16), values = [[u[0], 1-u[1]], [u[2], 1-u[1]], [u[0], 1-u[3]], [u[2], 1-u[3]]];
+          values.forEach((v, i) => geometry.attributes.uv.array.set(v, index + i * 2));
+        } else for (let i = 0; i < 6; i++) geometry.index.array[index / 8 * 6 + i] = 0;
+      }
+      group.add(mesh);
+    }
+    if (args.type === "bottom") group.rotation.x = -Math.PI / 2;
+    vue.scene.add(group); vue.material = materials[0];
+    const sphere = new THREE.Box3().setFromObject(group).getBoundingSphere(new THREE.Sphere());
+    const halfFov = Math.atan(Math.tan(vue.camera.fov * Math.PI / 360) * Math.min(1, vue.camera.aspect));
+    const distance = Math.max(10, sphere.radius / Math.sin(halfFov) * 1.1);
+    vue.camera.position.copy(sphere.center).addScaledVector(new THREE.Vector3(0, -170, -320).normalize(), distance);
+    vue.camera.lookAt(sphere.center);
+    vue.renderer?.dispose();
+    vue.renderer = new THREE.WebGLRenderer({ alpha: true, canvas: vue.canvas, preserveDrawingBuffer: true });
+    vue.renderer.render(vue.scene, vue.camera);
+  }
+  async function queueBakedBlockPreview(vue) {
+    if (vue.bakedPreviewBuilding) { vue.bakedPreviewPending = true; return; }
+    vue.bakedPreviewBuilding = true;
+    try {
+      do { vue.bakedPreviewPending = false; await makeBakedBlockPreview(vue); }
+      while (vue.bakedPreviewPending && fonts[vue.font].bakedPanels);
+    } catch (error) { console.error(error); Blockbench.showQuickMessage(error.message, 6000); }
+    finally { vue.bakedPreviewBuilding = false; }
+  }
+
+  function paintBakedFrameGradient(ctx, font, args, scale) {
+    if (!font.bakedPanels) return;
+    const [x, y, w, h] = font.bakedPanels.frame, frontHeight = h - 32;
+    ctx.save(); ctx.globalCompositeOperation = "source-atop";
+    const stops = [[args.gradientColour0, 0],
+      args.gradientColour1Enabled ? [args.gradientColour1, .25] : null,
+      args.gradientColour2Enabled ? [args.gradientColour2, .5] : null,
+      args.gradientColour3Enabled ? [args.gradientColour3, .75] : null,
+      [args.gradientColour4, 1]].filter(Boolean);
+    if (args.smoothGradient) {
+      const gradient = ctx.createLinearGradient(0, (y + 16) * scale, 0, (y + h - 16) * scale);
+      for (const [color, stop] of stops) gradient.addColorStop(stop, color);
+      ctx.fillStyle = gradient; ctx.fillRect(x * scale, (y + 16) * scale, w * scale, frontHeight * scale);
+    } else for (let i = 0; i < stops.length; i++) {
+      const lo = i === 0 ? 0 : (stops[i-1][1] + stops[i][1]) / 2;
+      const hi = i === stops.length - 1 ? 1 : (stops[i][1] + stops[i+1][1]) / 2;
+      ctx.fillStyle = stops[i][0]; ctx.fillRect(x * scale, (y + 16 + lo * frontHeight) * scale, w * scale, (hi-lo) * frontHeight * scale);
+    }
+    ctx.fillStyle = args.gradientColour0; ctx.fillRect(x * scale, y * scale, w * scale, 16 * scale);
+    ctx.fillStyle = args.gradientColour4; ctx.fillRect(x * scale, (y + h - 16) * scale, w * scale, 16 * scale);
+    ctx.fillStyle = `rgba(0,0,0,${(100 - (args.edgeBrightness ?? 100)) / 100})`;
+    ctx.fillRect(x * scale, y * scale, w * scale, 16 * scale);
+    ctx.fillRect(x * scale, (y + h - 16) * scale, w * scale, 16 * scale); ctx.restore();
+  }
+
+  // END BAKED BLOCK PANELS
+
   async function addText(text, args) {
     args.text = text;
+    if (fonts[args.font].bakedPanels) {
+      try { return await addBakedBlockText(text, args); }
+      catch (error) { console.error(error); Blockbench.showQuickMessage(error.message, 6000); return; }
+    }
     const elements = [];
     const textures = [];
     Undo.initEdit({
@@ -7498,6 +7812,7 @@
         ctx.fillRect(0, end[2] * m, canvas.width, end[3] * m - end[2] * m);
       }
       ctx.restore();
+      paintBakedFrameGradient(ctx, fonts[args.font], args, m);
       if (fonts[args.font].overlay && !args.disableFontOverlay) {
         await loadOverlay(args.font);
         ctx.globalCompositeOperation = "source-over";
@@ -7731,6 +8046,11 @@
         ctx.fillRect(0, row[2] * m, canvas.width, (row[3] - row[2]) * m);
       }
       ctx.restore();
+      if (fonts[args.font].bakedPanels) {
+        const [x, y, w, h] = fonts[args.font].bakedPanels.frame;
+        ctx.fillRect(x * m, y * m, w * m, 16 * m);
+        ctx.fillRect(x * m, (y + h - 16) * m, w * m, 16 * m);
+      }
     }
     if (args.customOverlay || (args.overlay && args.overlay !== "none")) {
       const overlay = await loadImage(
@@ -7761,12 +8081,19 @@
     if (args.customBorder) {
       ctx.globalCompositeOperation = "source-atop";
       ctx.fillStyle = args.customBorderColour;
+      ctx.save();
+      if (fonts[args.font].bakedPanels) {
+        const [x, y, w, h] = fonts[args.font].bakedPanels.frame;
+        ctx.beginPath(); ctx.rect(0, 0, canvas.width, canvas.height);
+        ctx.rect(x * m, y * m, w * m, h * m); ctx.clip("evenodd");
+      }
       ctx.fillRect(
         0,
         fonts[args.font].border * m,
         canvas.width,
         canvas.height - fonts[args.font].border * m,
       );
+      ctx.restore();
     }
     if (args.fadeToBorder) {
       if (canvas.width < fonts[args.font].textureWidth * 4) {
@@ -7787,6 +8114,13 @@
         m = canvas.width / fonts[args.font].textureWidth;
       }
       ctx.globalCompositeOperation = "source-atop";
+      const frameRegion = fonts[args.font].bakedPanels?.frame;
+      let savedFrame;
+      if (frameRegion) {
+        savedFrame = new CanvasFrame(frameRegion[2] * m, frameRegion[3] * m);
+        savedFrame.ctx.drawImage(canvas, frameRegion[0] * m, frameRegion[1] * m,
+          frameRegion[2] * m, frameRegion[3] * m, 0, 0, savedFrame.width, savedFrame.height);
+      }
       const height = fonts[args.font].ends[fonts[args.font].ends.length - 1][3];
       const border = ctx.getImageData(
         0,
@@ -7815,6 +8149,17 @@
       }
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width * m, height * m);
+      if (savedFrame) {
+        const [x, y, w, h] = frameRegion;
+        ctx.save(); ctx.beginPath(); ctx.rect(x * m, y * m, w * m, h * m); ctx.clip();
+        ctx.globalCompositeOperation = "copy"; ctx.drawImage(savedFrame.canvas, x * m, y * m);
+        ctx.globalCompositeOperation = "source-atop";
+        const fade = ctx.createLinearGradient(0, y * m, 0, (y + h) * m);
+        const rgb = [border[0], border[1], border[2]].join(",");
+        fade.addColorStop(0, `rgba(${rgb},1)`); fade.addColorStop(16 / h, `rgba(${rgb},0)`);
+        fade.addColorStop((h - 16) / h, `rgba(${rgb},0)`); fade.addColorStop(1, `rgba(${rgb},1)`);
+        ctx.fillStyle = fade; ctx.fillRect(x * m, y * m, w * m, h * m); ctx.restore();
+      }
     }
     if (args.canvas) return canvas;
     if (args.three) {
@@ -8034,7 +8379,7 @@
     str
       // Match the original Creeper naming: distinct model keys share lowercase labels.
       .replace(/[ÀÁẢÃẠĂẰẮẲẴẶÂẦẤẨẪẬ]/g, (char) =>
-        ["minecraft-ten-vietnamese", "minecraft-five-vietnamese", "minecraft-five-bold-vietnamese"].includes(fontId) ? char.toLowerCase() : char,
+        ["minecraft-ten-vietnamese", "minecraft-five-vietnamese", "minecraft-five-bold-vietnamese", "minecraft-five-bold-block-vietnamese"].includes(fontId) ? char.toLowerCase() : char,
       )
       .replace(/\s/g, "_")
       .replace(/😳/g, "a")
@@ -8099,23 +8444,41 @@
   }
 
   function clipFontCapRegions(ctx, font, scale) {
-    if (!font.capExclusions?.length) return;
+    const exclusions = [...(font.capExclusions ?? [])];
+    if (font.bakedPanels) {
+      const [x, y, w, h] = font.bakedPanels.frame;
+      exclusions.push([x, y + 16, w, h - 32]);
+    }
+    if (!exclusions.length) return;
     // Some front UV cells intentionally occupy a cap's atlas row. Preserve
     // their already-painted front material when shading or painting caps.
     ctx.beginPath();
     ctx.rect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    for (const [x, y, width, height] of font.capExclusions)
+    for (const [x, y, width, height] of exclusions)
       ctx.rect(x * scale, y * scale, width * scale, height * scale);
     ctx.clip("evenodd");
   }
 
   function collectTileableUVRegions(character, font, uvScaleW, uvScaleH, res) {
     const groups = { middle: new Map(), top: new Map(), bottom: new Map() };
+    const frameGroups = new Map();
     for (const cube of character) {
       for (const face of Object.values(cube.faces)) {
         const mapped = (face?.uv ?? face).map((value, i) =>
           Math.round(value * (i % 2 ? uvScaleH : uvScaleW)),
         );
+        if (font.bakedPanels) {
+          const [x, y, w, h] = font.bakedPanels.frame.map(v => v * res);
+          const loX = Math.min(mapped[0], mapped[2]), hiX = Math.max(mapped[0], mapped[2]);
+          const loY = Math.min(mapped[1], mapped[3]), hiY = Math.max(mapped[1], mapped[3]);
+          if (loX >= x && hiX <= x + w && loY >= y && hiY <= y + h) {
+            const cap = 16 * res;
+            if (loY >= y + cap && hiY <= y + h - cap) frameGroups.set("middle", [x, y + cap, x + w, y + h - cap, null]);
+            else if (hiY <= y + cap) frameGroups.set("top", [x, y, x + w, y + cap]);
+            else if (loY >= y + h - cap) frameGroups.set("bottom", [x, y + h - cap, x + w, y + h]);
+            continue;
+          }
+        }
         for (const kind of ["middle", "top", "bottom"]) {
           const bands = kind === "middle" ? font.faces : font.ends;
           const row = bands.findIndex((band) => {
@@ -8175,13 +8538,18 @@
         }
       }
     }
+    if (frameGroups.has("middle")) {
+      const [x, y, w, h] = font.bakedPanels.frame.map(v => v * res), cap = 16 * res;
+      frameGroups.set("top", [x, y, x + w, y + cap]);
+      frameGroups.set("bottom", [x, y + h - cap, x + w, y + h]);
+    }
     return Object.fromEntries(
-      Object.entries(groups).map(([kind, rows]) => [kind, [...rows.values()]]),
+      Object.entries(groups).map(([kind, rows]) => [kind, [...rows.values(), ...(frameGroups.has(kind) ? [frameGroups.get(kind)] : [])]]),
     );
   }
 
   function prepareFontText(text, fontId) {
-    const vietnamese = ["minecraft-ten-vietnamese", "minecraft-five-vietnamese", "minecraft-five-bold-vietnamese"].includes(fontId);
+    const vietnamese = ["minecraft-ten-vietnamese", "minecraft-five-vietnamese", "minecraft-five-bold-vietnamese", "minecraft-five-bold-block-vietnamese"].includes(fontId);
     // Compose accents before replacing A, including input such as A + breve + acute.
     if (vietnamese) text = text.normalize("NFC");
     text = text

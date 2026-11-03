@@ -8,7 +8,7 @@ import {fileURLToPath} from 'node:url';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const args=process.argv.slice(2),fontArg=args.indexOf('--font');
 const fontId=fontArg<0?'minecraft-ten-vietnamese':args[fontArg+1];
-assert.ok(['minecraft-ten-vietnamese','minecraft-five-vietnamese','minecraft-five-bold-vietnamese'].includes(fontId));
+assert.ok(['minecraft-ten-vietnamese','minecraft-five-vietnamese','minecraft-five-bold-vietnamese','minecraft-five-bold-block-vietnamese'].includes(fontId));
 const font=path.join(root,'fonts',fontId);
 const apply=process.argv.includes('--apply');
 assert.ok(args.every((a,i)=>a==='--apply'||a==='--font'||i===fontArg+1&&fontArg>=0));

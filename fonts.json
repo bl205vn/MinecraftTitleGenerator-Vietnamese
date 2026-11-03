@@ -107,7 +107,39 @@
     ],
     "autoBorder": true,
     "forcedTerminators": true,
-    "overlay": true
+    "overlay": true,
+    "variants": [
+      {
+        "id": "minecraft-five-bold-block-vietnamese",
+        "name": "Vietnamese",
+        "author": "Ewan Howell & bl205vn",
+        "preview": "việ",
+        "example": [
+          "việt nam",
+          "năm mới"
+        ],
+        "bakedPanels": {
+          "frame": [
+            575,
+            164,
+            48,
+            132
+          ],
+          "frameY": [
+            -12,
+            88
+          ],
+          "bodyY": [
+            2,
+            50
+          ],
+          "pageSize": [
+            1000,
+            320
+          ]
+        }
+      }
+    ]
   },
   {
     "id": "minecraft-ten-outline",
