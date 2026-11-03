@@ -4,7 +4,17 @@
       "author": "Ewan Howell & bl205vn"
     },
     "live": {
-      "author": "Ewan Howell"
+      "author": "Ewan Howell",
+      "bakedInkEffect": {
+        "offset": [
+          0,
+          1
+        ],
+        "sampleUV": [
+          48,
+          50
+        ]
+      }
     },
     "neon": {
       "author": "MCAlexisYT"
@@ -13,8 +23,19 @@
       "author": "Klayv",
       "variants": {
         "bedrock_button_unpressed": {
-          "name": "Bedrock Button (Unpressed)"
+          "name": "Bedrock Button (Unpressed)",
+          "bakedInkEffect": null
         }
+      },
+      "bakedInkEffect": {
+        "offset": [
+          2,
+          2
+        ],
+        "sampleUV": [
+          56,
+          33
+        ]
       }
     },
     "oak_planks": {
@@ -37,26 +58,102 @@
   "overlays": {
     "highlights_bottom": {
       "name": "Highlights (Bottom)",
-      "author": "Shrimpsnail"
+      "author": "Shrimpsnail",
+      "bakedEffect": {
+        "kind": "edge",
+        "top": [],
+        "bottom": [
+          [
+            42,
+            63
+          ]
+        ]
+      }
     },
     "highlights_top": {
       "name": "Highlights (Top)",
-      "author": "Shrimpsnail"
+      "author": "Shrimpsnail",
+      "bakedEffect": {
+        "kind": "edge",
+        "top": [
+          [
+            42,
+            16
+          ]
+        ],
+        "bottom": []
+      }
     },
     "drop_shadow": {
-      "author": "Ewan Howell"
+      "author": "Ewan Howell",
+      "bakedEffect": {
+        "kind": "shadow",
+        "offset": [
+          0,
+          1
+        ],
+        "sampleUV": [
+          48,
+          50
+        ]
+      }
     },
     "drop_shadow_left": {
       "name": "Drop Shadow (Left)",
-      "author": "Ewan Howell"
+      "author": "Ewan Howell",
+      "bakedEffect": {
+        "kind": "shadow",
+        "offset": [
+          -1,
+          1
+        ],
+        "sampleUV": [
+          63,
+          39
+        ]
+      }
     },
     "drop_shadow_right": {
       "name": "Drop Shadow (Right)",
-      "author": "Ewan Howell"
+      "author": "Ewan Howell",
+      "bakedEffect": {
+        "kind": "shadow",
+        "offset": [
+          1,
+          1
+        ],
+        "sampleUV": [
+          48,
+          50
+        ]
+      }
     },
     "bedrock": {
       "name": "Bedrock Button",
-      "author": "Klayv"
+      "author": "Klayv",
+      "bakedEffect": {
+        "kind": "edge",
+        "top": [
+          [
+            42,
+            16
+          ],
+          [
+            42,
+            17
+          ]
+        ],
+        "bottom": [
+          [
+            42,
+            63
+          ],
+          [
+            42,
+            62
+          ]
+        ]
+      }
     }
   }
 }

@@ -9,6 +9,7 @@ import path from "node:path"
 import sharp from "sharp"
 import fs from "node:fs"
 import { getVietnameseCharacterKey } from "./vietnamese-character-map.js"
+import { bakeBlockSurface } from "./baked-block-panels.js"
 
 const { THREE, loadTexture } = await getTHREE({ Canvas, Image, ImageData, fetch, Request, Response, Headers })
 
@@ -157,10 +158,36 @@ for (const font of fonts) {
       text = "a"
     }
 
-    addTitleText(scene, text, {
-      font: font.id,
-      texture
-    })
+    if (font.bakedPanels) {
+      const meta = JSON.parse(fs.readFileSync(`../fonts/${font.id}/textures.json`, "utf8"))
+      const options = {}
+      let sourceCanvas = texture.image
+      if (file[0] === "textures") {
+        let preset = meta.textures[file[1].slice(0, -4)]
+        if (!preset) for (const entry of Object.values(meta.textures))
+          if (entry.variants?.[file[1].slice(0, -4)]) preset = entry.variants[file[1].slice(0, -4)]
+        options._bakedInkEffect = preset?.bakedInkEffect
+      } else if (file[0] === "overlays" && meta.overlays[file[1].slice(0, -4)]?.bakedEffect) {
+        const image = await loadImage(`../fonts/${font.id}/overlays/${file[1]}`)
+        const raw = new Canvas(image.width, image.height)
+        raw.getContext("2d").drawImage(image, 0, 0)
+        options._bakedOverlay = { effect: meta.overlays[file[1].slice(0, -4)].bakedEffect,
+          image: raw.getContext("2d").getImageData(0, 0, image.width, image.height) }
+        options.overlayBlend = "source-over"; options.overlayOpacity = 100
+        sourceCanvas = overlayBackground
+      }
+      const mask = new Canvas(1000, 320)
+      mask.getContext("2d").drawImage(flat, 0, 0, 1000, 320)
+      const baked = bakeBlockSurface(font, text, sourceCanvas, mask, options)
+      if (baked.pages.length !== 1) throw Error("Font preview must fit one baked page")
+      const originalCharacters = font.characters
+      font.characters = Object.fromEntries([...baked.models].map(([ch, model]) => [ch,
+        model.elements.map(e => ({ ...e, faces: Object.fromEntries(Object.entries(e.faces).map(([side, face]) => [side, face.uv])) }))]))
+      try { addTitleText(scene, text, { font: font.id, texture: await loadTexture(baked.pages[0].canvas) }) }
+      finally { font.characters = originalCharacters }
+    } else {
+      addTitleText(scene, text, { font: font.id, texture })
+    }
 
     let canvas = await renderTitleScene(scene, camera, font.thumbnailConfig?.antialias ? scaleFactor * 2 : scaleFactor, font)
 

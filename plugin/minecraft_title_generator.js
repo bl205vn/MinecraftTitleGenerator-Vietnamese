@@ -7299,10 +7299,26 @@
       definitions.set(char, { elements, bounds: bakedBlockBounds(elements) });
     }
     if (!definitions.size) throw Error("No supported characters in the text.");
-    const rowBottom = Math.min(...Array.from(definitions.values(), d => d.bounds[1][0]));
-    const rowTop = Math.max(...Array.from(definitions.values(), d => d.bounds[1][1]));
+    let rowBottom = Math.min(...Array.from(definitions.values(), d => d.bounds[1][0]));
+    let rowTop = Math.max(...Array.from(definitions.values(), d => d.bounds[1][1]));
     if (rowBottom < config.frameY[0] || rowTop > config.frameY[1])
       throw Error("The glyphs exceed the shared background frame. Update bakedPanels.frame/frameY with the atlas.");
+    // Optional review layouts change only background bounds, never ink positions.
+    if (args._bakedLayout) {
+      let inkLo = Infinity, inkHi = -Infinity, mass = 0, moment = 0;
+      const counts = new Map(); for (const ch of Array.from(text)) counts.set(ch, (counts.get(ch) ?? 0) + 1);
+      for (const [char, def] of definitions) for (const e of def.elements) if (e.faces.north)
+        for (let y = Math.ceil(e.from[1]); y < e.to[1]; y++) for (let x = Math.ceil(e.from[0]); x < e.to[0]; x++) {
+          const ink = facePixel(mask, e, "north", [x + .5, y + .5, 8]);
+          if (ink[0] === 255 && ink[1] === 255 && ink[2] === 255 && ink[3] === 255) {
+            inkLo = Math.min(inkLo, y); inkHi = Math.max(inkHi, y + 1);
+            const count = counts.get(char); mass += count; moment += count * (y + .5);
+          }
+        }
+      if (mass && args._bakedLayout === "compact") {
+        rowBottom = Math.min(config.bodyY[0], inkLo - 4); rowTop = Math.max(config.bodyY[1], inkHi + 4);
+      } else if (mass && args._bakedLayout === "balanced") rowBottom = Math.min(rowBottom, Math.floor(2 * moment / mass - rowTop));
+    }
     const pages = [], models = new Map(), [fx, fy, fw, fh] = config.frame;
     let packing;
     const addPage = () => {
@@ -7329,6 +7345,7 @@
       if (packing.y + slotHeight + scale * 2 > pageHeight * scale) addPage();
       const page = pages[pages.length - 1], tx = packing.x, ty = packing.y;
       const tile = page.ctx.createImageData(slotWidth, slotHeight);
+      const inkPixels = new Uint8Array(wp * hp);
       const expanded = oldBottom !== rowBottom || oldTop !== rowTop;
       const sourceAt = (side, x, y, z) => {
         const e = elements.find(e => e.faces[side]
@@ -7341,18 +7358,30 @@
       for (let y = 0; y < hp; y++) for (let x = 0; x < wp; x++) {
         const worldX = c - (x + .5) / wp * width, worldY = rowTop - (y + .5) / hp * height;
         const e = sourceAt("north", worldX, worldY, (z0 + z1) / 2);
-        let color;
+        let color, isInk = false;
         if (e) {
           const point = [worldX, worldY, (z0 + z1) / 2];
           const ink = facePixel(mask, e, "north", point);
-          if (!expanded || ink[0] === 255 && ink[1] === 255 && ink[2] === 255 && ink[3] === 255)
+          isInk = ink[0] === 255 && ink[1] === 255 && ink[2] === 255 && ink[3] === 255;
+          if (!expanded || isInk)
             color = facePixel(source, e, "north", point);
         }
-        if (!color) {
+        const sourceUV = e && bakedBlockFaceUV(e, "north", [worldX, worldY, 8]);
+        const shared = !color || sourceUV && sourceUV[0] * font.textureWidth / 16 >= fx && sourceUV[0] * font.textureWidth / 16 < fx + fw;
+        if (!color || !isInk && shared && (y < 2 * scale || y >= hp - 2 * scale)) {
           const column = ((Math.floor((fw - width) / 2 + (c - worldX)) % fw) + fw) % fw;
-          color = pixel(source, (fx + column) * scale, (fy + depth + config.frameY[1] - worldY) * scale);
+          const frameRow = y < 2 * scale ? y / scale : y >= hp - 2 * scale ? fh - 2 * depth - (hp - y) / scale
+            : args._bakedLayout === "balanced" ? (rowTop - worldY) / height * (fh - 2 * depth) : config.frameY[1] - worldY;
+          color = pixel(source, (fx + column) * scale, (fy + depth + frameRow) * scale);
         }
+        inkPixels[y * wp + x] = isInk ? 1 : 0;
         set(tile, x, dp + y, color);
+      }
+      if (args._bakedInkEffect) {
+        const effect = args._bakedInkEffect, dx = Math.round(effect.offset[0] * scale), dy = Math.round(effect.offset[1] * scale);
+        const shadow = pixel(source, effect.sampleUV[0] * scale, effect.sampleUV[1] * scale);
+        for (let y = 0; y < hp; y++) for (let x = 0; x < wp; x++)
+          if (!inkPixels[y * wp + x] && x - dx >= 0 && x - dx < wp && y - dy >= 0 && y - dy < hp && inkPixels[(y-dy)*wp+x-dx]) set(tile, x, dp+y, shadow);
       }
       for (let y = 0; y < dp; y++) for (let x = 0; x < wp; x++) {
         const worldX = c - (x + .5) / wp * width, column = ((Math.floor((fw - width) / 2 + (c - worldX)) % fw) + fw) % fw;
@@ -7375,6 +7404,22 @@
         }
       }
       page.ctx.putImageData(tile, tx, ty);
+      if (args._bakedOverlay) {
+        const spec = args._bakedOverlay.effect, image = args._bakedOverlay.image, overlay = new CanvasFrame(wp, hp);
+        const data = overlay.ctx.createImageData(wp, hp);
+        const sample = uv => pixel(image, uv[0] * image.width / font.textureWidth, uv[1] * image.height / font.textureHeight);
+        if (spec.kind === "shadow") {
+          const dx = Math.round(spec.offset[0] * scale), dy = Math.round(spec.offset[1] * scale), color = sample(spec.sampleUV);
+          for (let y=0;y<hp;y++) for(let x=0;x<wp;x++) if(!inkPixels[y*wp+x]&&x-dx>=0&&x-dx<wp&&y-dy>=0&&y-dy<hp&&inkPixels[(y-dy)*wp+x-dx]) set(data,x,y,color);
+        } else {
+          for (const [edge, samples] of [["top",spec.top??[]],["bottom",spec.bottom??[]]]) for(let j=0;j<samples.length*scale;j++)
+            for(let x=0;x<wp;x++) set(data,x,edge==="top"?j:hp-1-j,sample(samples[Math.floor(j/scale)]));
+        }
+        overlay.ctx.putImageData(data,0,0); page.ctx.save();
+        page.ctx.globalCompositeOperation = args.overlayBlend ?? "overlay";
+        page.ctx.globalAlpha = (args.overlayOpacity ?? 100) / 100;
+        page.ctx.drawImage(overlay.canvas,tx,ty+dp);page.ctx.restore();
+      }
       // Extend edge texels into the one-source-pixel gutter.
       page.ctx.drawImage(page.canvas, tx, ty, slotWidth, 1, tx, ty - scale, slotWidth, scale);
       page.ctx.drawImage(page.canvas, tx, ty + slotHeight - 1, slotWidth, 1, tx, ty + slotHeight, slotWidth, scale);
@@ -7445,7 +7490,18 @@
     }
     if (!args.debug && (args.terminators || font.forcedTerminators))
       text = font.terminatorSpace ? `┫ ${text} ┣` : `┫${text}┣`;
-    const source = await makeTexture({ ...args, canvas: true, three: false });
+    const overlayEffect = !args.customOverlay && font.overlays?.[args.overlay]?.bakedEffect;
+    const source = await makeTexture({ ...args, overlay: overlayEffect ? "none" : args.overlay, canvas: true, three: false });
+    const texture = font.textures?.[args.texture], variant = texture?.variants?.[args.variant];
+    if (!args.customTexture && !args.tileable && !args.gradientColour0)
+      args = { ...args, _bakedInkEffect: variant && Object.hasOwn(variant,"bakedInkEffect") ? variant.bakedInkEffect : texture?.bakedInkEffect };
+    if (overlayEffect) {
+      const image = await loadImage(await getTexture(font.overlays,args.overlay)), overlay = new CanvasFrame(image.width,image.height);
+      overlay.ctx.drawImage(image,0,0);overlay.ctx.globalCompositeOperation=args.overlayColourBlend??"multiply";
+      overlay.ctx.fillStyle=args.overlayColour??"#fff";overlay.ctx.fillRect(0,0,image.width,image.height);
+      overlay.ctx.globalCompositeOperation="destination-in";overlay.ctx.drawImage(image,0,0);
+      args = { ...args, _bakedOverlay: { effect: overlayEffect, image: overlay.ctx.getImageData(0,0,image.width,image.height) } };
+    }
     if (!font.bakedMask) {
       const image = await loadImage(await getTexture(font.textures, "flat"));
       const frame = new CanvasFrame(font.textureWidth, font.textureHeight); frame.ctx.imageSmoothingEnabled = false;

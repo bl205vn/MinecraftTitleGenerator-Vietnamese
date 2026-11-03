@@ -37,8 +37,8 @@ Không sửa code ghép để thêm một texture thông thường. Nếu đổi
 
 ## Hiệu ứng và giới hạn
 
-- Texture có sẵn, atlas tùy chỉnh, gradient, texture khối lặp và overlay đều được xử lý trên atlas nguồn trước bước đóng gói. Overlay mới cũng phải theo atlas nguồn, không theo các trang đầu ra được tạo tạm.
-- Khi panel được nới cao, nền dùng khung chung và phần nét lấy theo mặt nạ Flat. Các hiệu ứng nằm ngoài nét chữ, như bóng vẽ tay quanh chữ, cần được kiểm tra riêng; không mặc định sao chép mọi điểm nền quanh từng chữ vào panel đã nới.
+- Màu/hoa văn được xử lý trên atlas nguồn. Sáu overlay có sẵn có thêm `bakedEffect` trong `textures.json`: bóng được đặt theo nét chữ đã ghép, highlight/bevel đặt ở mép panel cuối cùng. Các PNG overlay cũng được bổ sung vùng chữ/dấu mới. Overlay tự vẽ vẫn theo atlas nguồn; nếu cần bóng hoặc viền theo panel đã nới thì thêm mô tả `bakedEffect` tương ứng thay vì trông chờ cắt UV tự nhận dạng hiệu ứng.
+- Khi panel được nới cao, nền dùng khung chung và phần nét lấy theo mặt nạ Flat. Hai hàng mép trên/dưới được lấy từ đầu/cuối khung để không mất dải sáng/tối khi cắt nền. Live và Bedrock Button có `bakedInkEffect` gồm `offset` và `sampleUV`; màu bóng được đọc từ texture đang chọn, không gắn cứng trong code. Texture mới có bóng cùng kiểu có thể thêm mô tả này với tọa độ màu của chính nó. Các kiểu bóng vẽ tay khác vẫn cần kiểm tra riêng.
 - Khung hỗ trợ tọa độ Y **-12..88**, còn dữ liệu hiện tại nằm trong **-10..86**. Ký tự vượt khung cần cập nhật cấu hình/atlas.
 - Các lần chèn dòng độc lập vẫn dùng Text Row/Row Spacing. Những dòng có chiều cao khác nhau có thể cần chỉnh khoảng cách; đây không phải trình dàn trang nhiều dòng tự động.
 - Kiểm tra code và dữ liệu không thay thế bước duyệt thực tế trong Blockbench, đặc biệt Top/Bottom/Small, góc xiên và các texture mới.
@@ -61,3 +61,9 @@ Compile từ thư mục `scripts`:
 Hoặc chạy `scripts/compile.bat --font minecraft-five-bold-block-vietnamese`.
 
 Plugin hiện tải dữ liệu từ GitHub theo `repo`/`branch` ở đầu `plugin/minecraft_title_generator.js`. Compile chỉ tạo file local; muốn bản đang tải từ GitHub nhận thay đổi thì cần cập nhật các file build lên nhánh đó. Đừng đưa texture thử sinh ra trong `backups/` vào thư mục source.
+
+## Thumbnail và mẫu cân đối
+
+Compile của font này dùng cùng hàm ghép với plugin qua `scripts/baked-block-panels.js`, nên thumbnail có nền chung chiều cao và hiệu ứng giống luồng tạo chữ. Các font không có `bakedPanels` vẫn dùng cách compile cũ.
+
+Hai bố cục thử `compact` và `balanced` chỉ được tạo bởi `scripts/review-block-balance.js`, chưa làm mặc định trong hộp thoại. Chúng giữ nguyên nét/vị trí dấu; bản compact bớt đệm, bản balanced bù nền dưới theo trọng tâm nét của dòng.

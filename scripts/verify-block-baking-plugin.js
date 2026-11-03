@@ -8,6 +8,7 @@ import {Canvas as SkiaCanvas,Image,ImageData,loadImage} from 'skia-canvas';
 import getTHREE from 'node-three';
 import sharp from 'sharp';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),fontId='minecraft-five-bold-block-vietnamese',fontDir=path.join(root,'fonts',fontId),source=fs.readFileSync(path.join(root,'plugin/minecraft_title_generator.js'),'utf8');
+fs.mkdirSync(path.join(root,'backups'),{recursive:true});
 const review=fs.mkdtempSync(path.join(root,'backups/block-plugin-integration-test-'));fs.mkdirSync(path.join(review,'outputs'));
 const hash=f=>createHash('sha256').update(fs.readFileSync(f)).digest('hex'),protectedFiles=new Map();for(const sub of ['characters','textures','overlays'])for(const n of fs.readdirSync(path.join(fontDir,sub))){const f=path.join(fontDir,sub,n);if(fs.statSync(f).isFile())protectedFiles.set(f,hash(f));}
 const parent=JSON.parse(fs.readFileSync(path.join(root,'fonts.json'))).find(f=>f.id==='minecraft-five-bold-block'),variant=parent.variants.find(f=>f.id===fontId),font={...parent,...variant,textureWidth:1000,textureHeight:320,type:'font',characters:JSON.parse(fs.readFileSync(path.join(fontDir,'characters.json')))};delete font.variants;
@@ -49,6 +50,19 @@ for(const smoothGradient of [true,false]){const r=await api.prepareBakedBlock('a
 for(const randomize of [false,true]){const r=await api.prepareBakedBlock('aẳặ',args({tileable:'test',tileableRandomRotations:randomize,tileableRandomMirroring:randomize}));await r.baked.pages[0].canvas.saveAs(path.join(review,'outputs/tileable-'+randomize+'.png'));log('tileable '+randomize);}
 for(const overlay of Object.keys(font.overlays)){await api.prepareBakedBlock('aẳ',args({overlay}));log('overlay '+overlay);}
 for(const extra of [{customBorder:true,customBorderColour:'#abcdef'},{customEdge:true,customEdgeColour:'#fedcba'},{fadeToBorder:true}]){const r=await api.prepareBakedBlock('aẳặ',args(extra));await r.baked.pages[0].canvas.saveAs(path.join(review,'outputs',Object.keys(extra)[0]+'.png'));log(Object.keys(extra)[0]);}
+
+// Compare edge bands and deferred shadows against authored source samples.
+const flatControl=await api.prepareBakedBlock('aẳặ',args({texture:'flat'}));
+const readFront=(prepared,ch)=>{const d=prepared.baked.models.get(ch),e=d.elements[0],p=prepared.baked.pages[d.page],im=p.ctx.getImageData(0,0,p.width,p.height),u=e.faces.north.uv;return{width:Math.round((u[2]-u[0])*1000/16),height:Math.round((u[3]-u[1])*320/16),at:(x,y)=>pixel(im,u[0]+(x+.5)/1000*16,u[1]+(y+.5)/320*16)};};
+const shape=readFront(flatControl,'ẳ'),isInk=(x,y)=>x>=0&&x<shape.width&&y>=0&&y<shape.height&&shape.at(x,y).every(v=>v===255);
+for(const style of ['live','neon']){const p=await api.prepareBakedBlock('aẳặ',args({texture:style})),front=readFront(p,'ẳ'),source=await api.makeTexture(args({texture:style,canvas:true})),im=source.getContext('2d').getImageData(0,0,1000,320);
+assert.deepEqual(front.at(5,0),pixel(im,595/62.5,180/20));assert.deepEqual(front.at(5,front.height-1),pixel(im,595/62.5,279/20));log('authored edge bands survive height expansion '+style);}
+const shadowed=await api.prepareBakedBlock('aẳặ',args({texture:'live'})),shadowFront=readFront(shadowed,'ẳ'),liveCanvas=await api.makeTexture(args({texture:'live',canvas:true})),liveData=liveCanvas.getContext('2d').getImageData(0,0,1000,320),liveSpec=font.textures.live.bakedInkEffect;let shadowChecks=0;
+for(let y=0;y<shape.height;y++)for(let x=0;x<shape.width;x++)if(!isInk(x,y)&&isInk(x,y-1)){assert.deepEqual(shadowFront.at(x,y),pixel(liveData,liveSpec.sampleUV[0]/62.5,liveSpec.sampleUV[1]/20));shadowChecks++;}assert.ok(shadowChecks>30);log('Live shadow survives expanded compound glyph',{samples:shadowChecks});
+for(const id of ['drop_shadow','drop_shadow_left','drop_shadow_right']){const p=await api.prepareBakedBlock('aẳặ',args({overlay:id,overlayBlend:'source-over'})),front=readFront(p,'ẳ'),[dx,dy]=font.overlays[id].bakedEffect.offset;let tested=0;for(let y=0;y<shape.height;y++)for(let x=0;x<shape.width;x++)if(!isInk(x,y)&&isInk(x-dx,y-dy)){assert.deepEqual(front.at(x,y),[0,0,0,255]);tested++;}assert.ok(tested>30);log('composed overlay shadow '+id,{samples:tested});}
+for(const id of ['highlights_top','highlights_bottom']){const p=await api.prepareBakedBlock('aẳặ',args({overlay:id,overlayBlend:'source-over'})),front=readFront(p,'ẳ');assert.deepEqual(front.at(3,id==='highlights_top'?0:front.height-1),[255,255,255,255]);log('overlay follows final edge '+id);}
+for(const layout of ['compact','balanced']){const p=await api.prepareBakedBlock('aẳặựẨ',args({_bakedLayout:layout}));assert.ok(p.baked.rowTop>p.baked.rowBottom);const front=readFront(p,'ẳ');assert.ok(front.height>0);log('review layout '+layout,{rowBottom:p.baked.rowBottom,rowTop:p.baked.rowTop});}
+
 const before=made.length,created=await api.addBakedBlockText('aẳặựẨ',args({type:'bottom'}));assert.equal(made.length-before,8);assert.equal(created.textures.length,1);assert.equal(created.group.rotation[0],-90);assert.ok(made.slice(before).every(e=>Object.values(e.faces).every(f=>f.texture===null||created.textures.some(t=>t.uuid===f.texture))));log('actual insertion one cube per character plus border');
 
 // Verify source-frame effects at the exact rows that cross the legacy border/caps.
