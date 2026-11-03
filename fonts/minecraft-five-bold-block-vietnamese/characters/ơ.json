@@ -1,0 +1,62 @@
+{
+	"credit": "By Ewan Howell & bl205vn",
+	"texture_size": [
+		1000,
+		320
+	],
+	"textures": {
+		"0": "minecraft-five-bold-block-vietnamese:flat"
+	},
+	"elements": [
+		{
+			"from": [
+				-13,
+				2,
+				0
+			],
+			"to": [
+				29,
+				50,
+				16
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						6.112,
+						9,
+						6.784,
+						11.4
+					],
+					"texture": "#0"
+				},
+				"south": {
+					"uv": [
+						6.784,
+						9,
+						6.112,
+						11.4
+					],
+					"texture": "#0"
+				},
+				"up": {
+					"uv": [
+						6.784,
+						9,
+						6.112,
+						8.2
+					],
+					"texture": "#0"
+				},
+				"down": {
+					"uv": [
+						6.784,
+						12.2,
+						6.112,
+						11.4
+					],
+					"texture": "#0"
+				}
+			}
+		}
+	]
+}
