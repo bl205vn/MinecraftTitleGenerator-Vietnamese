@@ -6170,7 +6170,7 @@
                       })
                       .join(" ")
                       .replace(/[😩😳]/g, "")}</div>
-                    <p style="margin-top:10px">You can use an uppercase <code>A</code> to get the <code>a</code> with the creeper face.${["minecraft-ten-vietnamese", "minecraft-five-vietnamese"].includes(font) ? " The same applies to accented uppercase <code>A</code>, such as <code>Ầ</code> to get <code>ầ</code> with the creeper face." : ""}</p>
+                    <p style="margin-top:10px">You can use an uppercase <code>A</code> to get the <code>a</code> with the creeper face.${["minecraft-ten-vietnamese", "minecraft-five-vietnamese", "minecraft-five-bold-vietnamese"].includes(font) ? " The same applies to accented uppercase <code>A</code>, such as <code>Ầ</code> to get <code>ầ</code> with the creeper face." : ""}</p>
                   </div>
                 `,
                 },
@@ -8034,7 +8034,7 @@
     str
       // Match the original Creeper naming: distinct model keys share lowercase labels.
       .replace(/[ÀÁẢÃẠĂẰẮẲẴẶÂẦẤẨẪẬ]/g, (char) =>
-        ["minecraft-ten-vietnamese", "minecraft-five-vietnamese"].includes(fontId) ? char.toLowerCase() : char,
+        ["minecraft-ten-vietnamese", "minecraft-five-vietnamese", "minecraft-five-bold-vietnamese"].includes(fontId) ? char.toLowerCase() : char,
       )
       .replace(/\s/g, "_")
       .replace(/😳/g, "a")
@@ -8181,7 +8181,7 @@
   }
 
   function prepareFontText(text, fontId) {
-    const vietnamese = ["minecraft-ten-vietnamese", "minecraft-five-vietnamese"].includes(fontId);
+    const vietnamese = ["minecraft-ten-vietnamese", "minecraft-five-vietnamese", "minecraft-five-bold-vietnamese"].includes(fontId);
     // Compose accents before replacing A, including input such as A + breve + acute.
     if (vietnamese) text = text.normalize("NFC");
     text = text

@@ -10,7 +10,7 @@ if exist "%NODE22%" (
 "%NODE22%" -e "if(process.versions.modules!=='127'){console.error('This build requires Node 22 (ABI 127). Install the project portable runtime or use a patched Node 22 release.');process.exit(1)}"
 if errorlevel 1 exit /b 1
 if /i "%~1"=="--check" goto check
-"%NODE22%" --experimental-import-meta-resolve compile.js
+"%NODE22%" --experimental-import-meta-resolve compile.js %*
 set "BUILD_EXIT=%ERRORLEVEL%"
 pause
 exit /b %BUILD_EXIT%

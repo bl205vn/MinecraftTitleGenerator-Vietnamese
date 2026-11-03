@@ -81,6 +81,12 @@
           [66, 82, 114, 130],
           [132, 148, 202, 218]
         ]
+      },
+      {
+        "id": "minecraft-five-bold-vietnamese",
+        "name": "Vietnamese",
+        "author": "Ewan Howell & bl205vn",
+        "preview": "việ"
       }
     ]
   },

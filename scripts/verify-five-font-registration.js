@@ -2,12 +2,15 @@
 import fs from 'node:fs';import assert from 'node:assert/strict';import vm from 'node:vm';
 import {fileURLToPath} from 'node:url';
 const root=new URL('../',import.meta.url),read=p=>fs.readFileSync(new URL(p,root),'utf8');
-const config=JSON.parse(read('fonts.json')),parent=config.find(f=>f.id==='minecraft-five');
-const variant=parent.variants.find(f=>f.id==='minecraft-five-vietnamese'),font={...parent,...variant};
-assert.equal(variant.name,'Vietnamese');assert.equal(variant.preview,'việ');assert.equal(font.height,34);assert.equal(font.border,206);
+const id=process.argv[2]??'minecraft-five-vietnamese';
+assert.ok(['minecraft-five-vietnamese','minecraft-five-bold-vietnamese'].includes(id));
+const bold=id==='minecraft-five-bold-vietnamese';
+const config=JSON.parse(read('fonts.json')),parent=config.find(f=>f.id===(bold?'minecraft-five-bold':'minecraft-five'));
+const variant=parent.variants.find(f=>f.id===id),font={...parent,...variant};
+assert.equal(variant.name,'Vietnamese');assert.equal(variant.preview,'việ');assert.equal(font.height,bold?36:34);assert.equal(font.border,bold?212:206);
 assert.equal(font.faces.length,font.ends.length);for(const band of font.faces)assert.ok([2,4].includes(band.length)&&band.every(Number.isFinite));
 const source=read('plugin/minecraft_title_generator.js'),snippet=source.match(/  function collectTileableUVRegions\([\s\S]*?\n  \}/)[0];
-const collect=vm.runInNewContext(snippet+'\ncollectTileableUVRegions;'),data=JSON.parse(read('fonts/minecraft-five-vietnamese/characters.json'));
+const collect=vm.runInNewContext(snippet+'\ncollectTileableUVRegions;'),data=JSON.parse(read(`fonts/${id}/characters.json`));
 let checked=0;
 for(const res of [1,2])for(const [char,elements]of Object.entries(data)){
  assert.equal([...char].length,1);

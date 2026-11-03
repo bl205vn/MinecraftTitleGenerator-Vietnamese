@@ -16,7 +16,12 @@ const w = 160
 const h = 96
 const alphaThreshold = 10
 
-fs.rmSync("temp", { recursive: true, force: true })
+// Optional scoped build: models/thumbnails for one font, without recompressing
+// unrelated source artwork. The regular compile.bat build remains unchanged.
+const args = process.argv.slice(2)
+const selectedFont = args.length === 2 && args[0] === "--font" ? args[1] : null
+if (args.length && (!selectedFont || !/^[a-z0-9-]+$/.test(selectedFont))) throw Error("Usage: node compile.js [--font font-id]")
+const tempDir = selectedFont ? `temp/${selectedFont}` : "temp"
 
 const charMap = {
   asterisk: "*",
@@ -70,13 +75,19 @@ for (const shape of shapes) {
 
 const shapeModels = {}
 
+if (selectedFont && !fonts.some(font => font.type === "font" && font.id === selectedFont)) throw Error(`Unknown font: ${selectedFont}`)
+const tempPath = path.resolve(tempDir)
+if (!tempPath.startsWith(path.resolve(".") + path.sep)) throw Error("Invalid build temporary path")
+fs.rmSync(tempPath, { recursive: true, force: true })
+
 for (const font of fonts) {
+  if (selectedFont && font.id !== selectedFont) continue
   font.characters = {}
 
   if (font.type === "font") {
     for (const file of fs.readdirSync(`../fonts/${font.id}/characters`)) {
       const stem = file.slice(0, -5)
-      const mapped = ["minecraft-ten-vietnamese", "minecraft-five-vietnamese"].includes(font.id) ? getVietnameseCharacterKey(stem) : stem
+      const mapped = ["minecraft-ten-vietnamese", "minecraft-five-vietnamese", "minecraft-five-bold-vietnamese"].includes(font.id) ? getVietnameseCharacterKey(stem) : stem
       if (mapped === null) continue
       const char = charMap[stem] ?? mapped
       font.characters[char] = JSON.parse(fs.readFileSync(`../fonts/${font.id}/characters/${file}`, "utf8")).elements
@@ -106,7 +117,7 @@ for (const font of fonts) {
   fs.writeFileSync(`../${font.type}s/${font.id}/textures.json`, JSON.stringify(JSON.parse(fs.readFileSync(`../${font.type}s/${font.id}/textures.json`)), null, 2) + "\n")
 
   fs.mkdirSync(`../${font.type}s/${font.id}/thumbnails`, { recursive: true })
-  fs.mkdirSync(`temp/${font.type}s/${font.id}/thumbnails`, { recursive: true })
+  fs.mkdirSync(`${tempDir}/${font.type}s/${font.id}/thumbnails`, { recursive: true })
 
   const textures = fs.readdirSync(`../${font.type}s/${font.id}/textures`).map(e => ["textures", e]).concat(fs.readdirSync(`../${font.type}s/${font.id}/overlays`).map(e => ["overlays", e]))
 
@@ -185,12 +196,12 @@ for (const font of fonts) {
 
     compressed[texturePath] = hash
 
-    await canvas.saveAs("temp/" + texturePath)
+    await canvas.saveAs(tempDir + "/" + texturePath)
     console.log(`Done ${font.id} ${file[1]}`)
   }
 }
 
-fs.writeFileSync("../shapes/shapes.json", JSON.stringify(shapeModels))
+if (!selectedFont) fs.writeFileSync("../shapes/shapes.json", JSON.stringify(shapeModels))
 
 console.log("Processed")
 console.log("Compressing textures...")
@@ -209,13 +220,14 @@ async function* getFiles(dir) {
 
 const toCompress = new Map
 
-for await (let file of getFiles("temp")) {
-  file = path.relative("./temp", file)
-  toCompress.set(path.join("../", file), path.join("temp", file))
+for await (let file of getFiles(tempDir)) {
+  file = path.relative(tempDir, file)
+  toCompress.set(path.join("../", file), path.join(tempDir, file))
 }
 
 const main = []
 
+if (!selectedFont) {
 for await (let file of getFiles("../fonts")) {
   if (!file.endsWith(".png")) continue
   main.push(path.relative("../", file))
@@ -229,6 +241,7 @@ for await (let file of getFiles("../tileables")) {
 for await (let file of getFiles("../shapes")) {
   if (!file.endsWith(".png")) continue
   main.push(path.relative("../", file))
+}
 }
 
 for (const file of main) {
