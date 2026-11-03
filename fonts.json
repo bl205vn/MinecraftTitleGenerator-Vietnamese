@@ -119,6 +119,7 @@
           "năm mới"
         ],
         "bakedPanels": {
+          "contentPadding": 6,
           "frame": [
             575,
             164,

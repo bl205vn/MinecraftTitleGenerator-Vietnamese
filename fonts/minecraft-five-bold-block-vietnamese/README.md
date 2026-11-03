@@ -66,4 +66,10 @@ Plugin hiện tải dữ liệu từ GitHub theo `repo`/`branch` ở đầu `plu
 
 Compile của font này dùng cùng hàm ghép với plugin qua `scripts/baked-block-panels.js`, nên thumbnail có nền chung chiều cao và hiệu ứng giống luồng tạo chữ. Các font không có `bakedPanels` vẫn dùng cách compile cũ.
 
-Hai bố cục thử `compact` và `balanced` chỉ được tạo bởi `scripts/review-block-balance.js`, chưa làm mặc định trong hộp thoại. Chúng giữ nguyên nét/vị trí dấu; bản compact bớt đệm, bản balanced bù nền dưới theo trọng tâm nét của dòng.
+Mặc định hiện tại: khe rời 4px giữa thân và dấu hoặc giữa hai dấu được thu xuống 2px. Giữ nguyên bitmap, vị trí thân chữ, các cụm dấu đang nối hoặc lồng vào nhau. Cả dòng có dấu dùng giới hạn nét thực tế cộng 6px trên/dưới (`bakedPanels.contentPadding`), tối thiểu 48px; dòng chữ thường không dấu giữ khung gốc 48px.
+
+Đã rà toàn bộ 81 model ghép dấu, kể cả Creeper. Nét cao nhất đạt Y=76 ở nhóm `ẳ/ẩ/ể/ổ` và Creeper tương ứng; dấu nặng thấp nhất Y=0. Một dòng chứa cả hai cực trị cần khung 88px. Không dùng riêng `ố` làm giới hạn chung. Các texture và overlay nguồn không đổi; runtime vẫn ghép nền và nét thành một cube cho mỗi ký tự.
+
+`scripts/compact-block-vietnamese-layout.js` mặc định chỉ tạo ứng viên và báo cáo trong `backups`; `--apply` mới cập nhật model. Script kiểm tra bitmap, UV từng điểm ảnh hai mặt, vị trí thân, cụm dấu nối và phần nền kín. Chạy lại sau khi áp dụng không tạo thay đổi tiếp. `scripts/review-block-compaction.js` tạo ảnh và BBModel trước/sau từ bản backup được ghi ở `backups/block-gap2-padding6-last.txt`.
+
+Hai bố cục cũ `compact` và `balanced` trong `scripts/review-block-balance.js` chỉ còn là công cụ thử nghiệm, không phải mặc định của hộp thoại.

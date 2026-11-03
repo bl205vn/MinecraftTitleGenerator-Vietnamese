@@ -7304,7 +7304,9 @@
     if (rowBottom < config.frameY[0] || rowTop > config.frameY[1])
       throw Error("The glyphs exceed the shared background frame. Update bakedPanels.frame/frameY with the atlas.");
     // Optional review layouts change only background bounds, never ink positions.
-    if (args._bakedLayout) {
+    const contentPadding = config.contentPadding;
+    const accentedRow = Number.isFinite(contentPadding) && Array.from(definitions.keys()).some(ch => Array.from(ch.normalize("NFD")).length > 1);
+    if (args._bakedLayout || accentedRow) {
       let inkLo = Infinity, inkHi = -Infinity, mass = 0, moment = 0;
       const counts = new Map(); for (const ch of Array.from(text)) counts.set(ch, (counts.get(ch) ?? 0) + 1);
       for (const [char, def] of definitions) for (const e of def.elements) if (e.faces.north)
@@ -7315,6 +7317,13 @@
             const count = counts.get(char); mass += count; moment += count * (y + .5);
           }
         }
+      if (mass && accentedRow) {
+        rowBottom = inkLo - contentPadding; rowTop = inkHi + contentPadding;
+        if (rowTop - rowBottom < 48) {
+          const extra = 48 - (rowTop - rowBottom);
+          rowBottom -= Math.floor(extra / 2); rowTop += Math.ceil(extra / 2);
+        }
+      }
       if (mass && args._bakedLayout === "compact") {
         rowBottom = Math.min(config.bodyY[0], inkLo - 4); rowTop = Math.max(config.bodyY[1], inkHi + 4);
       } else if (mass && args._bakedLayout === "balanced") rowBottom = Math.min(rowBottom, Math.floor(2 * moment / mass - rowTop));
