@@ -7,6 +7,7 @@ import {createHash,randomUUID} from 'node:crypto';
 import {Canvas as SkiaCanvas,Image,ImageData,loadImage} from 'skia-canvas';
 import getTHREE from 'node-three';
 import sharp from 'sharp';
+import createGL from 'gl';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),fontId='minecraft-five-bold-block-vietnamese',fontDir=path.join(root,'fonts',fontId),source=fs.readFileSync(path.join(root,'plugin/minecraft_title_generator.js'),'utf8');
 fs.mkdirSync(path.join(root,'backups'),{recursive:true});
 const review=fs.mkdtempSync(path.join(root,'backups/block-plugin-integration-test-'));fs.mkdirSync(path.join(review,'outputs'));
@@ -111,12 +112,15 @@ const futureCanvas=await api.makeTexture(args({texture:'future_test',canvas:true
 for(const[ch,def]of future.baked.models)for(const e of font.characters[ch])if(e.faces.north)for(let y=e.from[1];y<e.to[1];y++)for(let x=Math.ceil(e.from[0]);x<e.to[0];x++){const q=uv(e,'north',x+.25,y+.5);if(pixel(futureMaskPixels,...q).every(v=>v===255)){assert.deepEqual(pixel(futurePages[def.page],...uv(def.elements[0],'north',x+.25,y+.5)),pixel(futurePixels,...q));futureChecks++;}}
 assert.ok(futureChecks>500);log('new texture exact ink colors',{samples:futureChecks});
 const cachedCount=Texture.all.length;await api.addBakedBlockText('aẳặựẨ',args({type:'bottom'}));assert.equal(Texture.all.length,cachedCount);log('identical output reuses existing texture');
-const {THREE}=await getTHREE({Canvas:SkiaCanvas,Image,ImageData,fetch,Request,Response,Headers});let renders=0;
+const {THREE,loadTexture}=await getTHREE({Canvas:SkiaCanvas,Image,ImageData,fetch,Request,Response,Headers});let renders=0;
 context.THREE={...THREE,WebGLRenderer:class{render(scene,camera){assert.ok(scene.children.length);assert.ok(camera.position.toArray().every(Number.isFinite));renders++;}dispose(){}}};
 context.Blockbench={showQuickMessage(message){throw Error(message);}};
 const vue={...defaults,font:fontId,text:'aẳặựẨ',scene:new THREE.Scene(),camera:new THREE.PerspectiveCamera(45,640/360,.1,10000),canvas:new SkiaCanvas(640,360)};
-await api.makeBakedBlockPreview(vue);assert.equal(vue.scene.children[0].children.length,8);vue.type='bottom';vue.texture='neon';await api.makeBakedBlockPreview(vue);assert.equal(vue.scene.children[0].rotation.x,-Math.PI/2);
+await api.makeBakedBlockPreview(vue);assert.equal(vue.scene.children.length,2);assert.equal(vue.scene.children[0].name,'VĂN BẢN');assert.equal(vue.scene.children[1].name,'VÍ DỤ');const exampleSize=vue.scene.children.map(g=>g.children.length);vue.type='bottom';vue.text='IGNORED INPUT';vue.texture='neon';await api.makeBakedBlockPreview(vue);assert.deepEqual(vue.scene.children.map(g=>g.children.length),exampleSize);assert.equal(vue.scene.children[0].rotation.x,0);assert.equal(vue.scene.children[1].rotation.x,-Math.PI/2);const boxTop=new THREE.Box3().setFromObject(vue.scene.children[0]),boxBottom=new THREE.Box3().setFromObject(vue.scene.children[1]);assert.ok(!boxTop.intersectsBox(boxBottom),'Block example panels overlap');
 await Promise.all([api.queueBakedBlockPreview(vue),api.queueBakedBlockPreview(vue),api.queueBakedBlockPreview(vue)]);assert.equal(vue.bakedPreviewBuilding,false);assert.ok(renders>=4);log('actual Three scene preview and queued updates',{renders,gpuRendererMocked:true});
+// Render the fixed two-line example through real WebGL at an oblique angle.
+for(const group of vue.scene.children)for(const mesh of group.children){const old=mesh.material.map;const texture=await loadTexture(old.image);texture.flipY=true;texture.magFilter=texture.minFilter=THREE.NearestFilter;mesh.material.map=texture;}
+const previewGL=createGL(1000,500);assert.ok(previewGL);const previewRenderer=new THREE.WebGLRenderer({context:previewGL}),previewTarget=new THREE.WebGLRenderTarget(1000,500);previewRenderer.setSize(1000,500,false);previewRenderer.setRenderTarget(previewTarget);previewRenderer.render(vue.scene,vue.camera);const previewBytes=Buffer.alloc(1000*500*4);previewGL.readPixels(0,0,1000,500,previewGL.RGBA,previewGL.UNSIGNED_BYTE,previewBytes);assert.ok(previewBytes.some((v,i)=>i%4===3&&v));await sharp(previewBytes,{raw:{width:1000,height:500,channels:4}}).flip().png().toFile(path.join(review,'fixed-two-line-example.png'));previewGL.getExtension('STACKGL_destroy_context').destroy();log('fixed example GPU render');
 // Export models made by the actual insertion function for manual GUI acceptance.
 fs.mkdirSync(path.join(review,'blockbench'));
 for(const mode of ['top','bottom','small']){const start=made.length,result=await api.addBakedBlockText('aẳặựẨ',args({texture:'acacia_planks',type:mode,name:'integrated-'+mode})),cubes=made.slice(start),index=new Map(result.textures.map((t,i)=>[t.uuid,i])),elements=cubes.map(e=>({...e,type:'cube',box_uv:false,autouv:0,origin:[0,0,0],faces:Object.fromEntries(Object.entries(e.faces).map(([k,f])=>[k,{...f,texture:f.texture===null?null:index.get(f.texture)}]))}));

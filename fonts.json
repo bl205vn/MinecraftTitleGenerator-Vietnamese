@@ -35,6 +35,7 @@
         "preview": "việ",
         "example": ["VĂN BẢN", "VÍ DỤ"],
         "topBottomSpacing": 80,
+        "smallMainSpacing": 112,
         "border": 280,
         "faces": [
           [22, 62],
@@ -90,7 +91,8 @@
         "author": "Ewan Howell & bl205vn",
         "preview": "việ",
         "example": ["VĂN BẢN", "VÍ DỤ"],
-        "topBottomSpacing": 80
+        "topBottomSpacing": 80,
+        "smallMainSpacing": 112
       }
     ]
   },
@@ -238,6 +240,7 @@
         "preview": "việ",
         "example": ["VĂN BẢN", "VÍ DỤ"],
         "topBottomSpacing": 80,
+        "smallMainSpacing": 112,
         "capExclusions": [[924, 74, 6, 6]],
         "faces": [
           [16, 46],

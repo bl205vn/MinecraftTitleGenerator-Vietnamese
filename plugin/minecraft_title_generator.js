@@ -3303,6 +3303,7 @@
         characterSpacing: 0,
         rowSpacing: 0,
         topBottomSpacing: 0,
+        smallMainSpacing: 0,
         scaleX: 1,
         scaleY: 1,
         scaleZ: 1,
@@ -5127,7 +5128,7 @@
             resetVariables(type, page) {
               if (!variables[type][page]) return;
               for (const [k, v] of Object.entries(variables[type][page])) {
-                this[k] = k === "topBottomSpacing" ? fonts[this.font].topBottomSpacing ?? v : v;
+                this[k] = ["topBottomSpacing", "smallMainSpacing"].includes(k) ? fonts[this.font][k] ?? v : v;
               }
             },
             async reset(force, ignoreUpdate) {
@@ -5220,6 +5221,7 @@
               this.overlay = Object.keys(fonts[this.font].overlays)[0];
               this.characterSpacing = fonts[this.font].characterSpacing ?? 0;
               this.topBottomSpacing = fonts[this.font].topBottomSpacing ?? 0;
+              this.smallMainSpacing = fonts[this.font].smallMainSpacing ?? 0;
               if (!ignoreUpdate) this.buildPreview();
             },
             buildPreview() {
@@ -5280,6 +5282,8 @@
                   let min = Infinity;
                   let max = -Infinity;
                   const character = new THREE.Group();
+                  const smallMaxZ = args.type === "small" ? Math.max(...fonts[this.font].characters[char].flatMap(e =>
+                    e.to[2] > e.from[2] ? [e.from[2], e.to[2] - 6] : [e.from[2] - 6, e.to[2]])) : 0;
                   for (let cube of fonts[this.font].characters[char]) {
                     if (!cube.parsed) {
                       cube.parsed = true;
@@ -5291,6 +5295,10 @@
                     }
 
                     cube = JSON.parse(JSON.stringify(cube));
+                    if (args.type === "small") {
+                      if (cube.to[2] > cube.from[2]) cube.to[2] -= 6; else cube.from[2] -= 6;
+                      cube.from[2] -= smallMaxZ; cube.to[2] -= smallMaxZ;
+                    }
                     min = Math.min(min, cube.from[0], cube.to[0]);
                     max = Math.max(max, cube.from[0], cube.to[0]);
 
@@ -5455,6 +5463,11 @@
                   }
                 }
 
+                if (args.type === "small") {
+                  group.scale.setScalar(.35);
+                  group.position.y -= fonts[this.font].height * .35 + getSmallMainSpacing(fonts[this.font], this);
+                }
+                group.name = args.type ?? "top";
                 this.scene.add(group);
               };
 
@@ -5481,6 +5494,8 @@
                     type: "bottom",
                   });
                 }
+                if (this.type === "small" && fonts[this.font].smallMainSpacing !== undefined)
+                  addText(fonts[this.font].example?.[1] ?? "text", { type: "small" });
               } else {
                 addText("a");
               }
@@ -6441,7 +6456,7 @@
                 <h2>{{ fonts[font].type === 'font' ? 'Text' : 'Shape' }} Type / Angle</h2>
                 <p class="space-below">The type of {{ fonts[font].type === 'font' ? 'text' : 'shape' }} to add</p>
                 <a href="javascript:void(0)" id="text-type-input" @click="event.stopPropagation()">
-                  <select-input v-model="type" :options="types" @input="fadeToBorder = type === 'bottom' ? true : false; updatePreview()" />
+                  <select-input v-model="type" :options="types" @input="fadeToBorder = type === 'bottom' ? true : false; fonts[font].smallMainSpacing !== undefined ? buildPreview() : updatePreview()" />
                 </a>
                 <br>
                 <h2>{{ fonts[font].type === 'font' ? 'Text' : 'Shape' }} Row</h2>
@@ -6777,6 +6792,15 @@
                   <div class="bar slider_input_combo">
                     <input type="range" class="tool disp_range" v-model.number="topBottomSpacing" min="0" max="200" step="1" @input="buildPreview()" />
                     <numeric-input class="tool disp_text" v-model.number="topBottomSpacing" :min="0" :max="200" :step="1" @input="buildPreview()" />
+                  </div>
+                  <br>
+                </template>
+                <template v-if="fonts[font].smallMainSpacing !== undefined">
+                  <h2>Small / Main Spacing</h2>
+                  <p>Move Small text below Top and Bottom, including at row 0. Select Small to preview all three types.</p>
+                  <div class="bar slider_input_combo">
+                    <input type="range" class="tool disp_range" v-model.number="smallMainSpacing" min="0" max="200" step="1" @input="buildPreview()" />
+                    <numeric-input class="tool disp_text" v-model.number="smallMainSpacing" :min="0" :max="200" :step="1" @input="buildPreview()" />
                   </div>
                   <br>
                 </template>
@@ -7592,9 +7616,10 @@
   }
 
   async function makeBakedBlockPreview(vue) {
-    const args = getArgs(vue, true), text = prepareFontText(vue.text || fonts[vue.font].example?.join(" ") || "việt nam", vue.font);
-    const prepared = await prepareBakedBlock(text, { ...args, row: 0, ignoreStats: true });
-    const { baked, instances } = prepared;
+    const args = getArgs(vue, true), font = fonts[vue.font];
+    const examples = font.example ?? ["ex😳mple", "text"];
+    const preparedLines = await Promise.all(examples.slice(0, 2).map((text, i) =>
+      prepareBakedBlock(prepareFontText(text, vue.font), { ...args, type: i ? "bottom" : "top", row: 0, ignoreStats: true })));
     if (vue.font !== args.font) return;
     const oldMaterials = new Set();
     for (const child of vue.scene.children) child.traverse?.(node => {
@@ -7603,31 +7628,38 @@
     });
     for (const material of oldMaterials) { material.map?.dispose(); material.dispose?.(); }
     vue.scene.remove(...vue.scene.children);
-    const materials = baked.pages.map(page => {
-      const texture = new THREE.CanvasTexture(page.canvas); texture.colorSpace = THREE.SRGBColorSpace;
-      texture.magFilter = texture.minFilter = THREE.NearestFilter;
-      return new THREE.MeshBasicMaterial({ map: texture, transparent: true, alphaTest: .5 });
-    });
-    const group = new THREE.Group(), indexes = { north: 40, east: 0, south: 32, west: 8, up: 16, down: 24 };
-    for (const item of instances) {
-      const cube = item.cube, geometry = new THREE.BoxGeometry(...cube.to.map((v, i) => v - cube.from[i]));
-      const mesh = new THREE.Mesh(geometry, materials[item.page]);
-      mesh.position.fromArray(cube.to.map((v, i) => (v + cube.from[i]) / 2));
-      for (const [side, index] of Object.entries(indexes)) {
-        const face = cube.faces[side];
-        if (face) { const u = face.uv.map(v => v / 16), values = [[u[0], 1-u[1]], [u[2], 1-u[1]], [u[0], 1-u[3]], [u[2], 1-u[3]]];
-          values.forEach((v, i) => geometry.attributes.uv.array.set(v, index + i * 2));
-        } else for (let i = 0; i < 6; i++) geometry.index.array[index / 8 * 6 + i] = 0;
+    const allMaterials = [];
+    for (const [line, prepared] of preparedLines.entries()) {
+      const { baked, instances } = prepared;
+      const materials = baked.pages.map(page => {
+        const texture = new THREE.CanvasTexture(page.canvas); texture.colorSpace = THREE.SRGBColorSpace;
+        texture.magFilter = texture.minFilter = THREE.NearestFilter;
+        return new THREE.MeshBasicMaterial({ map: texture, transparent: true, alphaTest: .5 });
+      });
+      const group = new THREE.Group(), indexes = { north: 40, east: 0, south: 32, west: 8, up: 16, down: 24 };
+      for (const item of instances) {
+        const cube = item.cube, geometry = new THREE.BoxGeometry(...cube.to.map((v, i) => v - cube.from[i]));
+        const mesh = new THREE.Mesh(geometry, materials[item.page]);
+        mesh.position.fromArray(cube.to.map((v, i) => (v + cube.from[i]) / 2));
+        for (const [side, index] of Object.entries(indexes)) {
+          const face = cube.faces[side];
+          if (face) { const u = face.uv.map(v => v / 16), values = [[u[0], 1-u[1]], [u[2], 1-u[1]], [u[0], 1-u[3]], [u[2], 1-u[3]]];
+            values.forEach((v, i) => geometry.attributes.uv.array.set(v, index + i * 2));
+          } else for (let i = 0; i < 6; i++) geometry.index.array[index / 8 * 6 + i] = 0;
+        }
+        group.add(mesh);
       }
-      group.add(mesh);
+      if (line === 1) group.rotation.x = -Math.PI / 2;
+      group.name = examples[line];
+      vue.scene.add(group); allMaterials.push(...materials);
     }
-    if (args.type === "bottom") group.rotation.x = -Math.PI / 2;
-    vue.scene.add(group); vue.material = materials[0];
-    const sphere = new THREE.Box3().setFromObject(group).getBoundingSphere(new THREE.Sphere());
+    vue.material = allMaterials[0];
+    const sphere = new THREE.Box3().setFromObject(vue.scene).getBoundingSphere(new THREE.Sphere());
     const halfFov = Math.atan(Math.tan(vue.camera.fov * Math.PI / 360) * Math.min(1, vue.camera.aspect));
     const distance = Math.max(10, sphere.radius / Math.sin(halfFov) * 1.1);
     vue.camera.position.copy(sphere.center).addScaledVector(new THREE.Vector3(0, -170, -320).normalize(), distance);
     vue.camera.lookAt(sphere.center);
+    vue.camera.far = Math.max(vue.camera.far, distance + sphere.radius * 2); vue.camera.updateProjectionMatrix();
     vue.renderer?.dispose();
     vue.renderer = new THREE.WebGLRenderer({ alpha: true, canvas: vue.canvas, preserveDrawingBuffer: true });
     vue.renderer.render(vue.scene, vue.camera);
@@ -7733,6 +7765,7 @@
         spacerWidth: args.spacerWidth,
         rowSpacing: args.rowSpacing,
         topBottomSpacing: args.topBottomSpacing,
+        smallMainSpacing: args.smallMainSpacing,
         scale: [args.scaleX, args.scaleY, args.scaleZ],
         disableCharacterShifting: args.disableCharacterShifting,
         name: args.name,
@@ -7755,6 +7788,7 @@
             spacerWidth: args.spacerWidth,
             rowSpacing: args.rowSpacing,
             topBottomSpacing: args.topBottomSpacing,
+            smallMainSpacing: args.smallMainSpacing,
             scale: [args.scaleX, args.scaleY, args.scaleZ],
             disableCharacterShifting: args.disableCharacterShifting,
             elements,
@@ -8460,11 +8494,11 @@
         cube.to[1] -=
           args.row * (heightOffset * 0.35) +
           args.rowSpacing * args.row +
-          heightOffset * 0.35;
+          heightOffset * 0.35 + getSmallMainSpacing(fonts[args.font], args);
         cube.from[1] -=
           args.row * (heightOffset * 0.35) +
           args.rowSpacing * args.row +
-          heightOffset * 0.35;
+          heightOffset * 0.35 + getSmallMainSpacing(fonts[args.font], args);
       } else {
         cube.to[2] -= (maxZ - minZ) / 2;
         cube.from[2] -= (maxZ - minZ) / 2;
@@ -8662,6 +8696,11 @@
     // Opt in per font; units follow Bottom's existing .75 scale.
     if (font.topBottomSpacing === undefined) return 0;
     return Math.max(0, Number.isFinite(args.topBottomSpacing) ? args.topBottomSpacing : font.topBottomSpacing);
+  }
+
+  function getSmallMainSpacing(font, args) {
+    if (font.smallMainSpacing === undefined) return 0;
+    return Math.max(0, Number.isFinite(args.smallMainSpacing) ? args.smallMainSpacing : font.smallMainSpacing);
   }
 
   function fitTitleExampleCamera(scene, camera) {
