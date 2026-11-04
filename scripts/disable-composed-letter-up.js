@@ -1,5 +1,5 @@
 // Remove only positive letter-body Up faces in composed Vietnamese glyphs.
-// Marks, inverted borders, plain letters, artwork and Block are preserved.
+// Dot-below glyphs, marks, inverted borders, plain letters, artwork and Block are preserved.
 // Dry run by default; --apply backs up source models and compiled registries.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -32,6 +32,7 @@ for(const id of ids){
   const stem=file.slice(0,-5),key=creepers[stem]??stem;
   if(Array.from(key).length!==1)continue;
   const nfd=key.toLowerCase().normalize('NFD');
+  if(nfd.includes('\u0323'))continue; // Keep the body's Up when the glyph has dot below.
   if(!/^[aeiouy][\u0300-\u036f]+$/.test(nfd))continue;
   // Plain horn letters are templates, not composed tone/shape variants.
   if(!/[\u0300\u0301\u0309\u0303\u0323\u0302\u0306]/.test(nfd))continue;
