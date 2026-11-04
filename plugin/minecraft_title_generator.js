@@ -7756,6 +7756,7 @@
     ) {
       text = `┫${text}┣`;
     }
+    const bottomSpacing = args.type === "bottom" ? getTopBottomSpacing(fonts[args.font], { ...args, layoutText: text }) : null;
     const smallOffsets = args.type === "small" ? getSmallTitleOffsets(fonts[args.font], { ...args, layoutText: text }) : null;
     let words;
     if (fonts[args.font].characters[" "]) words = [text];
@@ -7772,6 +7773,7 @@
         spacerWidth: args.spacerWidth,
         rowSpacing: args.rowSpacing,
         topBottomSpacing: args.topBottomSpacing,
+        bottomSpacing,
         smallMainSpacing: args.smallMainSpacing,
         smallDepthSpacing: args.smallDepthSpacing,
         smallOffsets,
@@ -7797,6 +7799,7 @@
             spacerWidth: args.spacerWidth,
             rowSpacing: args.rowSpacing,
             topBottomSpacing: args.topBottomSpacing,
+            bottomSpacing,
             smallMainSpacing: args.smallMainSpacing,
             smallDepthSpacing: args.smallDepthSpacing,
             smallOffsets,
@@ -8480,12 +8483,12 @@
           args.row * (heightOffset * 2 + 4) +
           args.rowSpacing * args.row +
           heightOffset * 2 +
-          18 + getTopBottomSpacing(fonts[args.font], args);
+          18 + (args.bottomSpacing ?? getTopBottomSpacing(fonts[args.font], { ...args, layoutText: char }));
         cube.from[1] -=
           args.row * (heightOffset * 2 + 4) +
           args.rowSpacing * args.row +
           heightOffset * 2 +
-          18 + getTopBottomSpacing(fonts[args.font], args);
+          18 + (args.bottomSpacing ?? getTopBottomSpacing(fonts[args.font], { ...args, layoutText: char }));
         cube.to = cube.to.map((e) => e * 0.75);
         cube.from = cube.from.map((e) => e * 0.75);
         cube.to[2] -= 8;
@@ -8710,32 +8713,48 @@
   }
 
   function getTopBottomSpacing(font, args) {
-    // Opt in per font; units follow Bottom's existing .75 scale.
-    if (font.topBottomSpacing === undefined) return 0;
-    return Math.max(0, Number.isFinite(args.topBottomSpacing) ? args.topBottomSpacing : font.topBottomSpacing);
+    if (font.topBottomSpacing === undefined || !["minecraft-ten-vietnamese", "minecraft-five-vietnamese", "minecraft-five-bold-vietnamese"].includes(font.id)) return 0;
+    const models = Array.from(args.layoutText ?? "a").flatMap(ch => font.characters?.[ch] ?? []);
+    if (!models.length) return 0;
+    const maxY = Math.max(...models.flatMap(e => [e.from[1], e.to[1]]));
+    const scale = args.scale ?? [args.scaleX ?? 1, args.scaleY ?? 1, args.scaleZ ?? 1];
+    const reference = font.characters.a ?? models;
+    let rearZ = Math.max(...reference.map(e => Math.abs(e.to[2] - e.from[2]))) / 2 * scale[2];
+    let found = false;
+    for (const cube of typeof Cube !== "undefined" ? Cube.all ?? [] : []) {
+      let parent = cube.parent, kind;
+      while (parent && typeof parent === "object") {
+        if (parent._minecraftTitleLayout) kind = parent._minecraftTitleLayout.type;
+        else if (Math.abs((parent.rotation?.[0] ?? 0) + 90) < .001) kind = "bottom";
+        parent = parent.parent;
+      }
+      if (kind === "bottom" || kind === "small" || !cube.mesh?.isObject3D) continue;
+      const box = new THREE.Box3().setFromObject(cube.mesh);
+      if (!box.isEmpty() && (kind === "top" || (box.min.z < 0 && box.max.z > 0))) {
+        rearZ = found ? Math.max(rearZ, box.max.z) : box.max.z; found = true;
+      }
+    }
+    // Bottom's -90 degree rotation makes the highest mark its nearest Z edge.
+    const needed = 2 * maxY - 2 * font.height - 18 + (rearZ + 2) / (.75 * scale[1]);
+    const extra = Math.max(0, Number.isFinite(args.topBottomSpacing) ? args.topBottomSpacing : font.topBottomSpacing);
+    return Math.max(0, needed) + extra;
   }
 
   function getSmallTitleOffsets(font, args) {
-    if (font.smallMainSpacing === undefined || typeof font.characters !== "object") return { y: 0, z: 0 };
-    let topMinY = Infinity, maxY = -Infinity, topDepth = 0;
-    for (const model of Object.values(font.characters)) for (const e of model) {
-      topMinY = Math.min(topMinY, e.from[1], e.to[1]); maxY = Math.max(maxY, e.from[1], e.to[1]);
-      topDepth = Math.max(topDepth, Math.abs(e.to[2] - e.from[2]));
+    if (font.smallMainSpacing === undefined || typeof font.characters !== "object" || !["minecraft-ten-vietnamese", "minecraft-five-vietnamese", "minecraft-five-bold-vietnamese"].includes(font.id)) return { y: 0, z: 0 };
+    let topMinY = Infinity;
+    // Fallback to an ordinary Top letter, not every unused accent in the font.
+    for (const e of font.characters.a ?? []) {
+      topMinY = Math.min(topMinY, e.from[1], e.to[1]);
     }
     const models = Array.from(args.layoutText ?? "a").flatMap(ch => font.characters[ch] ?? []);
     if (!models.length) return { y: 0, z: 0 };
     const smallMaxY = Math.max(...models.flatMap(e => [e.from[1], e.to[1]]));
-    const smallDepth = Math.max(...models.map(e => Math.max(0, Math.abs(e.to[2] - e.from[2]) - 6)));
+    const maxY = smallMaxY;
     const scale = args.scale ?? [args.scaleX ?? 1, args.scaleY ?? 1, args.scaleZ ?? 1];
-    const slope = 170 / 320;
-    let topClearLine = topMinY * scale[1] - slope * topDepth / 2 * scale[2];
+    let topClearLine = topMinY * scale[1];
     let bottomNearZ = (2 * font.height + 18 + getTopBottomSpacing(font, args) - 2 * maxY) * .75 * scale[1];
     let foundTop = false, foundBottom = false;
-    const halfWidth = (Array.from(args.layoutText ?? "a").reduce((width, ch) => {
-      const model = font.characters[ch];
-      const glyphWidth = model?.length ? Math.max(...model.flatMap(e => [e.from[0], e.to[0]])) - Math.min(...model.flatMap(e => [e.from[0], e.to[0]])) : font.spaceWidth ?? 8;
-      return width + glyphWidth + (ch === "\u200b" ? args.spacerWidth ?? 0 : 0) + (args.characterSpacing ?? 0);
-    }, 0) * .35 * scale[0]) / 2 + 2;
     // Read existing geometry when available, including models loaded before these
     // settings existed. No existing cube is moved or re-centered here.
     for (const cube of typeof Cube !== "undefined" ? Cube.all ?? [] : []) {
@@ -8747,20 +8766,20 @@
       }
       if (kind === "small" || !cube.mesh?.isObject3D) continue;
       const box = new THREE.Box3().setFromObject(cube.mesh);
-      if (box.isEmpty() || box.max.x < -halfWidth || box.min.x > halfWidth) continue;
+      if (box.isEmpty()) continue;
       if (kind === "bottom") {
         bottomNearZ = foundBottom ? Math.min(bottomNearZ, box.min.z) : box.min.z; foundBottom = true;
-      } else if (box.max.y > 0 && box.min.z < -.001 && box.max.z > .001) {
-        const edge = box.min.y - slope * box.max.z;
+      } else if (kind === "top" || (box.min.z < -.001 && box.max.z > .001)) {
+        const edge = box.min.y;
         topClearLine = foundTop ? Math.min(topClearLine, edge) : edge; foundTop = true;
       }
     }
     const extraZ = Math.max(0, args.smallDepthSpacing ?? font.smallDepthSpacing ?? 0);
     const z = Math.max(0, (2 - bottomNearZ) / scale[2]) + extraZ;
     const smallY = (smallMaxY - font.height) * .35 - (args.row ?? 0) * font.height * .35 - (args.rowSpacing ?? 0) * (args.row ?? 0);
-    const neededY = (smallY * scale[1] + slope * (smallDepth * .35 + z) * scale[2] - topClearLine + 2) / scale[1];
+    const neededY = (smallY * scale[1] - topClearLine + 2) / scale[1];
     const extraY = Math.max(0, args.smallMainSpacing ?? font.smallMainSpacing ?? 0);
-    return { y: Math.ceil(Math.max(0, neededY) / 2) * 2 + extraY, z };
+    return { y: Math.max(0, neededY) + extraY, z };
   }
 
   function fitTitleExampleCamera(scene, camera) {

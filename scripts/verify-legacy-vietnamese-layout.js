@@ -61,9 +61,28 @@ for(const [id,font]of Object.entries(fonts)){
    const shape=cubes=>JSON.stringify(cubes.map(e=>({from:e.from,to:e.to,faces:Object.fromEntries(Object.entries(e.faces).map(([side,f])=>[side,{uv:f.uv,texture:f.texture===null?null:'atlas'}]))})));assert.ok(shape(a.cubes)===shape(b.cubes),id+'/'+type+' legacy mismatch');
  }
  Object.assign(liveFont,saved);
+ // Actual whole-line extrema determine placement; unused tall marks do not.
+ const adaptiveCases=[];
+ for(const text of ['minecraft','ví dụ','ố ẳ ặ ự','lời chúc tết bao la thành sự thật, chẳng'])for(const size of [1,.7,1.5]){
+   reset(current);
+   const top=await insert(current,records,id,'năm mới an khang thịnh vượng','top');
+   const bottom=await insert(current,records,id,text,'bottom',{scaleY:size});
+   const small=await insert(current,records,id,text,'small',{scaleY:size});
+   assert.ok(bottom.box.min.z>=top.box.max.z+2-1e-8,'Bottom highest mark hits Top');
+   assert.ok(top.box.min.y-small.box.max.y>=2-1e-8,'Small highest mark hits Top');
+   assert.ok(bottom.box.min.z-small.box.max.z>=2-1e-8,'Small hits Bottom');
+   assert.ok(Math.abs(top.box.min.y-small.box.max.y-2)<1e-8,'Small must not leave excess space');
+   if(text!=='minecraft')assert.ok(Math.abs(bottom.box.min.z-top.box.max.z-2)<1e-8,'Accented Bottom must not keep a fixed large gap');
+   if(size===1)adaptiveCases.push({text,bottomGap:bottom.box.min.z-top.box.max.z,smallGap:top.box.min.y-small.box.max.y});
+ }
+ // Even copied settings cannot enable the correction for a non-Vietnamese font.
+ const savedId=liveFont.id;liveFont.id='minecraft-five';
+ assert.equal(current.offsets(liveFont,{layoutText:'ẳ'}).y,0);
+ assert.equal(vm.runInContext('getTopBottomSpacing(fonts['+JSON.stringify(id)+'],{layoutText:"ẳ"})',current),0);
+ liveFont.id=savedId;
  // Full-font clearance, including inverted borders, all accent variants and Creeper.
  reset(current);const all=Object.keys(font.characters).join(''),top=await insert(current,records,id,all,'top'),bottom=await insert(current,records,id,all,'bottom'),small=await insert(current,records,id,all,'small');
- assert.ok(small.box.max.y<top.box.min.y,id+' Small hits Top');assert.ok(small.box.max.z<bottom.box.min.z,id+' Small hits Bottom');
+ assert.ok(small.box.max.y<top.box.min.y,id+' Small hits Top '+JSON.stringify({top:top.box.min.y,small:small.box.max.y,offsets:current.offsets(liveFont,{font:id,layoutText:all})}));assert.ok(small.box.max.z<bottom.box.min.z,id+' Small hits Bottom');
  const bottomZero=await insert(current,records,id,all,'bottom',{topBottomSpacing:0}),smallZero=await insert(current,records,id,all,'small',{topBottomSpacing:0});assert.ok(smallZero.box.max.z<bottomZero.box.min.z,id+' Small Z must adapt to Bottom gap');
  const marked=current.offsets(liveFont,{layoutText:'ví dụ',topBottomSpacing:80}),plain=current.offsets(liveFont,{layoutText:'minecraft',topBottomSpacing:80});assert.ok(marked.y>=plain.y);assert.ok(marked.y<44,'Small correction must be smaller than the rejected constant');
  // Compare the actual preview meshes against the original renderer, with the same Vietnamese keys.
@@ -99,7 +118,7 @@ for(const [id,font]of Object.entries(fonts)){
  const reopened=current.offsets(liveFont,{font:id,layoutText:'ví dụ',topBottomSpacing:80});assert.equal(JSON.stringify(tagged),JSON.stringify(reopened),id+' existing untagged models must keep the same clearance');
  const image=await loadImage(path.join(root,'fonts',id,'textures/flat.png')),canvas=new Canvas(image.width,image.height);canvas.getContext('2d').drawImage(image,0,0);const png=await canvas.toBuffer('png');
  fs.writeFileSync(path.join(review,id+'-example.bbmodel'),JSON.stringify({meta:{format_version:'5.0',model_format:'minecraft_title',box_uv:false},name:'Legacy layout comparison',resolution:{width:1000,height:320},elements,groups,outliner,textures:[{name:'flat.png',id:'0',uuid:'flat',width:1000,height:320,uv_width:1000,uv_height:320,render_sides:'front',render_mode:'default',source:'data:image/png;base64,'+png.toString('base64')}]}));
- reports.push({font:id,centeredCases:centered,smallOffsets:current.offsets(liveFont,{font:id,layoutText:'ví dụ',topBottomSpacing:80}),worstFontOffsets:marked,plainOffsets:plain,previewCorrection:correction,smallTopGap:top.box.min.y-small.box.max.y,smallBottomGap:bottom.box.min.z-small.box.max.z});console.log('PASS',reports.at(-1));
+ reports.push({font:id,centeredCases:centered,adaptiveCases,smallOffsets:current.offsets(liveFont,{font:id,layoutText:'ví dụ',topBottomSpacing:0}),worstFontOffsets:marked,plainOffsets:plain,previewCorrection:correction,smallTopGap:top.box.min.y-small.box.max.y,smallBottomGap:bottom.box.min.z-small.box.max.z});console.log('PASS',reports.at(-1));
 }
 fs.writeFileSync(path.join(review,'report.json'),JSON.stringify({reports,upstreamSHA256:createHash('sha256').update(upstream).digest('hex'),actualAddTextExecuted:true,guiVerified:false},null,2));
 console.log('Review: '+review);
