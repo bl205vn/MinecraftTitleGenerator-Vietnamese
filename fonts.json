@@ -33,6 +33,8 @@
         "name": "Vietnamese",
         "author": "Ewan Howell & bl205vn",
         "preview": "việ",
+        "example": ["VĂN BẢN", "VÍ DỤ"],
+        "topBottomSpacing": 80,
         "border": 280,
         "faces": [
           [22, 62],
@@ -86,7 +88,9 @@
         "id": "minecraft-five-bold-vietnamese",
         "name": "Vietnamese",
         "author": "Ewan Howell & bl205vn",
-        "preview": "việ"
+        "preview": "việ",
+        "example": ["VĂN BẢN", "VÍ DỤ"],
+        "topBottomSpacing": 80
       }
     ]
   },
@@ -114,10 +118,7 @@
         "name": "Vietnamese",
         "author": "Ewan Howell & bl205vn",
         "preview": "việ",
-        "example": [
-          "việt nam",
-          "năm mới"
-        ],
+        "example": ["VĂN BẢN", "VÍ DỤ"],
         "bakedPanels": {
           "contentPadding": 6,
           "frame": [
@@ -235,6 +236,8 @@
         "name": "Vietnamese",
         "author": "Ewan Howell & bl205vn",
         "preview": "việ",
+        "example": ["VĂN BẢN", "VÍ DỤ"],
+        "topBottomSpacing": 80,
         "capExclusions": [[924, 74, 6, 6]],
         "faces": [
           [16, 46],

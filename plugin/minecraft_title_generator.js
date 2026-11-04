@@ -3302,6 +3302,7 @@
       {
         characterSpacing: 0,
         rowSpacing: 0,
+        topBottomSpacing: 0,
         scaleX: 1,
         scaleY: 1,
         scaleZ: 1,
@@ -5126,7 +5127,7 @@
             resetVariables(type, page) {
               if (!variables[type][page]) return;
               for (const [k, v] of Object.entries(variables[type][page])) {
-                this[k] = v;
+                this[k] = k === "topBottomSpacing" ? fonts[this.font].topBottomSpacing ?? v : v;
               }
             },
             async reset(force, ignoreUpdate) {
@@ -5218,6 +5219,7 @@
               this.variant = null;
               this.overlay = Object.keys(fonts[this.font].overlays)[0];
               this.characterSpacing = fonts[this.font].characterSpacing ?? 0;
+              this.topBottomSpacing = fonts[this.font].topBottomSpacing ?? 0;
               if (!ignoreUpdate) this.buildPreview();
             },
             buildPreview() {
@@ -5232,7 +5234,7 @@
                 await this.makePreview();
                 this.building = false;
                 if (this.build) {
-                  this.update = false;
+                  this.build = false;
                   await this.buildPreview();
                 }
                 finish();
@@ -5241,6 +5243,11 @@
             },
             async makePreview() {
               if (fonts[this.font].bakedPanels) return queueBakedBlockPreview(this);
+              if (fonts[this.font].topBottomSpacing !== undefined) {
+                this.renderer?.dispose?.();
+                this.scene.traverse(node => node.geometry?.dispose());
+                this.material?.map?.dispose(); this.material?.dispose();
+              }
               this.scene.remove(...this.scene.children);
 
               const texture = await makeTexture(getArgs(this, true));
@@ -5254,6 +5261,7 @@
               await getFontCharacters(this.font);
 
               const addText = (str, args = {}) => {
+                if (this.font.endsWith("-vietnamese")) str = prepareFontText(str, this.font);
                 let width = 0;
                 const cubes = [];
                 const group = new THREE.Group();
@@ -5439,7 +5447,7 @@
                   group.scale.setY(1.6);
                   group.scale.setZ(0.75);
                   group.rotation.fromArray([Math.degToRad(-90), 0, 0]);
-                  group.position.z += fonts[this.font].height + 49;
+                  group.position.z += fonts[this.font].height + 49 + getTopBottomSpacing(fonts[this.font], this) * .75;
                   if (fonts[this.font].flat) {
                     group.position.y -= 18;
                   } else {
@@ -5477,6 +5485,7 @@
                 addText("a");
               }
 
+              if (fonts[this.font].topBottomSpacing !== undefined) fitTitleExampleCamera(this.scene, this.camera);
               this.renderer = new THREE.WebGLRenderer({
                 alpha: true,
                 canvas: this.canvas,
@@ -6762,6 +6771,15 @@
                   </div>
                   <br>
                 </template>
+                <template v-if="fonts[font].topBottomSpacing !== undefined">
+                  <h2>Top / Bottom Spacing</h2>
+                  <p>Move Bottom text away from Top text, including at row 0</p>
+                  <div class="bar slider_input_combo">
+                    <input type="range" class="tool disp_range" v-model.number="topBottomSpacing" min="0" max="200" step="1" @input="buildPreview()" />
+                    <numeric-input class="tool disp_text" v-model.number="topBottomSpacing" :min="0" :max="200" :step="1" @input="buildPreview()" />
+                  </div>
+                  <br>
+                </template>
                 <h2>Row Spacing</h2>
                 <p>Change the spacing between the vertical rows of {{ fonts[font].type === 'font' ? 'text' : 'shape' }}</p>
                 <div class="bar slider_input_combo">
@@ -7574,7 +7592,7 @@
   }
 
   async function makeBakedBlockPreview(vue) {
-    const args = getArgs(vue, true), text = prepareFontText(vue.text || "việt nam", vue.font);
+    const args = getArgs(vue, true), text = prepareFontText(vue.text || fonts[vue.font].example?.join(" ") || "việt nam", vue.font);
     const prepared = await prepareBakedBlock(text, { ...args, row: 0, ignoreStats: true });
     const { baked, instances } = prepared;
     if (vue.font !== args.font) return;
@@ -7714,6 +7732,7 @@
         characterSpacing: args.characterSpacing,
         spacerWidth: args.spacerWidth,
         rowSpacing: args.rowSpacing,
+        topBottomSpacing: args.topBottomSpacing,
         scale: [args.scaleX, args.scaleY, args.scaleZ],
         disableCharacterShifting: args.disableCharacterShifting,
         name: args.name,
@@ -7735,6 +7754,7 @@
             characterSpacing: args.characterSpacing,
             spacerWidth: args.spacerWidth,
             rowSpacing: args.rowSpacing,
+            topBottomSpacing: args.topBottomSpacing,
             scale: [args.scaleX, args.scaleY, args.scaleZ],
             disableCharacterShifting: args.disableCharacterShifting,
             elements,
@@ -8411,12 +8431,12 @@
           args.row * (heightOffset * 2 + 4) +
           args.rowSpacing * args.row +
           heightOffset * 2 +
-          18;
+          18 + getTopBottomSpacing(fonts[args.font], args);
         cube.from[1] -=
           args.row * (heightOffset * 2 + 4) +
           args.rowSpacing * args.row +
           heightOffset * 2 +
-          18;
+          18 + getTopBottomSpacing(fonts[args.font], args);
         cube.to = cube.to.map((e) => e * 0.75);
         cube.from = cube.from.map((e) => e * 0.75);
         cube.to[2] -= 8;
@@ -8636,6 +8656,30 @@
     return Object.fromEntries(
       Object.entries(groups).map(([kind, rows]) => [kind, [...rows.values(), ...(frameGroups.has(kind) ? [frameGroups.get(kind)] : [])]]),
     );
+  }
+
+  function getTopBottomSpacing(font, args) {
+    // Opt in per font; units follow Bottom's existing .75 scale.
+    if (font.topBottomSpacing === undefined) return 0;
+    return Math.max(0, Number.isFinite(args.topBottomSpacing) ? args.topBottomSpacing : font.topBottomSpacing);
+  }
+
+  function fitTitleExampleCamera(scene, camera) {
+    const box = new THREE.Box3().setFromObject(scene);
+    if (box.isEmpty()) return;
+    const center = box.getCenter(new THREE.Vector3());
+    const direction = new THREE.Vector3(0, -170, -320).normalize();
+    camera.position.copy(center).add(direction); camera.lookAt(center); camera.updateMatrixWorld(true);
+    const inverse = camera.quaternion.clone().invert(), tanY = Math.tan(camera.fov * Math.PI / 360), tanX = tanY * camera.aspect;
+    let distance = 1;
+    for (const x of [box.min.x, box.max.x]) for (const y of [box.min.y, box.max.y]) for (const z of [box.min.z, box.max.z]) {
+      const point = new THREE.Vector3(x, y, z).sub(center).applyQuaternion(inverse);
+      distance = Math.max(distance, Math.abs(point.x) / tanX + point.z, Math.abs(point.y) / tanY + point.z);
+    }
+    distance *= 1.12;
+    camera.position.copy(center).addScaledVector(direction, distance);
+    camera.far = Math.max(camera.far, distance + box.getSize(new THREE.Vector3()).length() * 2);
+    camera.updateProjectionMatrix(); camera.updateMatrixWorld(true);
   }
 
   function prepareFontText(text, fontId) {

@@ -4,3 +4,4 @@ scripts/log/
 node_modules/
 *.bak
 .tools/
+backups/
