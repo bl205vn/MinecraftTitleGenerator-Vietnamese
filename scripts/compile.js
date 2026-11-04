@@ -8,6 +8,7 @@ import createContext from "gl"
 import path from "node:path"
 import sharp from "sharp"
 import fs from "node:fs"
+import { getVietnameseCharacterKey } from "./vietnamese-character-map.js"
 
 const { THREE, loadTexture } = await getTHREE({ Canvas, Image, ImageData, fetch, Request, Response, Headers })
 
@@ -74,7 +75,10 @@ for (const font of fonts) {
 
   if (font.type === "font") {
     for (const file of fs.readdirSync(`../fonts/${font.id}/characters`)) {
-      const char = charMap[file.slice(0, -5)] ?? file.slice(0, -5)
+      const stem = file.slice(0, -5)
+      const mapped = font.id === "minecraft-ten-vietnamese" ? getVietnameseCharacterKey(stem) : stem
+      if (mapped === null) continue
+      const char = charMap[stem] ?? mapped
       font.characters[char] = JSON.parse(fs.readFileSync(`../fonts/${font.id}/characters/${file}`, "utf8")).elements
     }
   } else if (font.type === "shape") {

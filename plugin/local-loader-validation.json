@@ -1,0 +1,14 @@
+{
+  "fonts": 14,
+  "compiledVietnameseCharacters": 155,
+  "pngAssetsRead": 281,
+  "scopedReads": 463,
+  "networkCalls": 0,
+  "scopedFs": true,
+  "originalBaseUsesLocalModels": true,
+  "vietnameseAtlas": [
+    1000,
+    1280
+  ],
+  "missingFileFallback": true
+}

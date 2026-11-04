@@ -1,0 +1,231 @@
+{
+  "format_version": "26.3",
+  "credit": "By Ewan Howell",
+  "texture_size": [
+    1000,
+    1280
+  ],
+  "textures": {
+    "particle": "minecraft-ten:flat"
+  },
+  "elements": [
+    {
+      "from": [
+        16,
+        36,
+        21
+      ],
+      "to": [
+        0,
+        20,
+        -5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            3.5,
+            0.016,
+            3.5125
+          ],
+          "texture": "#particle"
+        },
+        "east": {
+          "uv": [
+            0,
+            3.5,
+            0.016,
+            3.5125
+          ],
+          "texture": "#particle"
+        },
+        "south": {
+          "uv": [
+            0,
+            3.5,
+            0.016,
+            3.5125
+          ],
+          "texture": "#particle"
+        },
+        "west": {
+          "uv": [
+            0,
+            3.5,
+            0.016,
+            3.5125
+          ],
+          "texture": "#particle"
+        },
+        "up": {
+          "uv": [
+            0,
+            3.5,
+            0.016,
+            3.5125
+          ],
+          "texture": "#particle"
+        },
+        "down": {
+          "uv": [
+            0,
+            3.5,
+            0.016,
+            3.5125
+          ],
+          "texture": "#particle"
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        -6,
+        -3
+      ],
+      "to": [
+        14,
+        34,
+        19
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0.224,
+            2.7,
+            0.416,
+            3.2
+          ],
+          "texture": "#particle"
+        },
+        "south": {
+          "uv": [
+            0.416,
+            2.7,
+            0.224,
+            3.2
+          ],
+          "texture": "#particle"
+        },
+        "up": {
+          "uv": [
+            0.416,
+            2.5625,
+            0.224,
+            2.2875
+          ],
+          "texture": "#particle"
+        },
+        "down": {
+          "uv": [
+            0.416,
+            3.475,
+            0.224,
+            3.2
+          ],
+          "texture": "#particle"
+        }
+      }
+    },
+    {
+      "from": [
+        12,
+        -8,
+        -5
+      ],
+      "to": [
+        16,
+        0,
+        21
+      ],
+      "faces": {
+        "west": {
+          "uv": [
+            0,
+            3.5,
+            0.016,
+            3.5125
+          ],
+          "texture": "#particle"
+        },
+        "up": {
+          "uv": [
+            0,
+            3.5,
+            0.016,
+            3.5125
+          ],
+          "texture": "#particle"
+        }
+      }
+    },
+    {
+      "from": [
+        16,
+        16,
+        21
+      ],
+      "to": [
+        0,
+        -8,
+        -5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0.096,
+            3.575,
+            0.16,
+            3.65
+          ],
+          "texture": "#particle"
+        },
+        "east": {
+          "uv": [
+            0,
+            3.5,
+            0.016,
+            3.5125
+          ],
+          "texture": "#particle"
+        },
+        "south": {
+          "uv": [
+            0.16,
+            3.575,
+            0.096,
+            3.65
+          ],
+          "texture": "#particle"
+        },
+        "west": {
+          "uv": [
+            0.032,
+            3.575,
+            0.016,
+            3.65
+          ],
+          "texture": "#particle"
+        },
+        "up": {
+          "uv": [
+            0.144,
+            3.5,
+            0.08,
+            3.5125
+          ],
+          "texture": "#particle"
+        },
+        "down": {
+          "uv": [
+            0,
+            3.5,
+            0.016,
+            3.5125
+          ],
+          "texture": "#particle"
+        }
+      }
+    }
+  ]
+}

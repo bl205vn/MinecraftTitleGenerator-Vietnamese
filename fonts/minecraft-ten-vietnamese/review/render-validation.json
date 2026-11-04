@@ -1,0 +1,594 @@
+{
+  "glyphs": 84,
+  "renders": [
+    {
+      "texture": "flat",
+      "view": "front",
+      "text": "ÁĂẮẶẰẲẴÂẤẬẦẨ",
+      "differentPixels": 0,
+      "pixels": 148200
+    },
+    {
+      "texture": "flat",
+      "view": "front",
+      "text": "ẪẠÀẢÃàáâãèéê",
+      "differentPixels": 0,
+      "pixels": 143520
+    },
+    {
+      "texture": "flat",
+      "view": "front",
+      "text": "ìíòóôõùúýăđĩ",
+      "differentPixels": 0,
+      "pixels": 96720
+    },
+    {
+      "texture": "flat",
+      "view": "front",
+      "text": "ũơưạảấầẩẫậắằ",
+      "differentPixels": 0,
+      "pixels": 149720
+    },
+    {
+      "texture": "flat",
+      "view": "front",
+      "text": "ẳẵặẹẻẽếềểễệỉ",
+      "differentPixels": 0,
+      "pixels": 144400
+    },
+    {
+      "texture": "flat",
+      "view": "front",
+      "text": "ịọỏốồổỗộớờởỡ",
+      "differentPixels": 0,
+      "pixels": 146110
+    },
+    {
+      "texture": "flat",
+      "view": "front",
+      "text": "ợụủứừửữựỳỵỷỹ",
+      "differentPixels": 0,
+      "pixels": 135744
+    },
+    {
+      "texture": "flat",
+      "view": "angled",
+      "text": "ÁĂẮẶẰẲẴÂẤẬẦẨ",
+      "differentPixels": 0,
+      "pixels": 152880
+    },
+    {
+      "texture": "flat",
+      "view": "angled",
+      "text": "ẪẠÀẢÃàáâãèéê",
+      "differentPixels": 0,
+      "pixels": 148200
+    },
+    {
+      "texture": "flat",
+      "view": "angled",
+      "text": "ìíòóôõùúýăđĩ",
+      "differentPixels": 0,
+      "pixels": 104904
+    },
+    {
+      "texture": "flat",
+      "view": "angled",
+      "text": "ũơưạảấầẩẫậắằ",
+      "differentPixels": 0,
+      "pixels": 154448
+    },
+    {
+      "texture": "flat",
+      "view": "angled",
+      "text": "ẳẵặẹẻẽếềểễệỉ",
+      "differentPixels": 0,
+      "pixels": 148960
+    },
+    {
+      "texture": "flat",
+      "view": "angled",
+      "text": "ịọỏốồổỗộớờởỡ",
+      "differentPixels": 0,
+      "pixels": 150724
+    },
+    {
+      "texture": "flat",
+      "view": "angled",
+      "text": "ợụủứừửữựỳỵỷỹ",
+      "differentPixels": 0,
+      "pixels": 142208
+    },
+    {
+      "texture": "flat",
+      "view": "back",
+      "text": "ÁĂẮẶẰẲẴÂẤẬẦẨ",
+      "differentPixels": 0,
+      "pixels": 154440
+    },
+    {
+      "texture": "flat",
+      "view": "back",
+      "text": "ẪẠÀẢÃàáâãèéê",
+      "differentPixels": 0,
+      "pixels": 149760
+    },
+    {
+      "texture": "flat",
+      "view": "back",
+      "text": "ìíòóôõùúýăđĩ",
+      "differentPixels": 0,
+      "pixels": 104160
+    },
+    {
+      "texture": "flat",
+      "view": "back",
+      "text": "ũơưạảấầẩẫậắằ",
+      "differentPixels": 0,
+      "pixels": 156024
+    },
+    {
+      "texture": "flat",
+      "view": "back",
+      "text": "ẳẵặẹẻẽếềểễệỉ",
+      "differentPixels": 0,
+      "pixels": 150480
+    },
+    {
+      "texture": "flat",
+      "view": "back",
+      "text": "ịọỏốồổỗộớờởỡ",
+      "differentPixels": 0,
+      "pixels": 152262
+    },
+    {
+      "texture": "flat",
+      "view": "back",
+      "text": "ợụủứừửữựỳỵỷỹ",
+      "differentPixels": 0,
+      "pixels": 143016
+    },
+    {
+      "texture": "flat_coloured",
+      "view": "front",
+      "text": "ÁĂẮẶẰẲẴÂẤẬẦẨ",
+      "differentPixels": 0,
+      "pixels": 148200
+    },
+    {
+      "texture": "flat_coloured",
+      "view": "front",
+      "text": "ẪẠÀẢÃàáâãèéê",
+      "differentPixels": 0,
+      "pixels": 143520
+    },
+    {
+      "texture": "flat_coloured",
+      "view": "front",
+      "text": "ìíòóôõùúýăđĩ",
+      "differentPixels": 0,
+      "pixels": 96720
+    },
+    {
+      "texture": "flat_coloured",
+      "view": "front",
+      "text": "ũơưạảấầẩẫậắằ",
+      "differentPixels": 0,
+      "pixels": 149720
+    },
+    {
+      "texture": "flat_coloured",
+      "view": "front",
+      "text": "ẳẵặẹẻẽếềểễệỉ",
+      "differentPixels": 0,
+      "pixels": 144400
+    },
+    {
+      "texture": "flat_coloured",
+      "view": "front",
+      "text": "ịọỏốồổỗộớờởỡ",
+      "differentPixels": 0,
+      "pixels": 146110
+    },
+    {
+      "texture": "flat_coloured",
+      "view": "front",
+      "text": "ợụủứừửữựỳỵỷỹ",
+      "differentPixels": 0,
+      "pixels": 135744
+    },
+    {
+      "texture": "flat_coloured",
+      "view": "angled",
+      "text": "ÁĂẮẶẰẲẴÂẤẬẦẨ",
+      "differentPixels": 0,
+      "pixels": 152880
+    },
+    {
+      "texture": "flat_coloured",
+      "view": "angled",
+      "text": "ẪẠÀẢÃàáâãèéê",
+      "differentPixels": 0,
+      "pixels": 148200
+    },
+    {
+      "texture": "flat_coloured",
+      "view": "angled",
+      "text": "ìíòóôõùúýăđĩ",
+      "differentPixels": 0,
+      "pixels": 104904
+    },
+    {
+      "texture": "flat_coloured",
+      "view": "angled",
+      "text": "ũơưạảấầẩẫậắằ",
+      "differentPixels": 0,
+      "pixels": 154448
+    },
+    {
+      "texture": "flat_coloured",
+      "view": "angled",
+      "text": "ẳẵặẹẻẽếềểễệỉ",
+      "differentPixels": 0,
+      "pixels": 148960
+    },
+    {
+      "texture": "flat_coloured",
+      "view": "angled",
+      "text": "ịọỏốồổỗộớờởỡ",
+      "differentPixels": 0,
+      "pixels": 150724
+    },
+    {
+      "texture": "flat_coloured",
+      "view": "angled",
+      "text": "ợụủứừửữựỳỵỷỹ",
+      "differentPixels": 0,
+      "pixels": 142208
+    },
+    {
+      "texture": "flat_coloured",
+      "view": "back",
+      "text": "ÁĂẮẶẰẲẴÂẤẬẦẨ",
+      "differentPixels": 0,
+      "pixels": 154440
+    },
+    {
+      "texture": "flat_coloured",
+      "view": "back",
+      "text": "ẪẠÀẢÃàáâãèéê",
+      "differentPixels": 0,
+      "pixels": 149760
+    },
+    {
+      "texture": "flat_coloured",
+      "view": "back",
+      "text": "ìíòóôõùúýăđĩ",
+      "differentPixels": 0,
+      "pixels": 104160
+    },
+    {
+      "texture": "flat_coloured",
+      "view": "back",
+      "text": "ũơưạảấầẩẫậắằ",
+      "differentPixels": 0,
+      "pixels": 156024
+    },
+    {
+      "texture": "flat_coloured",
+      "view": "back",
+      "text": "ẳẵặẹẻẽếềểễệỉ",
+      "differentPixels": 0,
+      "pixels": 150480
+    },
+    {
+      "texture": "flat_coloured",
+      "view": "back",
+      "text": "ịọỏốồổỗộớờởỡ",
+      "differentPixels": 0,
+      "pixels": 152262
+    },
+    {
+      "texture": "flat_coloured",
+      "view": "back",
+      "text": "ợụủứừửữựỳỵỷỹ",
+      "differentPixels": 0,
+      "pixels": 143016
+    },
+    {
+      "texture": "cracked",
+      "view": "front",
+      "text": "ÁĂẮẶẰẲẴÂẤẬẦẨ",
+      "differentPixels": 0,
+      "pixels": 148200
+    },
+    {
+      "texture": "cracked",
+      "view": "front",
+      "text": "ẪẠÀẢÃàáâãèéê",
+      "differentPixels": 0,
+      "pixels": 143520
+    },
+    {
+      "texture": "cracked",
+      "view": "front",
+      "text": "ìíòóôõùúýăđĩ",
+      "differentPixels": 0,
+      "pixels": 96720
+    },
+    {
+      "texture": "cracked",
+      "view": "front",
+      "text": "ũơưạảấầẩẫậắằ",
+      "differentPixels": 0,
+      "pixels": 149720
+    },
+    {
+      "texture": "cracked",
+      "view": "front",
+      "text": "ẳẵặẹẻẽếềểễệỉ",
+      "differentPixels": 0,
+      "pixels": 144400
+    },
+    {
+      "texture": "cracked",
+      "view": "front",
+      "text": "ịọỏốồổỗộớờởỡ",
+      "differentPixels": 0,
+      "pixels": 146110
+    },
+    {
+      "texture": "cracked",
+      "view": "front",
+      "text": "ợụủứừửữựỳỵỷỹ",
+      "differentPixels": 0,
+      "pixels": 135744
+    },
+    {
+      "texture": "cracked",
+      "view": "angled",
+      "text": "ÁĂẮẶẰẲẴÂẤẬẦẨ",
+      "differentPixels": 0,
+      "pixels": 152880
+    },
+    {
+      "texture": "cracked",
+      "view": "angled",
+      "text": "ẪẠÀẢÃàáâãèéê",
+      "differentPixels": 0,
+      "pixels": 148200
+    },
+    {
+      "texture": "cracked",
+      "view": "angled",
+      "text": "ìíòóôõùúýăđĩ",
+      "differentPixels": 0,
+      "pixels": 104904
+    },
+    {
+      "texture": "cracked",
+      "view": "angled",
+      "text": "ũơưạảấầẩẫậắằ",
+      "differentPixels": 0,
+      "pixels": 154448
+    },
+    {
+      "texture": "cracked",
+      "view": "angled",
+      "text": "ẳẵặẹẻẽếềểễệỉ",
+      "differentPixels": 0,
+      "pixels": 148960
+    },
+    {
+      "texture": "cracked",
+      "view": "angled",
+      "text": "ịọỏốồổỗộớờởỡ",
+      "differentPixels": 0,
+      "pixels": 150724
+    },
+    {
+      "texture": "cracked",
+      "view": "angled",
+      "text": "ợụủứừửữựỳỵỷỹ",
+      "differentPixels": 0,
+      "pixels": 142208
+    },
+    {
+      "texture": "cracked",
+      "view": "back",
+      "text": "ÁĂẮẶẰẲẴÂẤẬẦẨ",
+      "differentPixels": 0,
+      "pixels": 154440
+    },
+    {
+      "texture": "cracked",
+      "view": "back",
+      "text": "ẪẠÀẢÃàáâãèéê",
+      "differentPixels": 0,
+      "pixels": 149760
+    },
+    {
+      "texture": "cracked",
+      "view": "back",
+      "text": "ìíòóôõùúýăđĩ",
+      "differentPixels": 0,
+      "pixels": 104160
+    },
+    {
+      "texture": "cracked",
+      "view": "back",
+      "text": "ũơưạảấầẩẫậắằ",
+      "differentPixels": 0,
+      "pixels": 156024
+    },
+    {
+      "texture": "cracked",
+      "view": "back",
+      "text": "ẳẵặẹẻẽếềểễệỉ",
+      "differentPixels": 0,
+      "pixels": 150480
+    },
+    {
+      "texture": "cracked",
+      "view": "back",
+      "text": "ịọỏốồổỗộớờởỡ",
+      "differentPixels": 0,
+      "pixels": 152262
+    },
+    {
+      "texture": "cracked",
+      "view": "back",
+      "text": "ợụủứừửữựỳỵỷỹ",
+      "differentPixels": 0,
+      "pixels": 143016
+    },
+    {
+      "texture": "bevelled_gold",
+      "view": "front",
+      "text": "ÁĂẮẶẰẲẴÂẤẬẦẨ",
+      "differentPixels": 0,
+      "pixels": 148200
+    },
+    {
+      "texture": "bevelled_gold",
+      "view": "front",
+      "text": "ẪẠÀẢÃàáâãèéê",
+      "differentPixels": 0,
+      "pixels": 143520
+    },
+    {
+      "texture": "bevelled_gold",
+      "view": "front",
+      "text": "ìíòóôõùúýăđĩ",
+      "differentPixels": 0,
+      "pixels": 96720
+    },
+    {
+      "texture": "bevelled_gold",
+      "view": "front",
+      "text": "ũơưạảấầẩẫậắằ",
+      "differentPixels": 0,
+      "pixels": 149720
+    },
+    {
+      "texture": "bevelled_gold",
+      "view": "front",
+      "text": "ẳẵặẹẻẽếềểễệỉ",
+      "differentPixels": 0,
+      "pixels": 144400
+    },
+    {
+      "texture": "bevelled_gold",
+      "view": "front",
+      "text": "ịọỏốồổỗộớờởỡ",
+      "differentPixels": 0,
+      "pixels": 146110
+    },
+    {
+      "texture": "bevelled_gold",
+      "view": "front",
+      "text": "ợụủứừửữựỳỵỷỹ",
+      "differentPixels": 0,
+      "pixels": 135744
+    },
+    {
+      "texture": "bevelled_gold",
+      "view": "angled",
+      "text": "ÁĂẮẶẰẲẴÂẤẬẦẨ",
+      "differentPixels": 0,
+      "pixels": 152880
+    },
+    {
+      "texture": "bevelled_gold",
+      "view": "angled",
+      "text": "ẪẠÀẢÃàáâãèéê",
+      "differentPixels": 0,
+      "pixels": 148200
+    },
+    {
+      "texture": "bevelled_gold",
+      "view": "angled",
+      "text": "ìíòóôõùúýăđĩ",
+      "differentPixels": 0,
+      "pixels": 104904
+    },
+    {
+      "texture": "bevelled_gold",
+      "view": "angled",
+      "text": "ũơưạảấầẩẫậắằ",
+      "differentPixels": 0,
+      "pixels": 154448
+    },
+    {
+      "texture": "bevelled_gold",
+      "view": "angled",
+      "text": "ẳẵặẹẻẽếềểễệỉ",
+      "differentPixels": 0,
+      "pixels": 148960
+    },
+    {
+      "texture": "bevelled_gold",
+      "view": "angled",
+      "text": "ịọỏốồổỗộớờởỡ",
+      "differentPixels": 0,
+      "pixels": 150724
+    },
+    {
+      "texture": "bevelled_gold",
+      "view": "angled",
+      "text": "ợụủứừửữựỳỵỷỹ",
+      "differentPixels": 0,
+      "pixels": 142208
+    },
+    {
+      "texture": "bevelled_gold",
+      "view": "back",
+      "text": "ÁĂẮẶẰẲẴÂẤẬẦẨ",
+      "differentPixels": 0,
+      "pixels": 154440
+    },
+    {
+      "texture": "bevelled_gold",
+      "view": "back",
+      "text": "ẪẠÀẢÃàáâãèéê",
+      "differentPixels": 0,
+      "pixels": 149760
+    },
+    {
+      "texture": "bevelled_gold",
+      "view": "back",
+      "text": "ìíòóôõùúýăđĩ",
+      "differentPixels": 0,
+      "pixels": 104160
+    },
+    {
+      "texture": "bevelled_gold",
+      "view": "back",
+      "text": "ũơưạảấầẩẫậắằ",
+      "differentPixels": 0,
+      "pixels": 156024
+    },
+    {
+      "texture": "bevelled_gold",
+      "view": "back",
+      "text": "ẳẵặẹẻẽếềểễệỉ",
+      "differentPixels": 0,
+      "pixels": 150480
+    },
+    {
+      "texture": "bevelled_gold",
+      "view": "back",
+      "text": "ịọỏốồổỗộớờởỡ",
+      "differentPixels": 0,
+      "pixels": 152262
+    },
+    {
+      "texture": "bevelled_gold",
+      "view": "back",
+      "text": "ợụủứừửữựỳỵỷỹ",
+      "differentPixels": 0,
+      "pixels": 143016
+    }
+  ],
+  "differentPixels": 0
+}

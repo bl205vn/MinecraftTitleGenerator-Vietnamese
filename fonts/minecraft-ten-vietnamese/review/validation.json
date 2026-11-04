@@ -1,0 +1,715 @@
+{
+  "atlas": [
+    1000,
+    1280
+  ],
+  "sourceModels": 161,
+  "compiledCharacters": 155,
+  "VietnameseAndHelperModelsRepacked": 90,
+  "relocatedFaces": 426,
+  "geometryUnchanged": true,
+  "originalCompiledCharacterKeysPreserved": true,
+  "files": [
+    {
+      "file": "textures/acacia_planks.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/amethyst.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/aroace.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/aromantic.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/asexual.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/atmosphere.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/bamboo.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/bamboo_planks.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/barrel.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/beach.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/bee.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/bevelled_gold.png",
+      "scale": 4,
+      "mismatches": []
+    },
+    {
+      "file": "textures/birch_planks.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/bisexual.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/blueprint.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/bricks.png",
+      "scale": 2,
+      "mismatches": []
+    },
+    {
+      "file": "textures/bricks_bare_bones.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/bricks_minecraft.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/bubbles.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/cake.png",
+      "scale": 2,
+      "mismatches": []
+    },
+    {
+      "file": "textures/cake_minecraft.png",
+      "scale": 2,
+      "mismatches": []
+    },
+    {
+      "file": "textures/cake_no_drops.png",
+      "scale": 2,
+      "mismatches": []
+    },
+    {
+      "file": "textures/cake_plain.png",
+      "scale": 2,
+      "mismatches": []
+    },
+    {
+      "file": "textures/cherry_blossom.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/cherry_blossom_small.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/cherry_planks.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/classic_cobblestone.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/copper.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/cracked.png",
+      "scale": 3,
+      "mismatches": []
+    },
+    {
+      "file": "textures/cracked_left.png",
+      "scale": 3,
+      "mismatches": []
+    },
+    {
+      "file": "textures/cracked_old.png",
+      "scale": 4,
+      "mismatches": []
+    },
+    {
+      "file": "textures/cracked_old_pixelated.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/cracked_right.png",
+      "scale": 3,
+      "mismatches": []
+    },
+    {
+      "file": "textures/create.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/create_andesite_casing.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/create_brass_casing.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/create_copper_casing.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/create_train_casing.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/creeper.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/crimson_nylium.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/crimson_planks.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/crystal.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/dark_oak_planks.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/deep_dark.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/dock.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/dock_clear.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/dunes.png",
+      "scale": 4,
+      "mismatches": []
+    },
+    {
+      "file": "textures/dungeons_terracotta.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/earth.png",
+      "scale": 4,
+      "mismatches": []
+    },
+    {
+      "file": "textures/enby.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/end_crystal.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/enderman.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/femboy.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/fired.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/flames.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/flames_soul.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/flat.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/flat_coloured.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/flowers.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/fluid.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/fruit.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/furnace.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/gay.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/gilded_netherite.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/glow_squid.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/glow_squid_old.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/gradient.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/grass.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/grass_side.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/grass_side_flowers.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/gurgles.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/haunted.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/hay_bale.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/heterosexual.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/ice.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/inner_shadow.png",
+      "scale": 4,
+      "mismatches": []
+    },
+    {
+      "file": "textures/intersex.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/iron_block.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/jungle_planks.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/lagoona.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/lesbian.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/mangrove.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/mangrove_planks.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/midnight.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/minecon.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/mineimator.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/mycelium.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/neon.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/neon_glow.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/netherite.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/oak_planks.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/oxidised_copper.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/oxidising_copper.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/pale_oak_planks.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/pansexual.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/pixel.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/podzol.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/pride.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/sand.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/simplacity.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/smooth.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/smooth_bevelled.png",
+      "scale": 4,
+      "mismatches": []
+    },
+    {
+      "file": "textures/smooth_inverted.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/smooth_inverted_old.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/smooth_old.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/sniffer.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/spruce_planks.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/story_mode.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/story_mode1.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/stripped_bamboo.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/sunset.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/terracotta.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/trails_and_tales.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/trans.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/transfeminine.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/transmasculine.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/warped_nylium.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/warped_planks.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "textures/winter.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "overlays/bevel.png",
+      "scale": 4,
+      "mismatches": []
+    },
+    {
+      "file": "overlays/bevel_highlight_bottom.png",
+      "scale": 4,
+      "mismatches": []
+    },
+    {
+      "file": "overlays/bevel_highlight_top.png",
+      "scale": 4,
+      "mismatches": []
+    },
+    {
+      "file": "overlays/cartoon.png",
+      "scale": 4,
+      "mismatches": []
+    },
+    {
+      "file": "overlays/cracks.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "overlays/edge_fade.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "overlays/glass.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "overlays/glass_old.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "overlays/glass_tempered.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "overlays/highlights_bottom.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "overlays/highlights_left.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "overlays/highlights_right.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "overlays/highlights_top.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "overlays/inset_outline.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "overlays/outline.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "overlays/outline_fade.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "overlays/shine.png",
+      "scale": 4,
+      "mismatches": []
+    },
+    {
+      "file": "overlays/shine_random.png",
+      "scale": 4,
+      "mismatches": []
+    },
+    {
+      "file": "overlays/texture_highlight_1.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "overlays/texture_highlight_2.png",
+      "scale": 1,
+      "mismatches": []
+    },
+    {
+      "file": "overlays/tiles.png",
+      "scale": 1,
+      "mismatches": []
+    }
+  ],
+  "mismatchFiles": 0
+}

@@ -1,0 +1,1633 @@
+{
+  "width": 1000,
+  "height": 1280,
+  "originalRegion": [
+    0,
+    0,
+    1000,
+    320
+  ],
+  "panels": [
+    {
+      "stem": "acute",
+      "character": null,
+      "direction": "north",
+      "x": 2,
+      "y": 320,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "acute",
+      "character": null,
+      "direction": "south",
+      "x": 50,
+      "y": 320,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "breve",
+      "character": null,
+      "direction": "north",
+      "x": 98,
+      "y": 320,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "breve",
+      "character": null,
+      "direction": "south",
+      "x": 146,
+      "y": 320,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_acute",
+      "character": "Á",
+      "direction": "north",
+      "x": 194,
+      "y": 320,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_acute",
+      "character": "Á",
+      "direction": "south",
+      "x": 242,
+      "y": 320,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_breve",
+      "character": "Ă",
+      "direction": "north",
+      "x": 290,
+      "y": 320,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_breve",
+      "character": "Ă",
+      "direction": "south",
+      "x": 338,
+      "y": 320,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_breve_acute",
+      "character": "Ắ",
+      "direction": "north",
+      "x": 386,
+      "y": 320,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_breve_acute",
+      "character": "Ắ",
+      "direction": "south",
+      "x": 434,
+      "y": 320,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_breve_dotbelow",
+      "character": "Ặ",
+      "direction": "north",
+      "x": 482,
+      "y": 320,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_breve_dotbelow",
+      "character": "Ặ",
+      "direction": "south",
+      "x": 530,
+      "y": 320,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_breve_grave",
+      "character": "Ằ",
+      "direction": "north",
+      "x": 578,
+      "y": 320,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_breve_grave",
+      "character": "Ằ",
+      "direction": "south",
+      "x": 626,
+      "y": 320,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_breve_hookabove",
+      "character": "Ẳ",
+      "direction": "north",
+      "x": 674,
+      "y": 320,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_breve_hookabove",
+      "character": "Ẳ",
+      "direction": "south",
+      "x": 722,
+      "y": 320,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_breve_tilde",
+      "character": "Ẵ",
+      "direction": "north",
+      "x": 770,
+      "y": 320,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_breve_tilde",
+      "character": "Ẵ",
+      "direction": "south",
+      "x": 818,
+      "y": 320,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_circumflex",
+      "character": "Â",
+      "direction": "north",
+      "x": 866,
+      "y": 320,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_circumflex",
+      "character": "Â",
+      "direction": "south",
+      "x": 914,
+      "y": 320,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_circumflex_acute",
+      "character": "Ấ",
+      "direction": "north",
+      "x": 2,
+      "y": 416,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_circumflex_acute",
+      "character": "Ấ",
+      "direction": "south",
+      "x": 50,
+      "y": 416,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_circumflex_dotbelow",
+      "character": "Ậ",
+      "direction": "north",
+      "x": 98,
+      "y": 416,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_circumflex_dotbelow",
+      "character": "Ậ",
+      "direction": "south",
+      "x": 146,
+      "y": 416,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_circumflex_grave",
+      "character": "Ầ",
+      "direction": "north",
+      "x": 194,
+      "y": 416,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_circumflex_grave",
+      "character": "Ầ",
+      "direction": "south",
+      "x": 242,
+      "y": 416,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_circumflex_hookabove",
+      "character": "Ẩ",
+      "direction": "north",
+      "x": 290,
+      "y": 416,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_circumflex_hookabove",
+      "character": "Ẩ",
+      "direction": "south",
+      "x": 338,
+      "y": 416,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_circumflex_tilde",
+      "character": "Ẫ",
+      "direction": "north",
+      "x": 386,
+      "y": 416,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_circumflex_tilde",
+      "character": "Ẫ",
+      "direction": "south",
+      "x": 434,
+      "y": 416,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_dotbelow",
+      "character": "Ạ",
+      "direction": "north",
+      "x": 482,
+      "y": 416,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_dotbelow",
+      "character": "Ạ",
+      "direction": "south",
+      "x": 530,
+      "y": 416,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_grave",
+      "character": "À",
+      "direction": "north",
+      "x": 578,
+      "y": 416,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_grave",
+      "character": "À",
+      "direction": "south",
+      "x": 626,
+      "y": 416,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_hookabove",
+      "character": "Ả",
+      "direction": "north",
+      "x": 674,
+      "y": 416,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_hookabove",
+      "character": "Ả",
+      "direction": "south",
+      "x": 722,
+      "y": 416,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_tilde",
+      "character": "Ã",
+      "direction": "north",
+      "x": 770,
+      "y": 416,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "creeper_tilde",
+      "character": "Ã",
+      "direction": "south",
+      "x": 818,
+      "y": 416,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "dotbelow",
+      "character": null,
+      "direction": "north",
+      "x": 866,
+      "y": 416,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "dotbelow",
+      "character": null,
+      "direction": "south",
+      "x": 914,
+      "y": 416,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "grave",
+      "character": null,
+      "direction": "north",
+      "x": 2,
+      "y": 512,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "grave",
+      "character": null,
+      "direction": "south",
+      "x": 50,
+      "y": 512,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "hookabove",
+      "character": null,
+      "direction": "north",
+      "x": 98,
+      "y": 512,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "hookabove",
+      "character": null,
+      "direction": "south",
+      "x": 146,
+      "y": 512,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "tilde",
+      "character": null,
+      "direction": "north",
+      "x": 194,
+      "y": 512,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "tilde",
+      "character": null,
+      "direction": "south",
+      "x": 242,
+      "y": 512,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "à",
+      "character": "à",
+      "direction": "north",
+      "x": 290,
+      "y": 512,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "à",
+      "character": "à",
+      "direction": "south",
+      "x": 338,
+      "y": 512,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "á",
+      "character": "á",
+      "direction": "north",
+      "x": 386,
+      "y": 512,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "á",
+      "character": "á",
+      "direction": "south",
+      "x": 434,
+      "y": 512,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "â",
+      "character": "â",
+      "direction": "north",
+      "x": 482,
+      "y": 512,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "â",
+      "character": "â",
+      "direction": "south",
+      "x": 530,
+      "y": 512,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ã",
+      "character": "ã",
+      "direction": "north",
+      "x": 578,
+      "y": 512,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ã",
+      "character": "ã",
+      "direction": "south",
+      "x": 626,
+      "y": 512,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "è",
+      "character": "è",
+      "direction": "north",
+      "x": 674,
+      "y": 512,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "è",
+      "character": "è",
+      "direction": "south",
+      "x": 722,
+      "y": 512,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "é",
+      "character": "é",
+      "direction": "north",
+      "x": 770,
+      "y": 512,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "é",
+      "character": "é",
+      "direction": "south",
+      "x": 818,
+      "y": 512,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ê",
+      "character": "ê",
+      "direction": "north",
+      "x": 866,
+      "y": 512,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ê",
+      "character": "ê",
+      "direction": "south",
+      "x": 914,
+      "y": 512,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ì",
+      "character": "ì",
+      "direction": "north",
+      "x": 2,
+      "y": 608,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ì",
+      "character": "ì",
+      "direction": "south",
+      "x": 50,
+      "y": 608,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "í",
+      "character": "í",
+      "direction": "north",
+      "x": 98,
+      "y": 608,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "í",
+      "character": "í",
+      "direction": "south",
+      "x": 146,
+      "y": 608,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ò",
+      "character": "ò",
+      "direction": "north",
+      "x": 194,
+      "y": 608,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ò",
+      "character": "ò",
+      "direction": "south",
+      "x": 242,
+      "y": 608,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ó",
+      "character": "ó",
+      "direction": "north",
+      "x": 290,
+      "y": 608,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ó",
+      "character": "ó",
+      "direction": "south",
+      "x": 338,
+      "y": 608,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ô",
+      "character": "ô",
+      "direction": "north",
+      "x": 386,
+      "y": 608,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ô",
+      "character": "ô",
+      "direction": "south",
+      "x": 434,
+      "y": 608,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "õ",
+      "character": "õ",
+      "direction": "north",
+      "x": 482,
+      "y": 608,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "õ",
+      "character": "õ",
+      "direction": "south",
+      "x": 530,
+      "y": 608,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ù",
+      "character": "ù",
+      "direction": "north",
+      "x": 578,
+      "y": 608,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ù",
+      "character": "ù",
+      "direction": "south",
+      "x": 626,
+      "y": 608,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ú",
+      "character": "ú",
+      "direction": "north",
+      "x": 674,
+      "y": 608,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ú",
+      "character": "ú",
+      "direction": "south",
+      "x": 722,
+      "y": 608,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ý",
+      "character": "ý",
+      "direction": "north",
+      "x": 770,
+      "y": 608,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ý",
+      "character": "ý",
+      "direction": "south",
+      "x": 818,
+      "y": 608,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ă",
+      "character": "ă",
+      "direction": "north",
+      "x": 866,
+      "y": 608,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ă",
+      "character": "ă",
+      "direction": "south",
+      "x": 914,
+      "y": 608,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "đ",
+      "character": "đ",
+      "direction": "north",
+      "x": 2,
+      "y": 704,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "đ",
+      "character": "đ",
+      "direction": "south",
+      "x": 50,
+      "y": 704,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ĩ",
+      "character": "ĩ",
+      "direction": "north",
+      "x": 98,
+      "y": 704,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ĩ",
+      "character": "ĩ",
+      "direction": "south",
+      "x": 146,
+      "y": 704,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ũ",
+      "character": "ũ",
+      "direction": "north",
+      "x": 194,
+      "y": 704,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ũ",
+      "character": "ũ",
+      "direction": "south",
+      "x": 242,
+      "y": 704,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ơ",
+      "character": "ơ",
+      "direction": "north",
+      "x": 290,
+      "y": 704,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ơ",
+      "character": "ơ",
+      "direction": "south",
+      "x": 338,
+      "y": 704,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ư",
+      "character": "ư",
+      "direction": "north",
+      "x": 386,
+      "y": 704,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ư",
+      "character": "ư",
+      "direction": "south",
+      "x": 434,
+      "y": 704,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ạ",
+      "character": "ạ",
+      "direction": "north",
+      "x": 482,
+      "y": 704,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ạ",
+      "character": "ạ",
+      "direction": "south",
+      "x": 530,
+      "y": 704,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ả",
+      "character": "ả",
+      "direction": "north",
+      "x": 578,
+      "y": 704,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ả",
+      "character": "ả",
+      "direction": "south",
+      "x": 626,
+      "y": 704,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ấ",
+      "character": "ấ",
+      "direction": "north",
+      "x": 674,
+      "y": 704,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ấ",
+      "character": "ấ",
+      "direction": "south",
+      "x": 722,
+      "y": 704,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ầ",
+      "character": "ầ",
+      "direction": "north",
+      "x": 770,
+      "y": 704,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ầ",
+      "character": "ầ",
+      "direction": "south",
+      "x": 818,
+      "y": 704,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ẩ",
+      "character": "ẩ",
+      "direction": "north",
+      "x": 866,
+      "y": 704,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ẩ",
+      "character": "ẩ",
+      "direction": "south",
+      "x": 914,
+      "y": 704,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ẫ",
+      "character": "ẫ",
+      "direction": "north",
+      "x": 2,
+      "y": 800,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ẫ",
+      "character": "ẫ",
+      "direction": "south",
+      "x": 50,
+      "y": 800,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ậ",
+      "character": "ậ",
+      "direction": "north",
+      "x": 98,
+      "y": 800,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ậ",
+      "character": "ậ",
+      "direction": "south",
+      "x": 146,
+      "y": 800,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ắ",
+      "character": "ắ",
+      "direction": "north",
+      "x": 194,
+      "y": 800,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ắ",
+      "character": "ắ",
+      "direction": "south",
+      "x": 242,
+      "y": 800,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ằ",
+      "character": "ằ",
+      "direction": "north",
+      "x": 290,
+      "y": 800,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ằ",
+      "character": "ằ",
+      "direction": "south",
+      "x": 338,
+      "y": 800,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ẳ",
+      "character": "ẳ",
+      "direction": "north",
+      "x": 386,
+      "y": 800,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ẳ",
+      "character": "ẳ",
+      "direction": "south",
+      "x": 434,
+      "y": 800,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ẵ",
+      "character": "ẵ",
+      "direction": "north",
+      "x": 482,
+      "y": 800,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ẵ",
+      "character": "ẵ",
+      "direction": "south",
+      "x": 530,
+      "y": 800,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ặ",
+      "character": "ặ",
+      "direction": "north",
+      "x": 578,
+      "y": 800,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ặ",
+      "character": "ặ",
+      "direction": "south",
+      "x": 626,
+      "y": 800,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ẹ",
+      "character": "ẹ",
+      "direction": "north",
+      "x": 674,
+      "y": 800,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ẹ",
+      "character": "ẹ",
+      "direction": "south",
+      "x": 722,
+      "y": 800,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ẻ",
+      "character": "ẻ",
+      "direction": "north",
+      "x": 770,
+      "y": 800,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ẻ",
+      "character": "ẻ",
+      "direction": "south",
+      "x": 818,
+      "y": 800,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ẽ",
+      "character": "ẽ",
+      "direction": "north",
+      "x": 866,
+      "y": 800,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ẽ",
+      "character": "ẽ",
+      "direction": "south",
+      "x": 914,
+      "y": 800,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ế",
+      "character": "ế",
+      "direction": "north",
+      "x": 2,
+      "y": 896,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ế",
+      "character": "ế",
+      "direction": "south",
+      "x": 50,
+      "y": 896,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ề",
+      "character": "ề",
+      "direction": "north",
+      "x": 98,
+      "y": 896,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ề",
+      "character": "ề",
+      "direction": "south",
+      "x": 146,
+      "y": 896,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ể",
+      "character": "ể",
+      "direction": "north",
+      "x": 194,
+      "y": 896,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ể",
+      "character": "ể",
+      "direction": "south",
+      "x": 242,
+      "y": 896,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ễ",
+      "character": "ễ",
+      "direction": "north",
+      "x": 290,
+      "y": 896,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ễ",
+      "character": "ễ",
+      "direction": "south",
+      "x": 338,
+      "y": 896,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ệ",
+      "character": "ệ",
+      "direction": "north",
+      "x": 386,
+      "y": 896,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ệ",
+      "character": "ệ",
+      "direction": "south",
+      "x": 434,
+      "y": 896,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ỉ",
+      "character": "ỉ",
+      "direction": "north",
+      "x": 482,
+      "y": 896,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ỉ",
+      "character": "ỉ",
+      "direction": "south",
+      "x": 530,
+      "y": 896,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ị",
+      "character": "ị",
+      "direction": "north",
+      "x": 578,
+      "y": 896,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ị",
+      "character": "ị",
+      "direction": "south",
+      "x": 626,
+      "y": 896,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ọ",
+      "character": "ọ",
+      "direction": "north",
+      "x": 674,
+      "y": 896,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ọ",
+      "character": "ọ",
+      "direction": "south",
+      "x": 722,
+      "y": 896,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ỏ",
+      "character": "ỏ",
+      "direction": "north",
+      "x": 770,
+      "y": 896,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ỏ",
+      "character": "ỏ",
+      "direction": "south",
+      "x": 818,
+      "y": 896,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ố",
+      "character": "ố",
+      "direction": "north",
+      "x": 866,
+      "y": 896,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ố",
+      "character": "ố",
+      "direction": "south",
+      "x": 914,
+      "y": 896,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ồ",
+      "character": "ồ",
+      "direction": "north",
+      "x": 2,
+      "y": 992,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ồ",
+      "character": "ồ",
+      "direction": "south",
+      "x": 50,
+      "y": 992,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ổ",
+      "character": "ổ",
+      "direction": "north",
+      "x": 98,
+      "y": 992,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ổ",
+      "character": "ổ",
+      "direction": "south",
+      "x": 146,
+      "y": 992,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ỗ",
+      "character": "ỗ",
+      "direction": "north",
+      "x": 194,
+      "y": 992,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ỗ",
+      "character": "ỗ",
+      "direction": "south",
+      "x": 242,
+      "y": 992,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ộ",
+      "character": "ộ",
+      "direction": "north",
+      "x": 290,
+      "y": 992,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ộ",
+      "character": "ộ",
+      "direction": "south",
+      "x": 338,
+      "y": 992,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ớ",
+      "character": "ớ",
+      "direction": "north",
+      "x": 386,
+      "y": 992,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ớ",
+      "character": "ớ",
+      "direction": "south",
+      "x": 434,
+      "y": 992,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ờ",
+      "character": "ờ",
+      "direction": "north",
+      "x": 482,
+      "y": 992,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ờ",
+      "character": "ờ",
+      "direction": "south",
+      "x": 530,
+      "y": 992,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ở",
+      "character": "ở",
+      "direction": "north",
+      "x": 578,
+      "y": 992,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ở",
+      "character": "ở",
+      "direction": "south",
+      "x": 626,
+      "y": 992,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ỡ",
+      "character": "ỡ",
+      "direction": "north",
+      "x": 674,
+      "y": 992,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ỡ",
+      "character": "ỡ",
+      "direction": "south",
+      "x": 722,
+      "y": 992,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ợ",
+      "character": "ợ",
+      "direction": "north",
+      "x": 770,
+      "y": 992,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ợ",
+      "character": "ợ",
+      "direction": "south",
+      "x": 818,
+      "y": 992,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ụ",
+      "character": "ụ",
+      "direction": "north",
+      "x": 866,
+      "y": 992,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ụ",
+      "character": "ụ",
+      "direction": "south",
+      "x": 914,
+      "y": 992,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ủ",
+      "character": "ủ",
+      "direction": "north",
+      "x": 2,
+      "y": 1088,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ủ",
+      "character": "ủ",
+      "direction": "south",
+      "x": 50,
+      "y": 1088,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ứ",
+      "character": "ứ",
+      "direction": "north",
+      "x": 98,
+      "y": 1088,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ứ",
+      "character": "ứ",
+      "direction": "south",
+      "x": 146,
+      "y": 1088,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ừ",
+      "character": "ừ",
+      "direction": "north",
+      "x": 194,
+      "y": 1088,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ừ",
+      "character": "ừ",
+      "direction": "south",
+      "x": 242,
+      "y": 1088,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ử",
+      "character": "ử",
+      "direction": "north",
+      "x": 290,
+      "y": 1088,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ử",
+      "character": "ử",
+      "direction": "south",
+      "x": 338,
+      "y": 1088,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ữ",
+      "character": "ữ",
+      "direction": "north",
+      "x": 386,
+      "y": 1088,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ữ",
+      "character": "ữ",
+      "direction": "south",
+      "x": 434,
+      "y": 1088,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ự",
+      "character": "ự",
+      "direction": "north",
+      "x": 482,
+      "y": 1088,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ự",
+      "character": "ự",
+      "direction": "south",
+      "x": 530,
+      "y": 1088,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ỳ",
+      "character": "ỳ",
+      "direction": "north",
+      "x": 578,
+      "y": 1088,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ỳ",
+      "character": "ỳ",
+      "direction": "south",
+      "x": 626,
+      "y": 1088,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ỵ",
+      "character": "ỵ",
+      "direction": "north",
+      "x": 674,
+      "y": 1088,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ỵ",
+      "character": "ỵ",
+      "direction": "south",
+      "x": 722,
+      "y": 1088,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ỷ",
+      "character": "ỷ",
+      "direction": "north",
+      "x": 770,
+      "y": 1088,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ỷ",
+      "character": "ỷ",
+      "direction": "south",
+      "x": 818,
+      "y": 1088,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ỹ",
+      "character": "ỹ",
+      "direction": "north",
+      "x": 866,
+      "y": 1088,
+      "width": 44,
+      "height": 96
+    },
+    {
+      "stem": "ỹ",
+      "character": "ỹ",
+      "direction": "south",
+      "x": 914,
+      "y": 1088,
+      "width": 44,
+      "height": 96
+    }
+  ],
+  "note": "Original caps/sides/borders are retained; complete front/back glyph panels follow below."
+}
