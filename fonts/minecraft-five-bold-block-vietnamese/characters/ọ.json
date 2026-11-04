@@ -9,7 +9,7 @@
   },
   "elements": [
     {
-      "name": "shared_background_1",
+      "name": "cube",
       "from": [
         -10,
         -6,
@@ -51,7 +51,7 @@
       }
     },
     {
-      "name": "shared_background_2",
+      "name": "cube",
       "from": [
         -10,
         0,
@@ -84,7 +84,7 @@
       }
     },
     {
-      "name": "glyph_3",
+      "name": "cube",
       "from": [
         4,
         0,
@@ -117,7 +117,7 @@
       }
     },
     {
-      "name": "shared_background_4",
+      "name": "cube",
       "from": [
         12,
         0,
@@ -150,7 +150,7 @@
       }
     },
     {
-      "name": "shared_background_5",
+      "name": "cube",
       "from": [
         4,
         8,
@@ -183,7 +183,7 @@
       }
     },
     {
-      "name": "shared_background_6",
+      "name": "cube",
       "from": [
         -10,
         10,
@@ -216,7 +216,7 @@
       }
     },
     {
-      "name": "glyph_7",
+      "name": "cube",
       "from": [
         -2,
         10,
@@ -249,7 +249,7 @@
       }
     },
     {
-      "name": "shared_background_8",
+      "name": "cube",
       "from": [
         18,
         10,
@@ -282,7 +282,7 @@
       }
     },
     {
-      "name": "shared_background_9",
+      "name": "cube",
       "from": [
         -10,
         16,
@@ -324,7 +324,7 @@
       }
     },
     {
-      "name": "glyph_10",
+      "name": "cube",
       "from": [
         -8,
         16,
@@ -357,7 +357,7 @@
       }
     },
     {
-      "name": "glyph_11",
+      "name": "cube",
       "from": [
         18,
         16,
@@ -390,7 +390,7 @@
       }
     },
     {
-      "name": "shared_background_12",
+      "name": "cube",
       "from": [
         24,
         16,
@@ -432,7 +432,7 @@
       }
     },
     {
-      "name": "glyph_13",
+      "name": "cube",
       "from": [
         -2,
         18,
@@ -465,7 +465,7 @@
       }
     },
     {
-      "name": "shared_background_14",
+      "name": "cube",
       "from": [
         0,
         18,
@@ -498,7 +498,7 @@
       }
     },
     {
-      "name": "glyph_15",
+      "name": "cube",
       "from": [
         16,
         18,
@@ -531,7 +531,7 @@
       }
     },
     {
-      "name": "glyph_16",
+      "name": "cube",
       "from": [
         0,
         34,
@@ -564,7 +564,7 @@
       }
     },
     {
-      "name": "shared_background_17",
+      "name": "cube",
       "from": [
         -8,
         36,
@@ -606,7 +606,7 @@
       }
     },
     {
-      "name": "shared_background_18",
+      "name": "cube",
       "from": [
         18,
         36,
@@ -648,7 +648,7 @@
       }
     },
     {
-      "name": "shared_background_19",
+      "name": "cube",
       "from": [
         -2,
         42,

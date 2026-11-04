@@ -30,11 +30,45 @@ const api=context.api,results=[];const args=o=>({...defaults,...o});
 const flatImage=await loadImage(path.join(fontDir,'textures/flat.png')),mask=new Frame(1000,320);mask.ctx.drawImage(flatImage,0,0);font.bakedMask=mask.canvas;
 function log(name,detail={}){results.push({name,...detail});console.log('PASS '+name);}
 function pixel(image,u,v){const x=Math.floor(u/16*image.width+1e-7),y=Math.floor(v/16*image.height+1e-7);return Array.from(image.data.subarray((y*image.width+x)*4,(y*image.width+x)*4+4));}
-function uv(e,side,x,y,z=8){const t=[x,y,z].map((v,i)=>(v-e.from[i])/(e.to[i]-e.from[i]));const q=side==='north'?[1-t[0],1-t[1]]:side==='south'?[t[0],1-t[1]]:side==='up'?[t[0],t[2]]:[t[0],1-t[2]],f=e.faces[side].uv??e.faces[side];return[f[0]+q[0]*(f[2]-f[0]),f[1]+q[1]*(f[3]-f[1])];}
-const styles=fs.readdirSync(path.join(fontDir,'textures')).filter(n=>n.endsWith('.png')&&n!=='overlay.png').map(n=>n.slice(0,-4)).filter((_,i)=>!process.argv.includes('--quick')||i===0);
+function uv(e,side,x,y,z=8){const t=[x,y,z].map((v,i)=>(v-e.from[i])/(e.to[i]-e.from[i]));const q=side==='north'?[1-t[0],1-t[1]]:side==='south'?[t[0],1-t[1]]:side==='up'?[t[0],t[2]]:side==='east'?[1-t[2],1-t[1]]:side==='west'?[t[2],1-t[1]]:[t[0],1-t[2]],f=e.faces[side].uv??e.faces[side];return[f[0]+q[0]*(f[2]-f[0]),f[1]+q[1]*(f[3]-f[1])];}
+const presetNames=new Set(Object.entries(meta.textures).flatMap(([id,p])=>[id,...Object.keys(p.variants??{})]));
+const styles=fs.readdirSync(path.join(fontDir,'textures')).filter(n=>n.endsWith('.png')&&presetNames.has(n.slice(0,-4))).map(n=>n.slice(0,-4)).filter((_,i)=>!process.argv.includes('--quick')||i===0);
 const allText=Object.keys(font.characters).join('');let inkSamples=0;
 for(const style of styles){const canvas=await api.makeTexture(args({texture:style,canvas:true})),baked=api.bakeBlockPanels(font,allText,args({debug:true}),canvas,mask.canvas);assert.equal(baked.models.size,Object.keys(font.characters).length);const image=canvas.getContext('2d').getImageData(0,0,1000,320),flat=mask.ctx.getImageData(0,0,1000,320),pages=baked.pages.map(p=>p.ctx.getImageData(0,0,p.width,p.height));
  for(const[ch,def]of baked.models){const e=def.elements[0];assert.equal(def.elements.length,1);for(const src of font.characters[ch])if(src.faces.north)for(let y=src.from[1];y<src.to[1];y++)for(let x=Math.ceil(src.from[0]);x<src.to[0];x++){const q=uv(src,'north',x+.25,y+.5),ink=pixel(flat,...q);if(ink.every(v=>v===255)){const expected=pixel(image,...q),got=pixel(pages[def.page],...uv(e,'north',x+.25,y+.5));assert.deepEqual(got,expected,style+'/'+ch+' ink pixel');inkSamples++;}}}
+
+ // Check cross-panel continuity and complete original end-cap top/bottom UVs.
+ for(const ch of ['┫','┣']){
+   const original=font.characters[ch][0],out=baked.models.get(ch),e=out.elements[0],width=e.to[0]-e.from[0],height=e.to[1]-e.from[1];
+   assert.equal(e.name,'cube');
+   const middle=baked.models.get('m'),m=middle.elements[0];
+   for(let y=0;y<height;y++){
+     const x=ch==='┫'?width-1:0;
+     const expected=pixel(pages[middle.page],...uv(m,'north',m.to[0]-.5,m.to[1]-y-.5));
+     const actual=pixel(pages[out.page],...uv(e,'north',e.to[0]-x-.5,e.to[1]-y-.5));
+     assert.deepEqual(actual,expected,style+'/'+ch+' background seam at row '+y);
+     if(style.endsWith('_planks'))for(let xx=0;xx<width;xx++)assert.deepEqual(pixel(pages[out.page],...uv(e,'north',e.to[0]-xx-.5,e.to[1]-y-.5)),expected,style+' wood phase');
+   }
+   if(style.endsWith('_planks'))for(const side of ['east','west'])if(original.faces[side])
+     for(let y=0;y<height;y++)for(let z=0;z<16;z++){
+       const expected=pixel(pages[middle.page],...uv(m,'north',m.to[0]-.5,m.to[1]-y-.5));
+       const actual=pixel(pages[out.page],...uv(e,side,side==='east'?e.to[0]:e.from[0],e.to[1]-y-.5,z+.5));
+       assert.deepEqual(actual,expected,style+'/'+side+' side/front seam at '+y+','+z);
+     }
+   for(const side of ['up','down'])for(let z=0;z<16;z++)for(let x=0;x<width;x++){
+     const worldX=original.from[0]+x+.5;
+     const expected=pixel(image,...uv(original,side,worldX,original.from[1],z+.5));
+     const actual=pixel(pages[out.page],...uv(e,side,worldX,e.from[1],z+.5));
+     assert.deepEqual(actual,expected,style+'/'+ch+' '+side+' cap '+x+','+z);
+   }
+   if(style==='neon'){
+     const x=ch==='┫'?0:width-1;
+     for(const y of [0,Math.floor(height/2),height-1]){
+       const color=pixel(pages[out.page],...uv(e,'north',e.to[0]-x-.5,e.to[1]-y-.5));
+       assert.ok(color[0]>100&&color[2]>150,'Neon vertical frame must stay bright');
+     }
+   }
+ }
  log('preset '+style,{characters:baked.models.size,pages:baked.pages.length});if(style==='acacia_planks'){for(const[i,p]of baked.pages.entries())await p.canvas.saveAs(path.join(review,'outputs',style+'-catalogue-'+i+'.png'));}}
 for(const mode of ['top','bottom','small']){const prepared=await api.prepareBakedBlock('aẳặựẨ',args({type:mode}));assert.ok(prepared.text.startsWith('┫')&&prepared.text.endsWith('┣'));assert.equal(prepared.instances.filter(r=>r.char!==null).length,7);assert.equal(prepared.instances.filter(r=>r.char===null).length,1);const geometry=prepared.instances.filter(r=>r.char!==null).map(r=>r.cube);assert.equal(new Set(geometry.map(e=>e.from[1]+','+e.to[1])).size,1);log('dynamic row '+mode,{pages:prepared.baked.pages.length,panels:geometry.length});}
 const repeated=await api.prepareBakedBlock('aaaaa',args({}));assert.equal(repeated.baked.models.size,3);assert.equal(repeated.baked.pages.length,1);log('repeat glyph cache');

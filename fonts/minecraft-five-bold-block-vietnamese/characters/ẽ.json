@@ -9,7 +9,7 @@
   },
   "elements": [
     {
-      "name": "shared_background_1",
+      "name": "cube",
       "from": [
         -10,
         4,
@@ -60,7 +60,7 @@
       }
     },
     {
-      "name": "shared_background_2",
+      "name": "cube",
       "from": [
         -8,
         4,
@@ -102,7 +102,7 @@
       }
     },
     {
-      "name": "glyph_3",
+      "name": "cube",
       "from": [
         -8,
         10,
@@ -135,7 +135,7 @@
       }
     },
     {
-      "name": "shared_background_4",
+      "name": "cube",
       "from": [
         -8,
         18,
@@ -168,7 +168,7 @@
       }
     },
     {
-      "name": "glyph_5",
+      "name": "cube",
       "from": [
         -8,
         34,
@@ -201,7 +201,7 @@
       }
     },
     {
-      "name": "shared_background_6",
+      "name": "cube",
       "from": [
         -8,
         42,
@@ -234,7 +234,7 @@
       }
     },
     {
-      "name": "glyph_7",
+      "name": "cube",
       "from": [
         -8,
         50,
@@ -267,7 +267,7 @@
       }
     },
     {
-      "name": "shared_background_8",
+      "name": "cube",
       "from": [
         -8,
         58,
@@ -309,7 +309,7 @@
       }
     },
     {
-      "name": "shared_background_9",
+      "name": "cube",
       "from": [
         -2,
         42,
@@ -342,7 +342,7 @@
       }
     },
     {
-      "name": "glyph_10",
+      "name": "cube",
       "from": [
         -2,
         44,
@@ -375,7 +375,7 @@
       }
     },
     {
-      "name": "glyph_11",
+      "name": "cube",
       "from": [
         0,
         50,
@@ -408,7 +408,7 @@
       }
     },
     {
-      "name": "shared_background_12",
+      "name": "cube",
       "from": [
         0,
         52,
@@ -441,7 +441,7 @@
       }
     },
     {
-      "name": "shared_background_13",
+      "name": "cube",
       "from": [
         4,
         18,
@@ -474,7 +474,7 @@
       }
     },
     {
-      "name": "glyph_14",
+      "name": "cube",
       "from": [
         4,
         22,
@@ -507,7 +507,7 @@
       }
     },
     {
-      "name": "shared_background_15",
+      "name": "cube",
       "from": [
         4,
         30,
@@ -540,7 +540,7 @@
       }
     },
     {
-      "name": "glyph_16",
+      "name": "cube",
       "from": [
         4,
         52,
@@ -573,7 +573,7 @@
       }
     },
     {
-      "name": "shared_background_17",
+      "name": "cube",
       "from": [
         6,
         44,
@@ -606,7 +606,7 @@
       }
     },
     {
-      "name": "glyph_18",
+      "name": "cube",
       "from": [
         10,
         44,
@@ -639,7 +639,7 @@
       }
     },
     {
-      "name": "shared_background_19",
+      "name": "cube",
       "from": [
         12,
         52,
@@ -672,7 +672,7 @@
       }
     },
     {
-      "name": "glyph_20",
+      "name": "cube",
       "from": [
         16,
         18,
@@ -705,7 +705,7 @@
       }
     },
     {
-      "name": "glyph_21",
+      "name": "cube",
       "from": [
         16,
         30,
@@ -738,7 +738,7 @@
       }
     },
     {
-      "name": "shared_background_22",
+      "name": "cube",
       "from": [
         18,
         44,
@@ -771,7 +771,7 @@
       }
     },
     {
-      "name": "shared_background_23",
+      "name": "cube",
       "from": [
         24,
         10,

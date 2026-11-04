@@ -1,62 +1,63 @@
 {
-	"credit": "By Ewan Howell & bl205vn",
-	"texture_size": [
-		1000,
-		320
-	],
-	"textures": {
-		"0": "minecraft-five-bold-block-vietnamese:flat"
-	},
-	"elements": [
-		{
-			"from": [
-				-4,
-				2,
-				0
-			],
-			"to": [
-				20,
-				50,
-				16
-			],
-			"faces": {
-				"north": {
-					"uv": [
-						7.456,
-						9,
-						7.84,
-						11.4
-					],
-					"texture": "#0"
-				},
-				"south": {
-					"uv": [
-						7.84,
-						9,
-						7.456,
-						11.4
-					],
-					"texture": "#0"
-				},
-				"up": {
-					"uv": [
-						7.84,
-						9,
-						7.456,
-						8.2
-					],
-					"texture": "#0"
-				},
-				"down": {
-					"uv": [
-						7.84,
-						12.2,
-						7.456,
-						11.4
-					],
-					"texture": "#0"
-				}
-			}
-		}
-	]
+  "credit": "By Ewan Howell & bl205vn",
+  "texture_size": [
+    1000,
+    320
+  ],
+  "textures": {
+    "0": "minecraft-five-bold-block-vietnamese:flat"
+  },
+  "elements": [
+    {
+      "from": [
+        -4,
+        2,
+        0
+      ],
+      "to": [
+        20,
+        50,
+        16
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            7.456,
+            9,
+            7.84,
+            11.4
+          ],
+          "texture": "#0"
+        },
+        "south": {
+          "uv": [
+            7.84,
+            9,
+            7.456,
+            11.4
+          ],
+          "texture": "#0"
+        },
+        "up": {
+          "uv": [
+            7.84,
+            9,
+            7.456,
+            8.2
+          ],
+          "texture": "#0"
+        },
+        "down": {
+          "uv": [
+            7.84,
+            12.2,
+            7.456,
+            11.4
+          ],
+          "texture": "#0"
+        }
+      },
+      "name": "cube"
+    }
+  ]
 }

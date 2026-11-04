@@ -9,7 +9,7 @@
   },
   "elements": [
     {
-      "name": "shared_background_1",
+      "name": "cube",
       "from": [
         -13,
         4,
@@ -51,7 +51,7 @@
       }
     },
     {
-      "name": "shared_background_2",
+      "name": "cube",
       "from": [
         -13,
         10,
@@ -84,7 +84,7 @@
       }
     },
     {
-      "name": "glyph_3",
+      "name": "cube",
       "from": [
         1,
         10,
@@ -117,7 +117,7 @@
       }
     },
     {
-      "name": "shared_background_4",
+      "name": "cube",
       "from": [
         21,
         10,
@@ -150,7 +150,7 @@
       }
     },
     {
-      "name": "shared_background_5",
+      "name": "cube",
       "from": [
         -13,
         16,
@@ -183,7 +183,7 @@
       }
     },
     {
-      "name": "glyph_6",
+      "name": "cube",
       "from": [
         -5,
         16,
@@ -216,7 +216,7 @@
       }
     },
     {
-      "name": "glyph_7",
+      "name": "cube",
       "from": [
         21,
         16,
@@ -249,7 +249,7 @@
       }
     },
     {
-      "name": "shared_background_8",
+      "name": "cube",
       "from": [
         27,
         16,
@@ -291,7 +291,7 @@
       }
     },
     {
-      "name": "glyph_9",
+      "name": "cube",
       "from": [
         1,
         18,
@@ -324,7 +324,7 @@
       }
     },
     {
-      "name": "shared_background_10",
+      "name": "cube",
       "from": [
         3,
         18,
@@ -357,7 +357,7 @@
       }
     },
     {
-      "name": "glyph_11",
+      "name": "cube",
       "from": [
         19,
         18,
@@ -390,7 +390,7 @@
       }
     },
     {
-      "name": "shared_background_12",
+      "name": "cube",
       "from": [
         -13,
         34,
@@ -432,7 +432,7 @@
       }
     },
     {
-      "name": "glyph_13",
+      "name": "cube",
       "from": [
         -11,
         34,
@@ -465,7 +465,7 @@
       }
     },
     {
-      "name": "glyph_14",
+      "name": "cube",
       "from": [
         3,
         34,
@@ -498,7 +498,7 @@
       }
     },
     {
-      "name": "glyph_15",
+      "name": "cube",
       "from": [
         -5,
         36,
@@ -531,7 +531,7 @@
       }
     },
     {
-      "name": "shared_background_16",
+      "name": "cube",
       "from": [
         -3,
         36,
@@ -573,7 +573,7 @@
       }
     },
     {
-      "name": "shared_background_17",
+      "name": "cube",
       "from": [
         21,
         36,
@@ -615,7 +615,7 @@
       }
     },
     {
-      "name": "shared_background_18",
+      "name": "cube",
       "from": [
         -11,
         42,
@@ -657,7 +657,7 @@
       }
     },
     {
-      "name": "shared_background_19",
+      "name": "cube",
       "from": [
         1,
         42,
@@ -690,7 +690,7 @@
       }
     },
     {
-      "name": "glyph_20",
+      "name": "cube",
       "from": [
         7,
         42,
@@ -723,7 +723,7 @@
       }
     },
     {
-      "name": "shared_background_21",
+      "name": "cube",
       "from": [
         15,
         42,
@@ -756,7 +756,7 @@
       }
     },
     {
-      "name": "glyph_22",
+      "name": "cube",
       "from": [
         1,
         46,
@@ -789,7 +789,7 @@
       }
     },
     {
-      "name": "glyph_23",
+      "name": "cube",
       "from": [
         7,
         48,
@@ -822,7 +822,7 @@
       }
     },
     {
-      "name": "shared_background_24",
+      "name": "cube",
       "from": [
         9,
         48,
@@ -855,7 +855,7 @@
       }
     },
     {
-      "name": "glyph_25",
+      "name": "cube",
       "from": [
         9,
         52,
@@ -888,7 +888,7 @@
       }
     },
     {
-      "name": "shared_background_26",
+      "name": "cube",
       "from": [
         1,
         54,
@@ -930,7 +930,7 @@
       }
     },
     {
-      "name": "shared_background_27",
+      "name": "cube",
       "from": [
         7,
         60,

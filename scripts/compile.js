@@ -122,6 +122,9 @@ for (const font of fonts) {
 
   const textures = fs.readdirSync(`../${font.type}s/${font.id}/textures`).map(e => ["textures", e]).concat(fs.readdirSync(`../${font.type}s/${font.id}/overlays`).map(e => ["overlays", e]))
 
+  const bakedPresetNames = font.bakedPanels ? new Set(Object.entries(JSON.parse(fs.readFileSync(`../fonts/${font.id}/textures.json`, "utf8")).textures)
+    .flatMap(([id, preset]) => [id, ...Object.keys(preset.variants ?? {})])) : null
+
   const flat = await loadImage(`../${font.type}s/${font.id}/textures/flat.png`)
   const overlayBackground = new Canvas(flat.width, flat.height)
   const overlayBackgroundCtx = overlayBackground.getContext("2d")
@@ -134,6 +137,7 @@ for (const font of fonts) {
 
   for (const file of textures) {
     if (!file[1].endsWith(".png") || file[1] === "overlay.png") continue
+    if (bakedPresetNames && file[0] === "textures" && !bakedPresetNames.has(file[1].slice(0, -4))) continue
 
     const texture = await loadTexture(file[0] ? `../${font.type}s/${font.id}/${file[0]}/${file[1]}` : file[2])
 

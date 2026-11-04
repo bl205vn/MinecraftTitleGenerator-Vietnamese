@@ -7356,6 +7356,9 @@
       const tile = page.ctx.createImageData(slotWidth, slotHeight);
       const inkPixels = new Uint8Array(wp * hp);
       const expanded = oldBottom !== rowBottom || oldTop !== rowTop;
+      // Preserve end-cap decoration while the undecorated background follows
+      // the same source rows as the adjoining glyph panels.
+      const endFront = sides.length ? elements.find(e => e.faces.north) : null;
       const sourceAt = (side, x, y, z) => {
         const e = elements.find(e => e.faces[side]
           && x >= Math.min(e.from[0], e.to[0]) - 1e-7 && x <= Math.max(e.from[0], e.to[0]) + 1e-7
@@ -7374,6 +7377,15 @@
           isInk = ink[0] === 255 && ink[1] === 255 && ink[2] === 255 && ink[3] === 255;
           if (!expanded || isInk)
             color = facePixel(source, e, "north", point);
+        }
+        if (expanded && endFront) {
+          const row = (y + .5) / scale, oldHeight = oldTop - oldBottom;
+          const sourceRow = row < 2 ? row : row >= height - 2 ? oldHeight - (height - row)
+            : 2 + (row - 2) / (height - 4) * (oldHeight - 4);
+          const endColor = facePixel(source, endFront, "north", [worldX, oldTop - sourceRow, (z0 + z1) / 2]);
+          const innerX = sides.includes("east") ? a + .5 / scale : c - .5 / scale;
+          const innerColor = facePixel(source, endFront, "north", [innerX, oldTop - sourceRow, (z0 + z1) / 2]);
+          color = endColor.some((value, i) => value !== innerColor[i]) ? endColor : undefined;
         }
         const sourceUV = e && bakedBlockFaceUV(e, "north", [worldX, worldY, 8]);
         const shared = !color || sourceUV && sourceUV[0] * font.textureWidth / 16 >= fx && sourceUV[0] * font.textureWidth / 16 < fx + fw;
@@ -7397,7 +7409,7 @@
         for (const side of ["up", "down"]) {
           const worldY = side === "up" ? oldTop : oldBottom;
           const worldZ = side === "up" ? z1 - (y + .5) / dp * depth : z0 + (y + .5) / dp * depth;
-          const e = !expanded && sourceAt(side, worldX, worldY, worldZ);
+          const e = (!expanded || endFront) && sourceAt(side, worldX, worldY, worldZ);
           const color = e ? facePixel(source, e, side, [worldX, worldY, worldZ])
             : pixel(source, (fx + column) * scale, (side === "up" ? fy : fy + fh - depth) * scale + y);
           set(tile, x, side === "up" ? y : dp + hp + y, color);
@@ -7406,10 +7418,23 @@
       for (const [i, side] of sides.entries()) {
         const e = elements.find(e => e.faces[side]);
         for (let y = 0; y < hp; y++) for (let x = 0; x < dp; x++) {
-          const yy = oldTop - (y + .5) / hp * (oldTop - oldBottom);
+          const row = (y + .5) / scale, oldHeight = oldTop - oldBottom;
+          const sourceRow = expanded ? row < 2 ? row : row >= height - 2 ? oldHeight - (height - row)
+            : 2 + (row - 2) / (height - 4) * (oldHeight - 4) : row;
+          const yy = oldTop - sourceRow;
           const zz = side === "east" ? z1 - (x + .5) / dp * depth : z0 + (x + .5) / dp * depth;
-          set(tile, wp + i * dp + x, dp + y, facePixel(source, e, side,
-            [side === "east" ? e.to[0] : e.from[0], yy, zz]));
+          let color = facePixel(source, e, side, [side === "east" ? e.to[0] : e.from[0], yy, zz]);
+          if (expanded && endFront) {
+            const innerX = side === "east" ? a + .5 / scale : c - .5 / scale;
+            const innerColor = facePixel(source, endFront, "north", [innerX, yy, (z0 + z1) / 2]);
+            if (color.every((value, i) => value === innerColor[i])) {
+              const worldY = rowTop - row;
+              const frameRow = y < 2 * scale ? y / scale : y >= hp - 2 * scale ? fh - 2 * depth - (hp - y) / scale
+                : args._bakedLayout === "balanced" ? (rowTop - worldY) / height * (fh - 2 * depth) : config.frameY[1] - worldY;
+              color = pixel(source, (fx + Math.floor(fw / 2)) * scale, (fy + depth + frameRow) * scale);
+            }
+          }
+          set(tile, wp + i * dp + x, dp + y, color);
         }
       }
       page.ctx.putImageData(tile, tx, ty);
@@ -7442,7 +7467,7 @@
       };
       for (const [i, side] of sides.entries()) faces[side] = { uv: normalized(tx + wp + i * dp,
         ty + dp, tx + wp + (i + 1) * dp, ty + dp + hp) };
-      models.set(char, { page: pages.length - 1, elements: [{ name: "panel", from: [a, rowBottom, z0], to: [c, rowTop, z1], faces }] });
+      models.set(char, { page: pages.length - 1, elements: [{ name: "cube", from: [a, rowBottom, z0], to: [c, rowTop, z1], faces }] });
       packing.x += slotWidth + scale * 2; packing.height = Math.max(packing.height, slotHeight);
     }
     const borderUV = normalized((pageWidth - 1) * scale, (pageHeight - 1) * scale, pageWidth * scale, pageHeight * scale);
@@ -7486,7 +7511,7 @@
     if (font.autoBorder) {
       const pad = (scale[0] + scale[1]) * (type === "bottom" ? .75 : type === "small" ? .35 : 1);
       const adjusted = bakedBlockBounds(out.map(r => r.cube));
-      out.push({ char: null, page: 0, cube: { name: "border", from: adjusted.map(b => b[1] + pad),
+      out.push({ char: null, page: 0, cube: { name: "cube", from: adjusted.map(b => b[1] + pad),
         to: adjusted.map(b => b[0] - pad), faces: Object.fromEntries(["north", "south", "east", "west", "up", "down"].map(s => [s, { uv: baked.borderUV }])) } });
     }
     return out;

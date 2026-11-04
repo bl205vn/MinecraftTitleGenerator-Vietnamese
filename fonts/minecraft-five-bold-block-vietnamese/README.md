@@ -73,3 +73,11 @@ Mặc định hiện tại: khe rời 4px giữa thân và dấu hoặc giữa h
 `scripts/compact-block-vietnamese-layout.js` mặc định chỉ tạo ứng viên và báo cáo trong `backups`; `--apply` mới cập nhật model. Script kiểm tra bitmap, UV từng điểm ảnh hai mặt, vị trí thân, cụm dấu nối và phần nền kín. Chạy lại sau khi áp dụng không tạo thay đổi tiếp. `scripts/review-block-compaction.js` tạo ảnh và BBModel trước/sau từ bản backup được ghi ở `backups/block-gap2-padding6-last.txt`.
 
 Hai bố cục cũ `compact` và `balanced` trong `scripts/review-block-balance.js` chỉ còn là công cụ thử nghiệm, không phải mặc định của hộp thoại.
+
+Khi nới dòng, phần nền không trang trí ở hai đầu khung lấy cùng hàng texture với các panel chữ để vân gỗ nối liền. Các chi tiết khác màu so với cột nền phía trong của `start.json`/`end.json` được giữ lại, gồm viền dọc Neon/Bedrock. Mặt trên/dưới hai đầu vẫn dùng UV gốc để giữ đường viền nối qua góc, thay vì lấy phần giữa của khung nền chung. Texture mới vẫn lấy màu từ atlas, không cần bổ sung bảng màu trong code.
+
+Các element trong 88 model thêm mới dùng tên mặc định `cube`; cube nền/chữ và viền do bộ ghép runtime sinh ra cũng dùng tên này. Tên element không quyết định thành phần glyph hay UV. Có thể chạy `scripts/review-block-frame.js` để tạo mẫu render và BBModel cho Neon, hai loại gỗ, Bedrock Button, Live và Flat trong backup của lần sửa viền.
+
+`scripts/review-block-frame-phase.js` tạo mẫu `MỚI`, thêm `--plain` để đối chiếu `MOI` ở góc thấy rõ mặt dưới. Bộ kiểm tra so vân gỗ tại đường tiếp giáp hai đầu với panel chữ và kiểm tra toàn bộ UV mặt trên/dưới hai đầu. Compile của font có `bakedPanels` chỉ tạo thumbnail cho texture đã đăng ký trong `textures.json` (gồm các variant), bỏ qua ảnh render thử đặt trong thư mục textures.
+
+Mặt hông hai đầu cũng đồng bộ phần nền với các hàng của mặt trước, giữ lại chi tiết trang trí khác màu nền gốc. Không kéo vân gỗ 48px phủ toàn chiều cao mới. Bộ kiểm tra đối chiếu từng hàng và toàn chiều sâu của cả hai mặt hông trên các preset gỗ; `scripts/review-block-side-phase.js` xuất góc chéo phải, thêm `--left` để xem bên trái.
