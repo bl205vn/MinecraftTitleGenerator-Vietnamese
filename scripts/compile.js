@@ -8,8 +8,6 @@ import createContext from "gl"
 import path from "node:path"
 import sharp from "sharp"
 import fs from "node:fs"
-import { getVietnameseCharacterKey } from "./vietnamese-character-map.js"
-import { bakeBlockSurface } from "./baked-block-panels.js"
 
 const { THREE, loadTexture } = await getTHREE({ Canvas, Image, ImageData, fetch, Request, Response, Headers })
 
@@ -17,12 +15,7 @@ const w = 160
 const h = 96
 const alphaThreshold = 10
 
-// Optional scoped build: models/thumbnails for one font, without recompressing
-// unrelated source artwork. The regular compile.bat build remains unchanged.
-const args = process.argv.slice(2)
-const selectedFont = args.length === 2 && args[0] === "--font" ? args[1] : null
-if (args.length && (!selectedFont || !/^[a-z0-9-]+$/.test(selectedFont))) throw Error("Usage: node compile.js [--font font-id]")
-const tempDir = selectedFont ? `temp/${selectedFont}` : "temp"
+fs.rmSync("temp", { recursive: true, force: true })
 
 const charMap = {
   asterisk: "*",
@@ -76,21 +69,12 @@ for (const shape of shapes) {
 
 const shapeModels = {}
 
-if (selectedFont && !fonts.some(font => font.type === "font" && font.id === selectedFont)) throw Error(`Unknown font: ${selectedFont}`)
-const tempPath = path.resolve(tempDir)
-if (!tempPath.startsWith(path.resolve(".") + path.sep)) throw Error("Invalid build temporary path")
-fs.rmSync(tempPath, { recursive: true, force: true })
-
 for (const font of fonts) {
-  if (selectedFont && font.id !== selectedFont) continue
   font.characters = {}
 
   if (font.type === "font") {
     for (const file of fs.readdirSync(`../fonts/${font.id}/characters`)) {
-      const stem = file.slice(0, -5)
-      const mapped = ["minecraft-ten-vietnamese", "minecraft-five-vietnamese", "minecraft-five-bold-vietnamese", "minecraft-five-bold-block-vietnamese"].includes(font.id) ? getVietnameseCharacterKey(stem) : stem
-      if (mapped === null) continue
-      const char = charMap[stem] ?? mapped
+      const char = charMap[file.slice(0, -5)] ?? file.slice(0, -5)
       font.characters[char] = JSON.parse(fs.readFileSync(`../fonts/${font.id}/characters/${file}`, "utf8")).elements
     }
   } else if (font.type === "shape") {
@@ -118,7 +102,7 @@ for (const font of fonts) {
   fs.writeFileSync(`../${font.type}s/${font.id}/textures.json`, JSON.stringify(JSON.parse(fs.readFileSync(`../${font.type}s/${font.id}/textures.json`)), null, 2) + "\n")
 
   fs.mkdirSync(`../${font.type}s/${font.id}/thumbnails`, { recursive: true })
-  fs.mkdirSync(`${tempDir}/${font.type}s/${font.id}/thumbnails`, { recursive: true })
+  fs.mkdirSync(`temp/${font.type}s/${font.id}/thumbnails`, { recursive: true })
 
   const textures = fs.readdirSync(`../${font.type}s/${font.id}/textures`).map(e => ["textures", e]).concat(fs.readdirSync(`../${font.type}s/${font.id}/overlays`).map(e => ["overlays", e]))
 
@@ -158,36 +142,10 @@ for (const font of fonts) {
       text = "a"
     }
 
-    if (font.bakedPanels) {
-      const meta = JSON.parse(fs.readFileSync(`../fonts/${font.id}/textures.json`, "utf8"))
-      const options = {}
-      let sourceCanvas = texture.image
-      if (file[0] === "textures") {
-        let preset = meta.textures[file[1].slice(0, -4)]
-        if (!preset) for (const entry of Object.values(meta.textures))
-          if (entry.variants?.[file[1].slice(0, -4)]) preset = entry.variants[file[1].slice(0, -4)]
-        options._bakedInkEffect = preset?.bakedInkEffect
-      } else if (file[0] === "overlays" && meta.overlays[file[1].slice(0, -4)]?.bakedEffect) {
-        const image = await loadImage(`../fonts/${font.id}/overlays/${file[1]}`)
-        const raw = new Canvas(image.width, image.height)
-        raw.getContext("2d").drawImage(image, 0, 0)
-        options._bakedOverlay = { effect: meta.overlays[file[1].slice(0, -4)].bakedEffect,
-          image: raw.getContext("2d").getImageData(0, 0, image.width, image.height) }
-        options.overlayBlend = "source-over"; options.overlayOpacity = 100
-        sourceCanvas = overlayBackground
-      }
-      const mask = new Canvas(1000, 320)
-      mask.getContext("2d").drawImage(flat, 0, 0, 1000, 320)
-      const baked = bakeBlockSurface(font, text, sourceCanvas, mask, options)
-      if (baked.pages.length !== 1) throw Error("Font preview must fit one baked page")
-      const originalCharacters = font.characters
-      font.characters = Object.fromEntries([...baked.models].map(([ch, model]) => [ch,
-        model.elements.map(e => ({ ...e, faces: Object.fromEntries(Object.entries(e.faces).map(([side, face]) => [side, face.uv])) }))]))
-      try { addTitleText(scene, text, { font: font.id, texture: await loadTexture(baked.pages[0].canvas) }) }
-      finally { font.characters = originalCharacters }
-    } else {
-      addTitleText(scene, text, { font: font.id, texture })
-    }
+    addTitleText(scene, text, {
+      font: font.id,
+      texture
+    })
 
     let canvas = await renderTitleScene(scene, camera, font.thumbnailConfig?.antialias ? scaleFactor * 2 : scaleFactor, font)
 
@@ -223,12 +181,12 @@ for (const font of fonts) {
 
     compressed[texturePath] = hash
 
-    await canvas.saveAs(tempDir + "/" + texturePath)
+    await canvas.saveAs("temp/" + texturePath)
     console.log(`Done ${font.id} ${file[1]}`)
   }
 }
 
-if (!selectedFont) fs.writeFileSync("../shapes/shapes.json", JSON.stringify(shapeModels))
+fs.writeFileSync("../shapes/shapes.json", JSON.stringify(shapeModels))
 
 console.log("Processed")
 console.log("Compressing textures...")
@@ -247,14 +205,13 @@ async function* getFiles(dir) {
 
 const toCompress = new Map
 
-for await (let file of getFiles(tempDir)) {
-  file = path.relative(tempDir, file)
-  toCompress.set(path.join("../", file), path.join(tempDir, file))
+for await (let file of getFiles("temp")) {
+  file = path.relative("./temp", file)
+  toCompress.set(path.join("../", file), path.join("temp", file))
 }
 
 const main = []
 
-if (!selectedFont) {
 for await (let file of getFiles("../fonts")) {
   if (!file.endsWith(".png")) continue
   main.push(path.relative("../", file))
@@ -268,7 +225,6 @@ for await (let file of getFiles("../tileables")) {
 for await (let file of getFiles("../shapes")) {
   if (!file.endsWith(".png")) continue
   main.push(path.relative("../", file))
-}
 }
 
 for (const file of main) {
