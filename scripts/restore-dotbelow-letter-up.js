@@ -1,4 +1,4 @@
-// Restore dot-below body caps exactly from before 227d301; no other faces change.
+// Restore dot-below-only body caps from before 227d301; upper marks still omit Up.
 import fs from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
@@ -17,7 +17,7 @@ for(const id of ['minecraft-ten-vietnamese','minecraft-five-vietnamese','minecra
  const changes=[];
  for(const file of fs.readdirSync(path.join(root,dir)).filter(f=>f.endsWith('.json'))){
   const stem=file.slice(0,-5),key=creepers[stem]??stem;
-  if(Array.from(key).length!==1||!key.normalize('NFD').includes('\u0323'))continue;
+  if(Array.from(key).length!==1||!/^[aeiouy]\u0323$/.test(key.toLowerCase().normalize('NFD')))continue;
   const relative=path.join(dir,file),raw=fs.readFileSync(path.join(root,relative),'utf8'),current=JSON.parse(raw),oldRaw=original(relative),old=JSON.parse(oldRaw);
   assert.equal(current.elements.length,old.elements.length);
   const expected=structuredClone(old),indices=[];

@@ -3,6 +3,20 @@
     "flat": {
       "author": "Ewan Howell & bl205vn"
     },
+    "cracked": {
+      "author": "ShrimpSnail, Ewan Howell, & MrBrose",
+      "variants": {
+        "cracked_left": {},
+        "cracked_old": {
+          "author": "Yanuar Mohendra, MrBrose, & ShrimpSnail"
+        },
+        "cracked_old_pixelated": {
+          "name": "Cracked Old (Pixelated)",
+          "author": "Yanuar Mohendra & ShrimpSnail"
+        },
+        "cracked_right": {}
+      }
+    },
     "amethyst": {
       "author": "Bold_Muddy"
     },
@@ -84,24 +98,6 @@
         "oxidising_copper": {}
       }
     },
-    "cracked": {
-      "author": "ShrimpSnail, Ewan Howell, & MrBrose",
-      "variants": {
-        "cracked_left": {},
-        "cracked_old": {
-          "author": "Yanuar Mohendra, MrBrose, & ShrimpSnail"
-        },
-        "cracked_old_pixelated": {
-          "name": "Cracked Old (Pixelated)",
-          "author": "Yanuar Mohendra & ShrimpSnail"
-        },
-        "cracked_right": {}
-      }
-    },
-    "create": {
-      "name": "Create Mod",
-      "author": "FeDoT_Dev"
-    },
     "create_andesite_casing": {
       "category": "Create Casing",
       "name": "Andesite Casing",
@@ -117,6 +113,10 @@
           "name": "Train Casing"
         }
       }
+    },
+    "create": {
+      "name": "Create Mod",
+      "author": "FeDoT_Dev"
     },
     "creeper": {
       "author": "Andre_601"
@@ -229,12 +229,12 @@
     "midnight": {
       "author": "Ninjaabdullah"
     },
-    "minecon": {
-      "author": "Ewan Howell"
-    },
     "mineimator": {
       "name": "Mine-Imator Family",
       "author": "ModelBench & ShrimpSnail"
+    },
+    "minecon": {
+      "author": "Ewan Howell"
     },
     "neon_glow": {
       "category": "Neon",
@@ -248,6 +248,9 @@
       "variants": {
         "gilded_netherite": {}
       }
+    },
+    "pixel": {
+      "author": "MrBrose"
     },
     "oak_planks": {
       "category": "Planks",
@@ -267,9 +270,6 @@
         "spruce_planks": {},
         "warped_planks": {}
       }
-    },
-    "pixel": {
-      "author": "MrBrose"
     },
     "pride": {
       "author": "Snuzzle",
