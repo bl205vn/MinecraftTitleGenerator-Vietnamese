@@ -5253,6 +5253,8 @@
                 this.material?.map?.dispose(); this.material?.dispose();
               }
               this.scene.remove(...this.scene.children);
+              this.camera.position.set(0, -170, -320); this.camera.lookAt(new THREE.Vector3());
+              this.camera.fov = 18; this.camera.updateProjectionMatrix();
 
               const texture = await makeTexture(getArgs(this, true));
 
@@ -5451,7 +5453,7 @@
                   group.scale.setY(1.6);
                   group.scale.setZ(0.75);
                   group.rotation.fromArray([Math.degToRad(-90), 0, 0]);
-                  group.position.z += fonts[this.font].height + 49 + getTopBottomSpacing(fonts[this.font], this) * .75;
+                  group.position.z += fonts[this.font].height + 49;
                   if (fonts[this.font].flat) {
                     group.position.y -= 18;
                   } else {
@@ -6786,15 +6788,15 @@
                   <br>
                 </template>
                 <template v-if="fonts[font].smallMainSpacing !== undefined">
-                  <h2>Small / Top Spacing (Y)</h2>
-                  <p>Lower Small text enough to clear the accents below Top</p>
+                  <h2>Small / Top Extra Gap (Y)</h2>
+                  <p>Add extra space after automatically clearing Top accents</p>
                   <div class="bar slider_input_combo">
                     <input type="range" class="tool disp_range" v-model.number="smallMainSpacing" min="0" max="100" step="1" />
                     <numeric-input class="tool disp_text" v-model.number="smallMainSpacing" :min="0" :max="100" :step="1" />
                   </div>
                   <br>
-                  <h2>Small / Bottom Depth (Z)</h2>
-                  <p>Move Small text forward to clear Bottom accents behind it</p>
+                  <h2>Small / Bottom Extra Depth (Z)</h2>
+                  <p>Add extra depth after automatically clearing Bottom accents</p>
                   <div class="bar slider_input_combo">
                     <input type="range" class="tool disp_range" v-model.number="smallDepthSpacing" min="0" max="100" step="1" />
                     <numeric-input class="tool disp_text" v-model.number="smallDepthSpacing" :min="0" :max="100" :step="1" />
@@ -7615,8 +7617,8 @@
   async function makeBakedBlockPreview(vue) {
     const args = getArgs(vue, true), font = fonts[vue.font];
     const examples = font.example ?? ["ex😳mple", "text"];
-    const preparedLines = await Promise.all(examples.slice(0, 2).map((text, i) =>
-      prepareBakedBlock(prepareFontText(text, vue.font), { ...args, type: i ? "bottom" : "top", row: 0, ignoreStats: true })));
+    const preparedLines = await Promise.all(examples.slice(0, 2).map(text =>
+      prepareBakedBlock(prepareFontText(text, vue.font), { ...args, type: "top", row: 0, scaleX: 1, scaleY: 1, scaleZ: 1, ignoreStats: true })));
     if (vue.font !== args.font) return;
     const oldMaterials = new Set();
     for (const child of vue.scene.children) child.traverse?.(node => {
@@ -7628,6 +7630,8 @@
     const allMaterials = [];
     for (const [line, prepared] of preparedLines.entries()) {
       const { baked, instances } = prepared;
+      const firstPanel = instances.find(item => item.char !== null).cube;
+      const sourceDepth = firstPanel.to[2] - firstPanel.from[2];
       const materials = baked.pages.map(page => {
         const texture = new THREE.CanvasTexture(page.canvas); texture.colorSpace = THREE.SRGBColorSpace;
         texture.magFilter = texture.minFilter = THREE.NearestFilter;
@@ -7635,7 +7639,12 @@
       });
       const group = new THREE.Group(), indexes = { north: 40, east: 0, south: 32, west: 8, up: 16, down: 24 };
       for (const item of instances) {
-        const cube = item.cube, geometry = new THREE.BoxGeometry(...cube.to.map((v, i) => v - cube.from[i]));
+        const cube = structuredClone(item.cube);
+        cube.from[2] += sourceDepth / 2; cube.to[2] += sourceDepth / 2;
+        if (line === 1 && !font.flat) {
+          if (cube.to[2] > cube.from[2]) cube.to[2] += 20; else cube.from[2] += 20;
+        }
+        const geometry = new THREE.BoxGeometry(...cube.to.map((v, i) => v - cube.from[i]));
         const mesh = new THREE.Mesh(geometry, materials[item.page]);
         mesh.position.fromArray(cube.to.map((v, i) => (v + cube.from[i]) / 2));
         for (const [side, index] of Object.entries(indexes)) {
@@ -7646,17 +7655,15 @@
         }
         group.add(mesh);
       }
-      if (line === 1) group.rotation.x = -Math.PI / 2;
+      if (line === 1) {
+        group.scale.set(.75, 1.6, .75); group.rotation.x = -Math.PI / 2;
+        group.position.z = font.height + 49; group.position.y = font.flat ? -18 : -(25 - font.ends[0][1]);
+      }
       group.name = examples[line];
       vue.scene.add(group); allMaterials.push(...materials);
     }
     vue.material = allMaterials[0];
-    const sphere = new THREE.Box3().setFromObject(vue.scene).getBoundingSphere(new THREE.Sphere());
-    const halfFov = Math.atan(Math.tan(vue.camera.fov * Math.PI / 360) * Math.min(1, vue.camera.aspect));
-    const distance = Math.max(10, sphere.radius / Math.sin(halfFov) * 1.1);
-    vue.camera.position.copy(sphere.center).addScaledVector(new THREE.Vector3(0, -170, -320).normalize(), distance);
-    vue.camera.lookAt(sphere.center);
-    vue.camera.far = Math.max(vue.camera.far, distance + sphere.radius * 2); vue.camera.updateProjectionMatrix();
+    vue.camera.fov = 18; fitTitleExampleCamera(vue.scene, vue.camera);
     vue.renderer?.dispose();
     vue.renderer = new THREE.WebGLRenderer({ alpha: true, canvas: vue.canvas, preserveDrawingBuffer: true });
     vue.renderer.render(vue.scene, vue.camera);
@@ -7747,6 +7754,7 @@
     ) {
       text = `┫${text}┣`;
     }
+    const smallOffsets = args.type === "small" ? getSmallTitleOffsets(fonts[args.font], { ...args, layoutText: text }) : null;
     let words;
     if (fonts[args.font].characters[" "]) words = [text];
     else words = text.split(" ");
@@ -7764,6 +7772,7 @@
         topBottomSpacing: args.topBottomSpacing,
         smallMainSpacing: args.smallMainSpacing,
         smallDepthSpacing: args.smallDepthSpacing,
+        smallOffsets,
         scale: [args.scaleX, args.scaleY, args.scaleZ],
         disableCharacterShifting: args.disableCharacterShifting,
         name: args.name,
@@ -7788,6 +7797,7 @@
             topBottomSpacing: args.topBottomSpacing,
             smallMainSpacing: args.smallMainSpacing,
             smallDepthSpacing: args.smallDepthSpacing,
+            smallOffsets,
             scale: [args.scaleX, args.scaleY, args.scaleZ],
             disableCharacterShifting: args.disableCharacterShifting,
             elements,
@@ -7802,24 +7812,27 @@
       }
     }
     group.addTo().select();
+    const centeredElements = fonts[args.font].smallMainSpacing !== undefined ? elements : Cube.selected;
     let min = Infinity;
     let max = -Infinity;
-    for (const cube of Cube.selected) {
+    for (const cube of centeredElements) {
       min = Math.min(min, cube.from[0], cube.to[0]);
       max = Math.max(max, cube.from[0], cube.to[0]);
     }
-    let width = (max - min) / 2;
+    let width = fonts[args.font].smallMainSpacing !== undefined ? -(min + max) / 2 : (max - min) / 2;
     if (fonts[args.font].autoBorder)
       width -=
         ((2 * (args.scaleX + args.scaleY)) / 2) *
         (args.type === "bottom" ? 0.75 : args.type === "small" ? 0.35 : 1);
-    for (const cube of Cube.selected) {
+    for (const cube of centeredElements) {
       cube.from[0] += width;
       cube.to[0] += width;
     }
     if (args.type === "bottom") {
       group.rotation[0] = -90;
     }
+    if (fonts[args.font].smallMainSpacing !== undefined)
+      group._minecraftTitleLayout = { font: args.font, type: args.type, row: args.row };
     Canvas.updateView({
       elements: Cube.selected,
       groups: Group.multi_selected,
@@ -8391,6 +8404,7 @@
     ) {
       offset -= fonts[args.font].shifts[args.lastCharacter + char];
     }
+    const smallOffsets = args.type === "small" ? args.smallOffsets ?? getSmallTitleOffsets(fonts[args.font], { ...args, layoutText: char }) : null;
     let minX = Infinity;
     let maxX = -Infinity;
     let minZ = Infinity;
@@ -8493,13 +8507,13 @@
         cube.to[1] -=
           args.row * (heightOffset * 0.35) +
           args.rowSpacing * args.row +
-          heightOffset * 0.35 + getSmallMainSpacing(fonts[args.font], args);
+          heightOffset * 0.35 + smallOffsets.y;
         cube.from[1] -=
           args.row * (heightOffset * 0.35) +
           args.rowSpacing * args.row +
-          heightOffset * 0.35 + getSmallMainSpacing(fonts[args.font], args);
-        cube.to[2] -= getSmallDepthSpacing(fonts[args.font], args);
-        cube.from[2] -= getSmallDepthSpacing(fonts[args.font], args);
+          heightOffset * 0.35 + smallOffsets.y;
+        cube.to[2] -= smallOffsets.z;
+        cube.from[2] -= smallOffsets.z;
       } else {
         cube.to[2] -= (maxZ - minZ) / 2;
         cube.from[2] -= (maxZ - minZ) / 2;
@@ -8699,30 +8713,73 @@
     return Math.max(0, Number.isFinite(args.topBottomSpacing) ? args.topBottomSpacing : font.topBottomSpacing);
   }
 
-  function getSmallMainSpacing(font, args) {
-    if (font.smallMainSpacing === undefined) return 0;
-    return Math.max(0, Number.isFinite(args.smallMainSpacing) ? args.smallMainSpacing : font.smallMainSpacing);
-  }
-
-  function getSmallDepthSpacing(font, args) {
-    if (font.smallDepthSpacing === undefined) return 0;
-    return Math.max(0, Number.isFinite(args.smallDepthSpacing) ? args.smallDepthSpacing : font.smallDepthSpacing);
+  function getSmallTitleOffsets(font, args) {
+    if (font.smallMainSpacing === undefined || typeof font.characters !== "object") return { y: 0, z: 0 };
+    let topMinY = Infinity, maxY = -Infinity, topDepth = 0;
+    for (const model of Object.values(font.characters)) for (const e of model) {
+      topMinY = Math.min(topMinY, e.from[1], e.to[1]); maxY = Math.max(maxY, e.from[1], e.to[1]);
+      topDepth = Math.max(topDepth, Math.abs(e.to[2] - e.from[2]));
+    }
+    const models = Array.from(args.layoutText ?? "a").flatMap(ch => font.characters[ch] ?? []);
+    if (!models.length) return { y: 0, z: 0 };
+    const smallMaxY = Math.max(...models.flatMap(e => [e.from[1], e.to[1]]));
+    const smallDepth = Math.max(...models.map(e => Math.max(0, Math.abs(e.to[2] - e.from[2]) - 6)));
+    const scale = args.scale ?? [args.scaleX ?? 1, args.scaleY ?? 1, args.scaleZ ?? 1];
+    const slope = 170 / 320;
+    let topClearLine = topMinY * scale[1] - slope * topDepth / 2 * scale[2];
+    let bottomNearZ = (2 * font.height + 18 + getTopBottomSpacing(font, args) - 2 * maxY) * .75 * scale[1];
+    let foundTop = false, foundBottom = false;
+    const halfWidth = (Array.from(args.layoutText ?? "a").reduce((width, ch) => {
+      const model = font.characters[ch];
+      const glyphWidth = model?.length ? Math.max(...model.flatMap(e => [e.from[0], e.to[0]])) - Math.min(...model.flatMap(e => [e.from[0], e.to[0]])) : font.spaceWidth ?? 8;
+      return width + glyphWidth + (ch === "\u200b" ? args.spacerWidth ?? 0 : 0) + (args.characterSpacing ?? 0);
+    }, 0) * .35 * scale[0]) / 2 + 2;
+    // Read existing geometry when available, including models loaded before these
+    // settings existed. No existing cube is moved or re-centered here.
+    for (const cube of typeof Cube !== "undefined" ? Cube.all ?? [] : []) {
+      let parent = cube.parent, kind;
+      while (parent && typeof parent === "object") {
+        if (parent._minecraftTitleLayout) kind = parent._minecraftTitleLayout.type;
+        else if (Math.abs((parent.rotation?.[0] ?? 0) + 90) < .001) kind = "bottom";
+        parent = parent.parent;
+      }
+      if (kind === "small" || !cube.mesh?.isObject3D) continue;
+      const box = new THREE.Box3().setFromObject(cube.mesh);
+      if (box.isEmpty() || box.max.x < -halfWidth || box.min.x > halfWidth) continue;
+      if (kind === "bottom") {
+        bottomNearZ = foundBottom ? Math.min(bottomNearZ, box.min.z) : box.min.z; foundBottom = true;
+      } else if (box.max.y > 0 && box.min.z < -.001 && box.max.z > .001) {
+        const edge = box.min.y - slope * box.max.z;
+        topClearLine = foundTop ? Math.min(topClearLine, edge) : edge; foundTop = true;
+      }
+    }
+    const extraZ = Math.max(0, args.smallDepthSpacing ?? font.smallDepthSpacing ?? 0);
+    const z = Math.max(0, (2 - bottomNearZ) / scale[2]) + extraZ;
+    const smallY = (smallMaxY - font.height) * .35 - (args.row ?? 0) * font.height * .35 - (args.rowSpacing ?? 0) * (args.row ?? 0);
+    const neededY = (smallY * scale[1] + slope * (smallDepth * .35 + z) * scale[2] - topClearLine + 2) / scale[1];
+    const extraY = Math.max(0, args.smallMainSpacing ?? font.smallMainSpacing ?? 0);
+    return { y: Math.ceil(Math.max(0, neededY) / 2) * 2 + extraY, z };
   }
 
   function fitTitleExampleCamera(scene, camera) {
+    // Preserve legacy preview proportions and origin; separate only intersecting accents.
+    const [top, bottom] = scene.children;
+    if (top && bottom) {
+      const a = new THREE.Box3().setFromObject(top), b = new THREE.Box3().setFromObject(bottom);
+      bottom.position.z += Math.max(0, a.max.z + 2 - b.min.z);
+    }
     const box = new THREE.Box3().setFromObject(scene);
     if (box.isEmpty()) return;
-    const center = box.getCenter(new THREE.Vector3());
     const direction = new THREE.Vector3(0, -170, -320).normalize();
-    camera.position.copy(center).add(direction); camera.lookAt(center); camera.updateMatrixWorld(true);
+    camera.position.set(0, -170, -320); camera.lookAt(new THREE.Vector3()); camera.updateMatrixWorld(true);
     const inverse = camera.quaternion.clone().invert(), tanY = Math.tan(camera.fov * Math.PI / 360), tanX = tanY * camera.aspect;
-    let distance = 1;
+    const originalDistance = Math.hypot(170, 320); let distance = originalDistance;
     for (const x of [box.min.x, box.max.x]) for (const y of [box.min.y, box.max.y]) for (const z of [box.min.z, box.max.z]) {
-      const point = new THREE.Vector3(x, y, z).sub(center).applyQuaternion(inverse);
+      const point = new THREE.Vector3(x, y, z).applyQuaternion(inverse);
       distance = Math.max(distance, Math.abs(point.x) / tanX + point.z, Math.abs(point.y) / tanY + point.z);
     }
-    distance *= 1.12;
-    camera.position.copy(center).addScaledVector(direction, distance);
+    if (distance > originalDistance) distance *= 1.03;
+    camera.position.copy(direction).multiplyScalar(distance);
     camera.far = Math.max(camera.far, distance + box.getSize(new THREE.Vector3()).length() * 2);
     camera.updateProjectionMatrix(); camera.updateMatrixWorld(true);
   }

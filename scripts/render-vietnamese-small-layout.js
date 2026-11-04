@@ -8,7 +8,7 @@ import getTHREE from 'node-three';
 import createGL from 'gl';
 import sharp from 'sharp';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-const review=fs.readFileSync(path.join(root,'backups/small-axis-layout-last.txt'),'utf8').trim();
+const review=fs.readFileSync(path.join(root,'backups/legacy-layout-review-last.txt'),'utf8').trim();
 const {THREE,loadTexture}=await getTHREE({Canvas,Image,ImageData,fetch,Request,Response,Headers});
 for(const id of ['minecraft-ten-vietnamese','minecraft-five-vietnamese','minecraft-five-bold-vietnamese']){
  const model=JSON.parse(fs.readFileSync(path.join(review,id+'-example.bbmodel'))),image=await loadImage(model.textures[0].source),atlas=new Canvas(image.width,image.height);atlas.getContext('2d').drawImage(image,0,0);

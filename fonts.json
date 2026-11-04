@@ -35,8 +35,8 @@
         "preview": "việ",
         "example": ["VĂN BẢN", "VÍ DỤ"],
         "topBottomSpacing": 80,
-        "smallMainSpacing": 44,
-        "smallDepthSpacing": 8,
+        "smallMainSpacing": 0,
+        "smallDepthSpacing": 0,
         "border": 280,
         "faces": [
           [22, 62],
@@ -93,8 +93,8 @@
         "preview": "việ",
         "example": ["VĂN BẢN", "VÍ DỤ"],
         "topBottomSpacing": 80,
-        "smallMainSpacing": 44,
-        "smallDepthSpacing": 8
+        "smallMainSpacing": 0,
+        "smallDepthSpacing": 0
       }
     ]
   },
@@ -242,8 +242,8 @@
         "preview": "việ",
         "example": ["VĂN BẢN", "VÍ DỤ"],
         "topBottomSpacing": 80,
-        "smallMainSpacing": 44,
-        "smallDepthSpacing": 8,
+        "smallMainSpacing": 0,
+        "smallDepthSpacing": 0,
         "capExclusions": [[924, 74, 6, 6]],
         "faces": [
           [16, 46],
