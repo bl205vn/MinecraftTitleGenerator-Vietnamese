@@ -3304,6 +3304,7 @@
         rowSpacing: 0,
         topBottomSpacing: 0,
         smallMainSpacing: 0,
+        smallDepthSpacing: 0,
         scaleX: 1,
         scaleY: 1,
         scaleZ: 1,
@@ -5128,7 +5129,7 @@
             resetVariables(type, page) {
               if (!variables[type][page]) return;
               for (const [k, v] of Object.entries(variables[type][page])) {
-                this[k] = ["topBottomSpacing", "smallMainSpacing"].includes(k) ? fonts[this.font][k] ?? v : v;
+                this[k] = ["topBottomSpacing", "smallMainSpacing", "smallDepthSpacing"].includes(k) ? fonts[this.font][k] ?? v : v;
               }
             },
             async reset(force, ignoreUpdate) {
@@ -5222,6 +5223,7 @@
               this.characterSpacing = fonts[this.font].characterSpacing ?? 0;
               this.topBottomSpacing = fonts[this.font].topBottomSpacing ?? 0;
               this.smallMainSpacing = fonts[this.font].smallMainSpacing ?? 0;
+              this.smallDepthSpacing = fonts[this.font].smallDepthSpacing ?? 0;
               if (!ignoreUpdate) this.buildPreview();
             },
             buildPreview() {
@@ -5282,8 +5284,6 @@
                   let min = Infinity;
                   let max = -Infinity;
                   const character = new THREE.Group();
-                  const smallMaxZ = args.type === "small" ? Math.max(...fonts[this.font].characters[char].flatMap(e =>
-                    e.to[2] > e.from[2] ? [e.from[2], e.to[2] - 6] : [e.from[2] - 6, e.to[2]])) : 0;
                   for (let cube of fonts[this.font].characters[char]) {
                     if (!cube.parsed) {
                       cube.parsed = true;
@@ -5295,10 +5295,6 @@
                     }
 
                     cube = JSON.parse(JSON.stringify(cube));
-                    if (args.type === "small") {
-                      if (cube.to[2] > cube.from[2]) cube.to[2] -= 6; else cube.from[2] -= 6;
-                      cube.from[2] -= smallMaxZ; cube.to[2] -= smallMaxZ;
-                    }
                     min = Math.min(min, cube.from[0], cube.to[0]);
                     max = Math.max(max, cube.from[0], cube.to[0]);
 
@@ -5463,10 +5459,6 @@
                   }
                 }
 
-                if (args.type === "small") {
-                  group.scale.setScalar(.35);
-                  group.position.y -= fonts[this.font].height * .35 + getSmallMainSpacing(fonts[this.font], this);
-                }
                 group.name = args.type ?? "top";
                 this.scene.add(group);
               };
@@ -5494,8 +5486,6 @@
                     type: "bottom",
                   });
                 }
-                if (this.type === "small" && fonts[this.font].smallMainSpacing !== undefined)
-                  addText(fonts[this.font].example?.[1] ?? "text", { type: "small" });
               } else {
                 addText("a");
               }
@@ -6456,7 +6446,7 @@
                 <h2>{{ fonts[font].type === 'font' ? 'Text' : 'Shape' }} Type / Angle</h2>
                 <p class="space-below">The type of {{ fonts[font].type === 'font' ? 'text' : 'shape' }} to add</p>
                 <a href="javascript:void(0)" id="text-type-input" @click="event.stopPropagation()">
-                  <select-input v-model="type" :options="types" @input="fadeToBorder = type === 'bottom' ? true : false; fonts[font].smallMainSpacing !== undefined ? buildPreview() : updatePreview()" />
+                  <select-input v-model="type" :options="types" @input="fadeToBorder = type === 'bottom' ? true : false; updatePreview()" />
                 </a>
                 <br>
                 <h2>{{ fonts[font].type === 'font' ? 'Text' : 'Shape' }} Row</h2>
@@ -6796,11 +6786,18 @@
                   <br>
                 </template>
                 <template v-if="fonts[font].smallMainSpacing !== undefined">
-                  <h2>Small / Main Spacing</h2>
-                  <p>Move Small text below Top and Bottom, including at row 0. Select Small to preview all three types.</p>
+                  <h2>Small / Top Spacing (Y)</h2>
+                  <p>Lower Small text enough to clear the accents below Top</p>
                   <div class="bar slider_input_combo">
-                    <input type="range" class="tool disp_range" v-model.number="smallMainSpacing" min="0" max="200" step="1" @input="buildPreview()" />
-                    <numeric-input class="tool disp_text" v-model.number="smallMainSpacing" :min="0" :max="200" :step="1" @input="buildPreview()" />
+                    <input type="range" class="tool disp_range" v-model.number="smallMainSpacing" min="0" max="100" step="1" />
+                    <numeric-input class="tool disp_text" v-model.number="smallMainSpacing" :min="0" :max="100" :step="1" />
+                  </div>
+                  <br>
+                  <h2>Small / Bottom Depth (Z)</h2>
+                  <p>Move Small text forward to clear Bottom accents behind it</p>
+                  <div class="bar slider_input_combo">
+                    <input type="range" class="tool disp_range" v-model.number="smallDepthSpacing" min="0" max="100" step="1" />
+                    <numeric-input class="tool disp_text" v-model.number="smallDepthSpacing" :min="0" :max="100" :step="1" />
                   </div>
                   <br>
                 </template>
@@ -7766,6 +7763,7 @@
         rowSpacing: args.rowSpacing,
         topBottomSpacing: args.topBottomSpacing,
         smallMainSpacing: args.smallMainSpacing,
+        smallDepthSpacing: args.smallDepthSpacing,
         scale: [args.scaleX, args.scaleY, args.scaleZ],
         disableCharacterShifting: args.disableCharacterShifting,
         name: args.name,
@@ -7789,6 +7787,7 @@
             rowSpacing: args.rowSpacing,
             topBottomSpacing: args.topBottomSpacing,
             smallMainSpacing: args.smallMainSpacing,
+            smallDepthSpacing: args.smallDepthSpacing,
             scale: [args.scaleX, args.scaleY, args.scaleZ],
             disableCharacterShifting: args.disableCharacterShifting,
             elements,
@@ -8499,6 +8498,8 @@
           args.row * (heightOffset * 0.35) +
           args.rowSpacing * args.row +
           heightOffset * 0.35 + getSmallMainSpacing(fonts[args.font], args);
+        cube.to[2] -= getSmallDepthSpacing(fonts[args.font], args);
+        cube.from[2] -= getSmallDepthSpacing(fonts[args.font], args);
       } else {
         cube.to[2] -= (maxZ - minZ) / 2;
         cube.from[2] -= (maxZ - minZ) / 2;
@@ -8701,6 +8702,11 @@
   function getSmallMainSpacing(font, args) {
     if (font.smallMainSpacing === undefined) return 0;
     return Math.max(0, Number.isFinite(args.smallMainSpacing) ? args.smallMainSpacing : font.smallMainSpacing);
+  }
+
+  function getSmallDepthSpacing(font, args) {
+    if (font.smallDepthSpacing === undefined) return 0;
+    return Math.max(0, Number.isFinite(args.smallDepthSpacing) ? args.smallDepthSpacing : font.smallDepthSpacing);
   }
 
   function fitTitleExampleCamera(scene, camera) {
