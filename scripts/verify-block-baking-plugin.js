@@ -72,6 +72,21 @@ for(const style of styles){const canvas=await api.makeTexture(args({texture:styl
  }
  log('preset '+style,{characters:baked.models.size,pages:baked.pages.length});if(style==='acacia_planks'){for(const[i,p]of baked.pages.entries())await p.canvas.saveAs(path.join(review,'outputs',style+'-catalogue-'+i+'.png'));}}
 for(const mode of ['top','bottom','small']){const prepared=await api.prepareBakedBlock('aẳặựẨ',args({type:mode}));assert.ok(prepared.text.startsWith('┫')&&prepared.text.endsWith('┣'));assert.equal(prepared.instances.filter(r=>r.char!==null).length,7);assert.equal(prepared.instances.filter(r=>r.char===null).length,1);const geometry=prepared.instances.filter(r=>r.char!==null).map(r=>r.cube);assert.equal(new Set(geometry.map(e=>e.from[1]+','+e.to[1])).size,1);log('dynamic row '+mode,{pages:prepared.baked.pages.length,panels:geometry.length});}
+// Regression: Small row 0 needs the legacy base-height translation as well as scaling.
+const smallInputs=['LOI CHUC','LỜI CHÚC TẾT BAO LA THÀNH SỰ THẬT, CHẲNG'];
+const normalizeSmall=text=>vm.runInContext('prepareFontText('+JSON.stringify(text)+','+JSON.stringify(fontId)+')',context);
+const smallCases=[];
+for(const [index,input]of smallInputs.entries()){
+ const text=normalizeSmall(input),p=await api.prepareBakedBlock(text,args({type:'small',texture:'live'}));
+ const panels=p.instances.filter(r=>r.char!==null),all=p.instances.map(r=>r.cube),lo=Math.min(...all.flatMap(e=>[e.from[0],e.to[0]])),hi=Math.max(...all.flatMap(e=>[e.from[0],e.to[0]]));
+ assert.ok(Math.abs(lo+hi)<1e-8,'Small must stay centered');
+ for(const panel of panels){const e=panel.cube,original=p.baked.models.get(panel.char).elements[0];assert.ok(Math.max(e.from[1],e.to[1])<=-.35,'Small must be below the top origin even at row 0');assert.ok(Math.abs((e.to[0]-e.from[0])-(original.to[0]-original.from[0])*.35)<1e-8);assert.ok(Math.abs((e.to[2]-e.from[2])-3.5)<1e-8);assert.equal(JSON.stringify(e.faces),JSON.stringify(original.faces),'Placement must not alter UVs');}
+ const next=await api.prepareBakedBlock(text,args({type:'small',texture:'live',row:1,rowSpacing:3}));const height=Math.max(font.height,p.baked.rowTop-p.baked.rowBottom+4);
+ for(let j=0;j<panels.length;j++)assert.ok(Math.abs(panels[j].cube.from[1]-next.instances.filter(r=>r.char!==null)[j].cube.from[1]-height*.35-3)<1e-8,'Small row pitch regression');
+ if(index===0){assert.equal(p.baked.rowBottom,2);assert.equal(p.baked.rowTop,50);assert.ok(Math.abs(panels[0].cube.from[1]+17.5)<1e-8);assert.ok(Math.abs(panels[0].cube.to[1]+.7)<1e-8);}
+ smallCases.push({index,input,text,prepared:p});
+ log('Small base translation '+(index?'long accented input':'plain input'),{range:[Math.min(...all.flatMap(e=>[e.from[1],e.to[1]])),Math.max(...all.flatMap(e=>[e.from[1],e.to[1]]))],pages:p.baked.pages.length});
+}
 const repeated=await api.prepareBakedBlock('aaaaa',args({}));assert.equal(repeated.baked.models.size,3);assert.equal(repeated.baked.pages.length,1);log('repeat glyph cache');
 const plain=await api.prepareBakedBlock('abc',args({}));assert.equal(plain.baked.rowBottom,2);assert.equal(plain.baked.rowTop,50);log('plain row remains 48px');
 const lower=await api.prepareBakedBlock('aạ',args({}));assert.equal(lower.baked.rowBottom,-6);assert.equal(lower.baked.rowTop,48);log('lower-only extension');
@@ -127,6 +142,13 @@ for(const mode of ['top','bottom','small']){const start=made.length,result=await
 const groupRecords=[],tree=g=>{groupRecords.push({name:g.name,uuid:g.uuid,origin:[0,0,0],rotation:g.rotation,visibility:true,export:true});return{uuid:g.uuid,children:g.children.map(c=>c instanceof Group?tree(c):c.uuid)};};
 const outliner=[tree(result.group)],textures=result.textures.map((t,i)=>({name:'integrated-'+mode+'-'+i+'.png',uuid:t.uuid,id:String(i),width:1000,height:320,uv_width:1000,uv_height:320,render_mode:'default',render_sides:'front',visible:true,saved:false,source:t.img.src}));
 fs.writeFileSync(path.join(review,'blockbench',mode+'-acacia_planks.bbmodel'),JSON.stringify({meta:{format_version:'5.0',model_format:'minecraft_title',box_uv:false},name:'integrated-'+mode,resolution:{width:1000,height:320},elements,groups:groupRecords,outliner,textures}));}
+for(const scenario of smallCases){
+ const start=made.length,result=await api.addBakedBlockText(scenario.text,args({texture:'live',type:'small',name:'small-'+scenario.index})),cubes=made.slice(start),index=new Map(result.textures.map((t,i)=>[t.uuid,i]));
+ const elements=cubes.map(e=>({...e,type:'cube',box_uv:false,autouv:0,origin:[0,0,0],faces:Object.fromEntries(Object.entries(e.faces).map(([side,f])=>[side,{...f,texture:f.texture===null?null:index.get(f.texture)}]))}));
+ const groupRecords=[],tree=g=>{groupRecords.push({name:g.name,uuid:g.uuid,origin:[0,0,0],rotation:g.rotation,visibility:true,export:true});return{uuid:g.uuid,children:g.children.map(c=>c instanceof Group?tree(c):c.uuid)};};
+ const outliner=[tree(result.group)],textures=result.textures.map((t,i)=>({name:'small-'+scenario.index+'-'+i+'.png',uuid:t.uuid,id:String(i),width:1000,height:320,uv_width:1000,uv_height:320,render_mode:'default',render_sides:'front',source:t.img.src}));
+ fs.writeFileSync(path.join(review,'blockbench','small-'+(scenario.index?'long':'short')+'-live.bbmodel'),JSON.stringify({meta:{format_version:'5.0',model_format:'minecraft_title',box_uv:false},name:scenario.input,resolution:{width:1000,height:320},elements,groups:groupRecords,outliner,textures}));
+}
 log('integrated BBModels exported with one texture and outside border');
 
 for(const[f,h]of protectedFiles)assert.equal(hash(f),h,'Source asset changed '+f);

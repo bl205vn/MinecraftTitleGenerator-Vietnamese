@@ -7520,6 +7520,7 @@
   function bakedBlockInstances(font, text, args, baked) {
     const out = [], type = args.type ?? "top", scale = [args.scaleX ?? 1, args.scaleY ?? 1, args.scaleZ ?? 1];
     const lineHeight = Math.max(font.height, baked.rowTop - baked.rowBottom + 4);
+    const smallBaseline = Math.max(lineHeight, baked.rowTop + 2);
     let offset = 0, last;
     for (const char of Array.from(text)) {
       const definition = baked.models.get(char); if (!definition) continue;
@@ -7536,7 +7537,8 @@
           cube[key][0] *= .75; cube[key][2] = cube[key][2] * .75 - 8;
         } else if (type === "small") {
           cube[key][2] -= depth; cube[key] = cube[key].map(v => v * .35);
-          cube[key][1] -= (args.row ?? 0) * lineHeight * .35 + (args.rowSpacing ?? 0) * (args.row ?? 0);
+          // Legacy Small also moves down by one base height, including at row 0.
+          cube[key][1] -= ((args.row ?? 0) * lineHeight + smallBaseline) * .35 + (args.rowSpacing ?? 0) * (args.row ?? 0);
         } else {
           cube[key][2] -= depth / 2;
           cube[key][1] += (args.row ?? 0) * (lineHeight + 4) + (args.rowSpacing ?? 0) * (args.row ?? 0);
